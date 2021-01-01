@@ -161,7 +161,6 @@
     <ClInclude Include="Libs\MathGeoLib\include\Math\sse_mathfun.h" />
     <ClInclude Include="Libs\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="Libs\MathGeoLib\include\Time\Clock.h" />
-    <ClInclude Include="Libs\TextEditor\TextEditor.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialImporter.h" />
     <ClInclude Include="Mesh.h" />
@@ -199,9 +198,7 @@
     <ClInclude Include="ResourceMaterial.h" />
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceModel.h" />
-    <ClInclude Include="ResourceShader.h" />
     <ClInclude Include="ResourceTexture.h" />
-    <ClInclude Include="ShaderImporter.h" />
     <ClInclude Include="TextureImporter.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
@@ -213,7 +210,6 @@
     <ClInclude Include="WindowImport.h" />
     <ClInclude Include="WindowInspector.h" />
     <ClInclude Include="WindowScene.h" />
-    <ClInclude Include="WindowShaderEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -265,7 +261,6 @@
     <ClCompile Include="Libs\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="Libs\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="Libs\parson\parson.c" />
-    <ClCompile Include="Libs\TextEditor\TextEditor.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -284,9 +279,7 @@
     <ClCompile Include="ResourceMaterial.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceModel.cpp" />
-    <ClCompile Include="ResourceShader.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
-    <ClCompile Include="ShaderImporter.cpp" />
     <ClCompile Include="TextureImporter.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -298,11 +291,8 @@
     <ClCompile Include="WindowImport.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
     <ClCompile Include="WindowScene.cpp" />
-    <ClCompile Include="WindowShaderEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Engine\Assets\Shaders\default_shader.frag" />
-    <None Include="..\Engine\Assets\Shaders\default_shader.vert" />
     <None Include="..\Engine\Library\Config\config.json" />
     <None Include="Libs\MathGeoLib\include\Geometry\KDTree.inl" />
     <None Include="Libs\MathGeoLib\include\Geometry\QuadTree.inl" />

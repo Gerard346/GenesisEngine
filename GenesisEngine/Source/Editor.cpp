@@ -26,7 +26,6 @@
 #include "WindowConfiguration.h"
 #include "WindowAbout.h"
 #include "WindowImport.h"
-#include "WindowShaderEditor.h"
 
 #ifdef _WIN32
 #define IM_NEWLINE  "\r\n"
@@ -52,7 +51,6 @@ Editor::Editor(bool start_enabled) : Module(start_enabled)
 	windows[CONFIGURATION_WINDOW] = new WindowConfiguration();
 	windows[ABOUT_WINDOW] = new WindowAbout();
 	windows[IMPORT_WINDOW] = new WindowImport();
-	windows[SHADER_EDITOR_WINDOW] = new WindowShaderEditor();
 
 	//CONSOLE_WINDOW,
 	scene_name[0] = '\0';
@@ -68,11 +66,12 @@ bool Editor::Init()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavEnableSetMousePos;
+	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplOpenGL3_Init();
 
 	return true;
 }
@@ -92,19 +91,18 @@ bool Editor::Start()
 update_status Editor::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+	//Update the frames
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(App->window->window);
+	ImGui::NewFrame();
+
+	ret = ShowDockSpace(open_dockspace);
 
 	return ret;
 }
 
 update_status Editor::Draw()
 {
-	//Update the frames
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame(App->window->window);
-	ImGui::NewFrame();
-
-	ShowDockSpace(open_dockspace);
-
 	for (size_t i = 0; i < MAX_WINDOWS; i++)
 	{
 		if(windows[i]->visible)
