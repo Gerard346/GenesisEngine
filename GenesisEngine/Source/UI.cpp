@@ -5,6 +5,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ImGuizmo/ImGuizmo.h"
 
 UI::UI(bool start_enabled) : Module(start_enabled)
 {
@@ -44,6 +45,13 @@ update_status UI::PostUpdate(float dt)
 
 void UI::SetUpOrtho()
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_CLAMP);
+	glDisable(GL_LIGHTING);
+	glEnable(GL_TEXTURE_2D);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//Get Canvas size
@@ -52,19 +60,30 @@ void UI::SetUpOrtho()
 	glLoadIdentity();
 
 	//
+
 	float2 position;
 	float width = App->window->width;
 	float height = App->window->height;
 	float size = 250.0f;
 
-	position.x = 1000 / 2;
-	position.y = 1000 / 2;
+	position.x = 0 / 2;
+	position.y = 000 / 2;
+	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+	glColor4f(0.3f, 0.1f, 0.8f, 0.5f);
+	glBegin(GL_QUADS);
+	glVertex2f(0.0f, height);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(width, 0.0f);
+	glVertex2f(width, height);
+	glEnd();
+	/*
 	static const GLfloat vertex[] = {
 	position.x, position.y, 0,
-	position.x + size, position.y,0,
-	position.x, position.y + size,0,
-	position.x + size, position.y + size, 0
+	position.x + width, position.y,0,
+	position.x, position.y + height,0,
+	position.x+width, position.y + height, 0
 	};
 
 	static const GLuint index[] = {
@@ -73,20 +92,6 @@ void UI::SetUpOrtho()
 		2,1,3
 	};
 
-	/*
-		static const GLfloat vertex[] = {
-	position.x, position.y, 0,
-	position.x + size, position.y+size,0,
-	position.x+size, position.y + size, 0,
-	position.x, position.y+size,0
-	};
-
-	static const GLuint index[] = {
-		//Front
-		2,1,0,
-		2,3,0
-	};
-	*/
 	GLuint vertex_buffer;
 	//Create new buffer, gives uint
 	glGenBuffers(1, &vertex_buffer);
@@ -111,11 +116,17 @@ void UI::SetUpOrtho()
 
 	glDrawElements(GL_TRIANGLES, (sizeof(index) / sizeof(GLuint)), GL_UNSIGNED_INT, NULL);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);*/
 }
 
 void UI::ResetRender()
 {
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_CLAMP);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_LIGHTING);
+
 	glViewport(0, 0, App->window->width, App->window->height);
 
 	glMatrixMode(GL_PROJECTION);
