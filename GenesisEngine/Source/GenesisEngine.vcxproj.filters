@@ -230,6 +230,27 @@
     <ClCompile Include="TextureImporter.cpp">
       <Filter>FileManagement\Importers</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="RectTransform.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFade.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -575,6 +596,27 @@
     <ClInclude Include="Importers.h">
       <Filter>FileManagement\Importers</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="RectTransform.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFade.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -630,6 +672,9 @@
     </Filter>
     <Filter Include="Libs\parson">
       <UniqueIdentifier>{03cd38a1-3ea2-4234-89ff-3f9057e2f643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects &amp; Components\UI">
+      <UniqueIdentifier>{eb7ed70f-5ebc-42ee-8eb1-4711825e0b2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

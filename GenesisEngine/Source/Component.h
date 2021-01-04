@@ -13,7 +13,13 @@ enum ComponentType {
 	MESH,
 	MATERIAL, 
 	CAMERA, 
-	LIGHT
+	LIGHT,
+	CANVAS,
+	IMAGE,
+	TEXT,
+	BUTTON,
+	CHECKBOX,
+	RECT_TRANSFORM
 };
 
 class Component {
@@ -37,11 +43,14 @@ public:
 	virtual void SetResourceUID(uint UID);
 	virtual Resource* GetResource(ResourceType type) { return nullptr; };
 
+	bool GetIsUI();
+
 public:
 	std::string name;
 
 protected:
 	ComponentType type;
+	bool is_UI = false;
 	GameObject* _gameObject;
 	bool enabled;
 

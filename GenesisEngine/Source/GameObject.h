@@ -9,6 +9,7 @@
 
 class Component;
 class Transform;
+class RectTransform;
 class GnMesh;
 enum ComponentType;
 
@@ -22,6 +23,8 @@ public:
 	~GameObject();
 
 	void Update();
+	void UpdateUI();
+
 	void OnEditor();
 
 	void Save(GnJSONArray& save_array);
@@ -65,6 +68,7 @@ private:
 	std::string name;
 	GameObject* _parent;
 	Transform* transform;
+	RectTransform* ui_transform = nullptr;
 	std::vector<Component*> components;
 	std::vector<GameObject*> children;
 

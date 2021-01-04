@@ -8,6 +8,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
+#include "UI.h"
 #include "ModuleCamera3D.h"
 #include "ModuleScene.h"
 #include "Editor.h"
@@ -51,6 +52,7 @@ public:
 	ModuleScene* scene;
 	Editor* editor;
 	ModuleRenderer3D* renderer3D;
+	UI* ui;
 	ModuleResources* resources;
 
 	const char* engine_name;

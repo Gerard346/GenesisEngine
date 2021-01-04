@@ -13,6 +13,7 @@ public:
 	void GenerateBuffers();
 	void BindTexture();
 
+
 	void FillData(GLubyte* data, uint id, int width, int height);
 	uint SaveMeta(GnJSONObj& base_object, uint last_modification) override;
 	void Load(GnJSONObj& base_object) override;
