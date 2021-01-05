@@ -65,7 +65,6 @@ update_status ModuleScene::Update(float dt)
 	}
 
 	HandleInput();
-
 	root->Update();
 	App->ui->SetUpOrtho();
 	root->UpdateUI();
