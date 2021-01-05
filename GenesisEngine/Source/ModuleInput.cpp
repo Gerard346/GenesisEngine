@@ -42,8 +42,10 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::PreUpdate(float dt)
 {
+	if (!input_active) {
+		return UPDATE_CONTINUE;
+	}
 	SDL_PumpEvents();
-
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 	
 	for(int i = 0; i < MAX_KEYS; ++i)

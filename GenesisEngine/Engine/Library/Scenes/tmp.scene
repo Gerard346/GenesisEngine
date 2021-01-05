@@ -1,10 +1,29 @@
 {
     "Game Objects": [
         {
-            "UUID": 848606850,
+            "UUID": 692527140,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -28,9 +47,28 @@
         },
         {
             "UUID": 59049860,
-            "Parent UUID": 848606850,
+            "Parent UUID": 692527140,
             "Name": "rayman",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -57,6 +95,25 @@
             "Parent UUID": 59049860,
             "Name": "DrawCall_0",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -106,6 +163,25 @@
                         1
                     ],
                     "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
                         0.14999999105930328,
                         0.14999999105930328,
                         0.14999999105930328
@@ -124,9 +200,28 @@
         },
         {
             "UUID": 1868505815,
-            "Parent UUID": 848606850,
+            "Parent UUID": 692527140,
             "Name": "street environment_v01",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -153,6 +248,25 @@
             "Parent UUID": 1868505815,
             "Name": "Sky001",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -206,6 +320,25 @@
                         0
                     ],
                     "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
                         -0.70710670948028564,
                         0,
                         0,
@@ -224,6 +357,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_004",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -262,6 +414,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         17.707164764404297,
                         20.053276062011719,
                         2.1210729528320371e-07
@@ -294,6 +465,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_007",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -332,6 +522,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         40.979995727539063,
                         18.270824432373047,
                         -2.0522466002148576e-06
@@ -364,6 +573,25 @@
             "Parent UUID": 1904778356,
             "Name": "Line002",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -401,6 +629,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -0.02860260009765625,
                         0.026032090187072754,
                         0
@@ -432,6 +679,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_010",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -470,6 +736,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         30.134540557861328,
                         37.4932861328125,
                         -1.5106878663573298e-06
@@ -502,6 +787,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_013",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -540,6 +844,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -19.439706802368164,
                         32.061729431152344,
                         0
@@ -572,6 +895,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_016",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -610,6 +952,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         44.260082244873047,
                         -39.153720855712891,
                         8.5538641769744572e-07
@@ -642,6 +1003,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_022",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -680,6 +1060,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         42.130641937255859,
                         37.4932861328125,
                         -1.5106878663573298e-06
@@ -712,6 +1111,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_024",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -750,6 +1168,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         31.51188850402832,
                         -16.446016311645508,
                         0
@@ -782,6 +1219,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_028",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -820,6 +1276,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -2.5033531188964844,
                         15.800846099853516,
                         0
@@ -851,6 +1326,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_030",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -889,6 +1383,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -34.679481506347656,
                         -41.835563659667969,
                         -9.3834518111179932e-07
@@ -921,6 +1434,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_032",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -959,6 +1491,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -32.361495971679688,
                         42.37042236328125,
                         5.0146070407208754e-07
@@ -991,6 +1542,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_034",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -1029,6 +1599,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         13.38798999786377,
                         -40.802516937255859,
                         -9.3834518111179932e-07
@@ -1061,6 +1650,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_036",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -1099,6 +1707,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -20.317693710327148,
                         -16.163608551025391,
                         0
@@ -1131,6 +1758,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_038",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -1169,6 +1815,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -42.807239532470703,
                         -30.643888473510742,
                         -9.3834518111179932e-07
@@ -1201,6 +1866,25 @@
             "Parent UUID": 1904778356,
             "Name": "City_building_040",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -1239,6 +1923,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         30.695278167724609,
                         21.612646102905273,
                         2.1210729528320371e-07
@@ -1271,6 +1974,25 @@
             "Parent UUID": 1868505815,
             "Name": "Camera001",
             "Components": [
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
                 {
                     "Type": 0,
                     "Position": [
@@ -1330,6 +2052,25 @@
                 {
                     "Type": 0,
                     "Position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
                         -66.721267700195313,
                         141.93412780761719,
                         6.2041376622801181e-06
@@ -1368,14 +2109,33 @@
             ]
         },
         {
-            "UUID": 1101259072,
-            "Parent UUID": 848606850,
+            "UUID": 528253671,
+            "Parent UUID": 692527140,
             "Name": "Main Camera",
             "Components": [
                 {
                     "Type": 0,
                     "Position": [
-                        14.240278244018555,
+                        0,
+                        0,
+                        0
+                    ],
+                    "Rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "Scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                {
+                    "Type": 0,
+                    "Position": [
+                        0,
                         1,
                         -5
                     ],
@@ -1396,7 +2156,7 @@
                     "Type": 3,
                     "Main Camera": true,
                     "position": [
-                        14.240278244018555,
+                        0,
                         1,
                         -5
                     ],

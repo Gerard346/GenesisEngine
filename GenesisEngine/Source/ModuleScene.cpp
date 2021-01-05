@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "UI.h"
+#include "ModuleFade.h"
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr) 
 {
@@ -68,6 +69,9 @@ update_status ModuleScene::Update(float dt)
 	root->Update();
 	App->ui->SetUpOrtho();
 	root->UpdateUI();
+	if (App->fade->GetFadeStep() != fade_step::NONE) {
+		App->fade->DrawFade();
+	}
 	App->ui->ResetRender();
 
 	return UPDATE_CONTINUE;

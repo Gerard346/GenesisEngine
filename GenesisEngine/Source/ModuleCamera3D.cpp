@@ -3,7 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "GnJSON.h"
 #include "Camera.h"
-
+#include "ModuleFade.h"
 #include "Mesh.h"
 #include "ResourceMesh.h"
 #include "GameObject.h"
@@ -78,7 +78,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 	float3 newPos = float3::zero;
 	int speed_multiplier = 1;
-
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+		App->fade->FadeToBlack(5.0f);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed_multiplier = 2;
 
