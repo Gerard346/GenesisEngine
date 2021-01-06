@@ -22,6 +22,8 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 {
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
+
+	RectTransform* ui_transform = _gameObject->GetRectTransform();
 }
 
 Canvas::~Canvas()
@@ -60,10 +62,12 @@ void Canvas::Draw()
 
 	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 	glBegin(GL_QUADS);
-	glVertex2f(0.0f, height);
+
 	glVertex2f(position.x, position.y);
-	glVertex2f(width, 0.0f);
-	glVertex2f(width, height);
+	glVertex2f(position.x + width, position.y);
+	glVertex2f(position.x + width, position.y + height);
+	glVertex2f(position.x, position.y + height);
+
 	glEnd(); 
 }
 
