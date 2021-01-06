@@ -34,12 +34,25 @@ Canvas::~Canvas()
 void Canvas::Update()
 {
 	if (draggable && App->editor->MouseOnScene()) {
-
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 			float3 canvas_pos = ui_transform->GetPosition();
 			if (IsInsideCanvas()) {
-				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
-			}
+				if ((canvas_pos.x + App->input->GetMouseXMotion()) < 0 || 
+					(canvas_pos.x + ui_transform->GetWidth() + App->input->GetMouseXMotion()) > App->editor->image_size.x) {
+					if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 || 
+						(canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
+					}
+					else
+						ui_transform->SetPosition(canvas_pos.x, canvas_pos.y - App->input->GetMouseYMotion(), 0);
+				}
+				else {
+					if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 || (canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
+						ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y, 0);
+					}
+						else
+							ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
+					}
+				}
 		}
 	}
 
