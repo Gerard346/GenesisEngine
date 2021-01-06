@@ -13,7 +13,7 @@ public:
 	~Image();
 
 	virtual void Update() override;
-
+	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;

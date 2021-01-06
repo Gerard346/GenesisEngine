@@ -9,7 +9,7 @@
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
-
+#include "Image.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
 #include <vector>
@@ -35,7 +35,6 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		break;
 	case ComponentType::CANVAS_UI:
 		RemoveComponent(transform);
-		ui_transform = (RectTransform*)AddComponent(RECT_TRANSFORM);
 		name = "Canvas";
 		break;
 	default:
@@ -298,6 +297,9 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 	case CANVAS_UI:
 		component = new Canvas(this);
+		break;
+	case IMAGE:
+		component = new Image(this);
 		break;
 	default:
 		break;
