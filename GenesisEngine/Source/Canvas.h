@@ -23,7 +23,7 @@ public:
 	void Draw();
 
 private:
-
+	bool draggable = true;
 
 	
 	//RectTransform* ui_transform = nullptr;
