@@ -28,7 +28,7 @@ bool ModuleScene::Start()
 	root = new GameObject();
 	selectedGameObject = root;
 	root->SetName("Root");
-
+	root->RemoveComponent((Component*)root->GetRectTransform());
 	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
 	//AddGameObject(baker_house);
 	

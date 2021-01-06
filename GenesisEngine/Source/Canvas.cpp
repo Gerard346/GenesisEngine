@@ -35,6 +35,7 @@ void Canvas::Update()
 
 void Canvas::OnEditor()
 {
+
 }
 
 void Canvas::Save(GnJSONArray& save_array)
@@ -47,20 +48,20 @@ void Canvas::Load(GnJSONObj& load_object)
 
 void Canvas::Draw()
 {
-	float2 position;
+	RectTransform* ui_transform = _gameObject->GetRectTransform();
+	float3 position;
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
 	float size = 250.0f;
 
-	position.x = 0 / 2;
-	position.y = 000 / 2;
+	position = ui_transform->GetPosition();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0f, height);
-	glVertex2f(0.0f, 0.0f);
+	glVertex2f(position.x, position.y);
 	glVertex2f(width, 0.0f);
 	glVertex2f(width, height);
 	glEnd(); 
