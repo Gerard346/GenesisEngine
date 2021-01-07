@@ -3,7 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "GnJSON.h"
 #include "Camera.h"
-
+#include "ModuleFade.h"
 #include "Mesh.h"
 #include "ResourceMesh.h"
 #include "GameObject.h"
@@ -32,7 +32,7 @@ ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 ModuleCamera3D::~ModuleCamera3D()
 {}
 
-bool ModuleCamera3D::Init() {return true; }
+bool ModuleCamera3D::Init() { return true; }
 
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
@@ -78,17 +78,19 @@ update_status ModuleCamera3D::Update(float dt)
 
 	float3 newPos = float3::zero;
 	int speed_multiplier = 1;
-
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+		App->fade->FadeToBlack(5.0f);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed_multiplier = 2;
 
 	//Up/Down
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_REPEAT)
 		newPos.y += move_speed * dt;
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
 		newPos.y -= move_speed * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
 		if (App->scene->selectedGameObject != nullptr)
 		{
@@ -98,13 +100,13 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	//Forwards/Backwards
-	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)) 
+	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT))
 		newPos += _camera->GetFrustum().front * move_speed * speed_multiplier * dt;
-	if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)) 
+	if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT))
 		newPos -= _camera->GetFrustum().front * move_speed * speed_multiplier * dt;
 
 	//Left/Right
-	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)) 
+	if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
 		newPos += _camera->GetFrustum().WorldRight() * move_speed * speed_multiplier * dt;
 	if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) || (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
 		newPos -= _camera->GetFrustum().WorldRight() * move_speed * speed_multiplier * dt;
@@ -119,10 +121,10 @@ update_status ModuleCamera3D::Update(float dt)
 	// Zoom 
 	if (App->input->GetMouseZ() > 0)
 		newPos += _camera->GetFrustum().front * zoom_speed * dt;
-	else if(App->input->GetMouseZ() < 0 )
+	else if (App->input->GetMouseZ() < 0)
 		newPos -= _camera->GetFrustum().front * zoom_speed * dt;
 
-	if ((App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)||
+	if ((App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) ||
 		((App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)))
 		Orbit(dt);
 
@@ -201,11 +203,11 @@ float3 ModuleCamera3D::GetPosition()
 
 GameObject* ModuleCamera3D::PickGameObject()
 {
-	float normalized_x =  App->editor->mouseScenePosition.x / App->editor->image_size.x;
-	float normalized_y =  App->editor->mouseScenePosition.y / App->editor->image_size.y;
+	float normalized_x = App->editor->mouseScenePosition.x / App->editor->image_size.x;
+	float normalized_y = App->editor->mouseScenePosition.y / App->editor->image_size.y;
 
-	normalized_x =   (normalized_x - 0.5f) * 2.0f;
-	normalized_y =  -(normalized_y - 0.5f) * 2.0f;
+	normalized_x = (normalized_x - 0.5f) * 2.0f;
+	normalized_y = -(normalized_y - 0.5f) * 2.0f;
 
 	LineSegment my_ray = _camera->GetFrustum().UnProjectLineSegment(normalized_x, normalized_y);
 
@@ -215,7 +217,7 @@ GameObject* ModuleCamera3D::PickGameObject()
 	std::map<float, GameObject*> hitGameObjects;
 
 	//find all hit GameObjects
-	for (size_t i = 0; i < sceneGameObjects.size(); i++) 
+	for (size_t i = 0; i < sceneGameObjects.size(); i++)
 	{
 		bool hit = my_ray.Intersects(sceneGameObjects[i]->GetAABB());
 
@@ -229,7 +231,7 @@ GameObject* ModuleCamera3D::PickGameObject()
 	}
 
 	std::map<float, GameObject*>::iterator it = hitGameObjects.begin();
-	for (it; it != hitGameObjects.end() ; it++)
+	for (it; it != hitGameObjects.end(); it++)
 	{
 		GameObject* gameObject = it->second;
 
@@ -246,17 +248,17 @@ GameObject* ModuleCamera3D::PickGameObject()
 		if (resourceMesh == nullptr)
 			continue;
 
-		for (size_t i = 0; i < resourceMesh->indices_amount; i+=3)
+		for (size_t i = 0; i < resourceMesh->indices_amount; i += 3)
 		{
 			//create every triangle
 			float3 v1(resourceMesh->vertices[resourceMesh->indices[i] * 3], resourceMesh->vertices[resourceMesh->indices[i] * 3 + 1],
-				      resourceMesh->vertices[resourceMesh->indices[i] * 3 + 2]);
+				resourceMesh->vertices[resourceMesh->indices[i] * 3 + 2]);
 
-			float3 v2(resourceMesh->vertices[resourceMesh->indices[i+1] * 3], resourceMesh->vertices[resourceMesh->indices[i+1] * 3 + 1],
-				      resourceMesh->vertices[resourceMesh->indices[i+1] * 3 + 2]);
+			float3 v2(resourceMesh->vertices[resourceMesh->indices[i + 1] * 3], resourceMesh->vertices[resourceMesh->indices[i + 1] * 3 + 1],
+				resourceMesh->vertices[resourceMesh->indices[i + 1] * 3 + 2]);
 
-			float3 v3(resourceMesh->vertices[resourceMesh->indices[i+2] * 3], resourceMesh->vertices[resourceMesh->indices[i+2] * 3 + 1],
-				      resourceMesh->vertices[resourceMesh->indices[i+2] * 3 + 2]);
+			float3 v3(resourceMesh->vertices[resourceMesh->indices[i + 2] * 3], resourceMesh->vertices[resourceMesh->indices[i + 2] * 3 + 1],
+				resourceMesh->vertices[resourceMesh->indices[i + 2] * 3 + 2]);
 
 			const Triangle triangle(v1, v2, v3);
 
@@ -321,4 +323,3 @@ void ModuleCamera3D::SetBackgroundColor(float r, float g, float b, float w)
 {
 	background = { r,g,b,w };
 }
-

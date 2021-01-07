@@ -1,151 +1,273 @@
-#include "WindowScene.h"
-#include "ImGui/imgui.h"
+#include "Globals.h"
 #include "Application.h"
-#include "glew/include/glew.h"
-#include "WindowAssets.h"
-#include "Time.h"
+#include "ModuleScene.h"
+#include "GnJSON.h"
+#include "Mesh.h"
+#include "FileSystem.h"
 #include "GameObject.h"
-#include "Material.h"
+#include "Transform.h"
+#include "UI.h"
+#include "ModuleFade.h"
 
-WindowScene::WindowScene() : EditorWindow()
+ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr)
 {
-	type = WindowType::SCENE_WINDOW;
+	name = "scene";
+
+	mCurrentGizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	mCurrentGizmoMode = ImGuizmo::MODE::WORLD;
 }
 
-WindowScene::~WindowScene() {}
+ModuleScene::~ModuleScene() {}
 
-void WindowScene::Draw()
+// Load assets
+bool ModuleScene::Start()
 {
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	if (ImGui::Begin("Scene", &visible, ImGuiWindowFlags_MenuBar))
-	{
-		App->editor->scene_window_focused = ImGui::IsWindowFocused();
+	LOG("Loading Intro assets");
+	bool ret = true;
 
-		if (ImGui::BeginMenuBar())
+	root = new GameObject();
+	selectedGameObject = root;
+	root->SetName("Root");
+
+	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
+	//AddGameObject(baker_house);
+
+	GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
+	AddGameObject(rayman);
+
+	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	AddGameObject(street_environment);
+
+	GameObject* camera = new GameObject();
+	camera->AddComponent(ComponentType::CAMERA);
+	camera->SetName("Main Camera");
+	camera->GetTransform()->SetPosition(float3(0.0f, 1.0f, -5.0f));
+	AddGameObject(camera);
+	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
+
+	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+
+	return ret;
+}
+
+bool ModuleScene::Init()
+{
+	return true;
+}
+
+// Update: draw background
+update_status ModuleScene::Update(float dt)
+{
+	if (show_grid)
+	{
+		GnGrid grid(24);
+		grid.Render();
+	}
+
+	HandleInput();
+
+	root->Update();
+	App->ui->SetUpOrtho();
+	root->UpdateUI();
+	if (App->fade->GetFadeStep() != fade_step::NONE) {
+		App->fade->DrawFade();
+	}
+	App->ui->ResetRender();
+
+	return UPDATE_CONTINUE;
+}
+
+void ModuleScene::HandleInput()
+{
+	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && (selectedGameObject != nullptr) && (selectedGameObject != root))
+		selectedGameObject->to_delete = true;
+
+	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN))
+		mCurrentGizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+
+	else if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN))
+		mCurrentGizmoOperation = ImGuizmo::OPERATION::ROTATE;
+
+	else if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN))
+		mCurrentGizmoOperation = ImGuizmo::OPERATION::SCALE;
+}
+
+// Load assets
+bool ModuleScene::CleanUp()
+{
+	LOG("Unloading Intro scene");
+
+	root->DeleteChildren();
+	delete root;
+	root = nullptr;
+
+	selectedGameObject = nullptr;
+
+	return true;
+}
+
+void ModuleScene::AddGameObject(GameObject* gameObject)
+{
+	if (gameObject != nullptr)
+	{
+		gameObject->SetParent(root);
+		root->AddChild(gameObject);
+
+		selectedGameObject = gameObject;
+	}
+}
+
+void ModuleScene::DeleteGameObject(GameObject* gameObject)
+{
+	if (root->RemoveChild(gameObject))
+	{
+		gameObject->DeleteChildren();
+	}
+	else if (gameObject->GetParent()->RemoveChild(gameObject))
+	{
+		gameObject->DeleteChildren();
+	}
+
+	delete gameObject;
+	gameObject = nullptr;
+}
+
+std::vector<GameObject*> ModuleScene::GetAllGameObjects()
+{
+	std::vector<GameObject*> gameObjects;
+
+	PreorderGameObjects(root, gameObjects);
+
+	return gameObjects;
+}
+
+void ModuleScene::PreorderGameObjects(GameObject* gameObject, std::vector<GameObject*>& gameObjects)
+{
+	gameObjects.push_back(gameObject);
+
+	for (size_t i = 0; i < gameObject->GetChildrenAmount(); i++)
+	{
+		PreorderGameObjects(gameObject->GetChildAt(i), gameObjects);
+	}
+}
+
+void ModuleScene::EditTransform()
+{
+	if (selectedGameObject == nullptr)
+		return;
+
+	float4x4 viewMatrix = App->camera->GetViewMatrixM().Transposed();
+	float4x4 projectionMatrix = App->camera->GetProjectionMatrixM().Transposed();
+	float4x4 objectTransform = selectedGameObject->GetTransform()->GetGlobalTransform().Transposed();
+
+	ImGuizmo::SetDrawlist();
+	ImGuizmo::SetRect(App->editor->sceneWindowOrigin.x, App->editor->sceneWindowOrigin.y, App->editor->image_size.x, App->editor->image_size.y);
+
+	float tempTransform[16];
+	memcpy(tempTransform, objectTransform.ptr(), 16 * sizeof(float));
+
+	ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), mCurrentGizmoOperation, mCurrentGizmoMode, tempTransform);
+
+	if (ImGuizmo::IsUsing())
+	{
+		float4x4 newTransform;
+		newTransform.Set(tempTransform);
+		objectTransform = newTransform.Transposed();
+		selectedGameObject->GetTransform()->SetGlobalTransform(objectTransform);
+	}
+}
+
+bool ModuleScene::ClearScene()
+{
+	bool ret = true;
+
+	root->DeleteChildren();
+	root = nullptr;
+
+	return ret;
+}
+
+bool ModuleScene::Save(const char* file_path)
+{
+	bool ret = true;
+
+	GnJSONObj save_file;
+
+	GnJSONArray gameObjects = save_file.AddArray("Game Objects");
+
+	root->Save(gameObjects);
+
+	char* buffer = NULL;
+	uint size = save_file.Save(&buffer);
+
+	FileSystem::Save(file_path, buffer, size);
+
+	std::string assets_path = "Assets/Scenes/";
+	assets_path.append(FileSystem::GetFile(file_path));
+
+	FileSystem::DuplicateFile(file_path, assets_path.c_str());
+
+	save_file.Release();
+	RELEASE_ARRAY(buffer);
+
+	return ret;
+}
+
+bool ModuleScene::Load(const char* scene_file)
+{
+	bool ret = true;
+
+	std::string format = FileSystem::GetFileFormat(scene_file);
+	if (format != ".scene")
+	{
+		LOG_WARNING("%s is not a valid scene format and can't be loaded", scene_file);
+		return false;
+	}
+
+	ClearScene();
+
+	char* buffer = NULL;
+	FileSystem::Load(scene_file, &buffer);
+
+	GnJSONObj base_object(buffer);
+	GnJSONArray gameObjects(base_object.GetArray("Game Objects"));
+
+	std::vector<GameObject*> createdObjects;
+
+	for (size_t i = 0; i < gameObjects.Size(); i++)
+	{
+		//load game object
+		GameObject* gameObject = new GameObject();
+		uint parentUUID = gameObject->Load(&gameObjects.GetObjectAt(i));
+		createdObjects.push_back(gameObject);
+
+		//check if it's the root game object
+		if (strcmp(gameObject->GetName(), "Root") == 0) {
+			root = gameObject;
+			selectedGameObject = root;
+		}
+
+		//Get game object's parent
+		for (size_t i = 0; i < createdObjects.size(); i++)
 		{
-			if (ImGui::BeginMenu("Display"))
+			if (createdObjects[i]->UUID == parentUUID)
 			{
-				if (ImGui::BeginMenu("Shading Mode"))
-				{
-					if (ImGui::MenuItem("Solid", NULL, App->renderer3D->display_mode == DisplayMode::SOLID))
-						App->renderer3D->SetDisplayMode(DisplayMode::SOLID);
-					if (ImGui::MenuItem("Wireframe", NULL, App->renderer3D->display_mode == DisplayMode::WIREFRAME))
-						App->renderer3D->SetDisplayMode(DisplayMode::WIREFRAME);
-					ImGui::EndMenu();
-				}
-
-				ImGui::Checkbox("Draw Mouse Picking Ray", &App->renderer3D->draw_mouse_picking_ray);
-
-				ImGui::Checkbox("Draw AABBs", &App->renderer3D->draw_aabbs);
-
-				ImGui::Checkbox("Vertex Normals", &App->renderer3D->draw_vertex_normals);
-
-				ImGui::Checkbox("Face Normals", &App->renderer3D->draw_face_normals);
-
-				ImGui::EndMenu();
+				createdObjects[i]->AddChild(gameObject);
 			}
-
-			static bool lighting = glIsEnabled(GL_LIGHTING);
-			if (ImGui::Checkbox("Lighting", &lighting))
-				App->renderer3D->SetCapActive(GL_LIGHTING, lighting);
-
-			static bool show_grid = App->scene->show_grid;
-			if (ImGui::Checkbox("Show Grid", &show_grid))
-				App->scene->show_grid = show_grid;
-
-			ImGui::Checkbox("Cull editor camera", &App->renderer3D->cull_editor_camera);
-
-			ImGui::EndMenuBar();
 		}
-
-		ImVec2 window_size = ImGui::GetContentRegionAvail();
-		App->editor->sceneWindowOrigin = ImGui::GetWindowPos();
-		App->editor->sceneWindowOrigin.x += ImGui::GetWindowContentRegionMin().x;
-		App->editor->sceneWindowOrigin.y += ImGui::GetWindowContentRegionMin().y;
-
-		App->editor->mouseScenePosition.x = App->input->GetMouseX() - App->editor->sceneWindowOrigin.x;
-		App->editor->mouseScenePosition.y = App->input->GetMouseY() - App->editor->sceneWindowOrigin.y;
-
-		if (App->in_game)
-			DrawGameTimeDataOverlay();
-
-		if (App->editor->image_size.x != window_size.x || App->editor->image_size.y != window_size.y)
-			App->editor->OnResize(window_size);
-
-		ImGui::Image((ImTextureID)App->renderer3D->colorTexture, App->editor->image_size, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-		ImGui::PushID(SCENE_WINDOW);
-		if (ImGui::BeginDragDropTarget())
-		{
-			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS"))
-			{
-				IM_ASSERT(payload->DataSize == sizeof(int));
-				int payload_n = *(const int*)payload->Data;
-				WindowAssets* assets_window = (WindowAssets*)App->editor->windows[ASSETS_WINDOW];
-				std::string file = App->resources->FindAsset(payload_n);
-				ApplyDroppedFile(file.c_str());
-			}
-			ImGui::EndDragDropTarget();
-		}
-		ImGui::PopID();
-
-		App->scene->EditTransform();
-
 	}
-	ImGui::End();
-	ImGui::PopStyleVar();
+
+	root->UpdateChildrenTransforms();
+
+	if (root != nullptr)
+		LOG("Scene: %s loaded successfully", scene_file);
+
+	return ret;
 }
 
-void WindowScene::DrawGameTimeDataOverlay()
+bool ModuleScene::LoadConfig(GnJSONObj& config)
 {
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+	show_grid = config.GetBool("show_grid");
 
-	window_flags |= ImGuiWindowFlags_NoMove;
-	ImGuiViewport* viewport = ImGui::GetMainViewport();
-
-	ImVec2 window_pos = App->editor->sceneWindowOrigin;
-	window_pos.x += 10.0f;
-	window_pos.y += 10.0f;
-
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(15.0f, 15.0f));
-	ImGui::SetNextWindowPos(window_pos);
-	ImGui::SetNextWindowViewport(viewport->ID);
-
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.25f, 0.25f, 0.25f, 0.75f));
-	bool dummy_bool = true;
-	if (ImGui::Begin("Example: Simple overlay", &dummy_bool, window_flags))
-	{
-		ImGui::Text("Game Time");
-		ImGui::Separator();
-		ImGui::Spacing();
-		ImGui::Text("Delta time %.3f", Time::gameClock.dt);
-		ImGui::Text("Time Scale: %.2f", Time::gameClock.timeScale);
-		ImGui::Text("Time since game start: %.2f", Time::gameClock.timeSinceStartup());
-	}
-	ImGui::PopStyleColor();
-	ImGui::PopStyleVar(2);
-	ImGui::End();
-}
-
-void WindowScene::ApplyDroppedFile(const char* assets_file)
-{
-	ResourceType type = App->resources->GetTypeFromPath(assets_file);
-
-	if (type == ResourceType::RESOURCE_MODEL)
-	{
-		App->scene->AddGameObject(App->resources->RequestGameObject(assets_file));
-	}
-	else if (type == ResourceType::RESOURCE_TEXTURE)
-	{
-		GameObject* selected_object = App->scene->selectedGameObject;
-
-		if (selected_object == nullptr)
-			return;
-
-		Material* material = (Material*)selected_object->GetComponent(ComponentType::MATERIAL);
-		if (material != nullptr)
-		{
-			material->SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find(assets_file)));
-		}
-	}
+	return true;
 }

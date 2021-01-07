@@ -88,7 +88,10 @@ void WindowScene::Draw()
 		}
 		ImGui::PopID();
 
-		App->scene->EditTransform();
+		if (App->fade->GetFadeStep() == fade_step::NONE) {
+			App->scene->EditTransform();
+		}
+
 	}
 	ImGui::End();
 	ImGui::PopStyleVar();

@@ -17,7 +17,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	editor = new Editor(true);
 	resources = new ModuleResources(true);
 	ui = new UI(true);
-
+	fade = new ModuleFade(true);
 	// Main Modules
 	AddModule(window);
 	AddModule(resources);
@@ -25,7 +25,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	AddModule(input);
 	AddModule(scene);
 	AddModule(editor);
-
+	AddModule(fade);
 	// Renderer last!
 	AddModule(renderer3D);
 
@@ -37,10 +37,10 @@ Application::~Application()
 {
 	std::vector<Module*>::reverse_iterator item = modules_vector.rbegin();
 
-	while(item != modules_vector.rend())
+	while (item != modules_vector.rend())
 	{
-		delete *item;
-		++item ;
+		delete* item;
+		++item;
 	}
 }
 
@@ -76,7 +76,7 @@ bool Application::Init()
 	{
 		ret = modules_vector[i]->Start();
 	}
-	
+
 
 	config.Release();
 	RELEASE_ARRAY(buffer);
@@ -112,7 +112,7 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
-	
+
 	for (size_t i = 0; i < modules_vector.size() && ret == UPDATE_CONTINUE; i++)
 	{
 		ret = modules_vector[i]->PreUpdate(dt);
@@ -127,7 +127,7 @@ update_status Application::Update()
 	{
 		ret = modules_vector[i]->PostUpdate(dt);
 	}
-	
+
 	if (!endFrameTasks.empty()) {
 		for (size_t i = 0; i < endFrameTasks.size(); i++)
 		{
@@ -155,7 +155,7 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
-	for (int i = modules_vector.size() -1; i > 0; i--)
+	for (int i = modules_vector.size() - 1; i > 0; i--)
 	{
 		modules_vector[i]->CleanUp();
 	}
@@ -225,7 +225,7 @@ HardwareSpecs Application::GetHardware()
 
 	//RAM
 	specs.ram = SDL_GetSystemRAM() / 1000.0f;
-	
+
 	//Caps
 	specs.RDTSC = SDL_HasRDTSC();
 	specs.MMX = SDL_HasMMX();
@@ -255,6 +255,3 @@ HardwareSpecs Application::GetHardware()
 
 	return specs;
 }
-
-
-
