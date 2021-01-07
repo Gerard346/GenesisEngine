@@ -37,15 +37,14 @@ void Canvas::Update()
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
-				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
-					if (ui_transform->IsInsideUIElement()) {
-						App->scene->selectedGameObject = this->GetGameObject();
-					}
-				}
 				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+					if(IsInsideCanvas()){
+						App->scene->selectedGameObject = this->GetGameObject();
 						if (draggable) {
 							MoveCanvas();
 						}
+					}
+
 				}
 			}
 		}
@@ -113,11 +112,23 @@ void Canvas::Draw()
 	glEnd(); 
 }
 
+bool Canvas::IsInsideCanvas()
+{
+	float3 position = ui_transform->GetPosition();
+	if (position.x < App->editor->mouseScenePosition.x < position.x + ui_transform->GetWidth()) {
+		if (position.y < App->editor->mouseScenePosition.y < position.y + ui_transform->GetHeight()) {
+			return true;
+		}
+		else
+			return false;
+	}
+		return false;
+}
 
 void Canvas::MoveCanvas()
 {
 	float3 canvas_pos = ui_transform->GetPosition();
-	if (ui_transform->IsInsideUIElement()) {
+	if (IsInsideCanvas()) {
 		if ((canvas_pos.x + App->input->GetMouseXMotion()) < 0 ||
 			(canvas_pos.x + ui_transform->GetWidth() + App->input->GetMouseXMotion()) > App->editor->image_size.x) {
 			if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 ||
