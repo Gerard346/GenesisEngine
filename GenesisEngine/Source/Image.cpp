@@ -26,6 +26,10 @@ void Image::Update()
 {
 }
 
+void Image::OnEditor()
+{
+}
+
 void Image::Save(GnJSONArray& save_array)
 {
 }
