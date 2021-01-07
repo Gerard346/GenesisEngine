@@ -6,8 +6,9 @@
 #include "FileSystem.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "UI.h"
 
-ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr) 
+ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr)
 {
 	name = "scene";
 
@@ -29,13 +30,13 @@ bool ModuleScene::Start()
 
 	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
 	//AddGameObject(baker_house);
-	
+
 	GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
 	AddGameObject(rayman);
 
 	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
 	AddGameObject(street_environment);
-	
+
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
 	camera->SetName("Main Camera");
@@ -65,6 +66,9 @@ update_status ModuleScene::Update(float dt)
 	HandleInput();
 
 	root->Update();
+	//App->ui->SetUpOrtho();
+	//root->UpdateUI();
+	//App->ui->ResetRender();
 
 	return UPDATE_CONTINUE;
 }
@@ -77,7 +81,7 @@ void ModuleScene::HandleInput()
 	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN))
 		mCurrentGizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 
-	else if((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN))
+	else if ((App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN))
 		mCurrentGizmoOperation = ImGuizmo::OPERATION::ROTATE;
 
 	else if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN))
@@ -100,7 +104,7 @@ bool ModuleScene::CleanUp()
 
 void ModuleScene::AddGameObject(GameObject* gameObject)
 {
-	if (gameObject != nullptr) 
+	if (gameObject != nullptr)
 	{
 		gameObject->SetParent(root);
 		root->AddChild(gameObject);
@@ -220,7 +224,7 @@ bool ModuleScene::Load(const char* scene_file)
 
 	char* buffer = NULL;
 	FileSystem::Load(scene_file, &buffer);
-	
+
 	GnJSONObj base_object(buffer);
 	GnJSONArray gameObjects(base_object.GetArray("Game Objects"));
 
@@ -263,7 +267,3 @@ bool ModuleScene::LoadConfig(GnJSONObj& config)
 
 	return true;
 }
-
-
-
-

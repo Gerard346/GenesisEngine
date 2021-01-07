@@ -12,6 +12,7 @@
 #include "ModuleScene.h"
 #include "Editor.h"
 #include "ModuleResources.h"
+#include "UI.h"
 
 #include <string>
 #include <stack>
@@ -52,6 +53,7 @@ public:
 	Editor* editor;
 	ModuleRenderer3D* renderer3D;
 	ModuleResources* resources;
+	UI* ui;
 
 	const char* engine_name;
 	const char* engine_version;

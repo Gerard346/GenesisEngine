@@ -16,6 +16,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	scene = new ModuleScene(true);
 	editor = new Editor(true);
 	resources = new ModuleResources(true);
+	ui = new UI(true);
 
 	// Main Modules
 	AddModule(window);

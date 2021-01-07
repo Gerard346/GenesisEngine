@@ -42,3 +42,8 @@ void Component::SetResourceUID(uint UID)
 {
     _resourceUID = UID;
 }
+
+bool Component::GetIsUI()
+{
+    return is_UI;
+}

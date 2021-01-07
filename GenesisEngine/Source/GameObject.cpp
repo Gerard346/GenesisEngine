@@ -1,9 +1,11 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
+#include "RectTransform.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "Camera.h"
+#include "Canvas.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
@@ -59,16 +61,21 @@ void GameObject::Update()
 		for (size_t i = 0; i < components.size(); i++)
 		{
 			//Update Components
-			if (components[i]->IsEnabled()) 
+			if (components[i]->IsEnabled())
 			{
-				if (components[i]->GetType() == ComponentType::MESH) 
+				if (components[i]->GetIsUI()) {
+					continue;
+				}
+				if (components[i]->GetType() == ComponentType::MESH)
 				{
 					GnMesh* mesh = (GnMesh*)components[i];
 					GenerateAABB(mesh);
 
-					if(App->renderer3D->IsInsideCameraView(_AABB))
+					if (App->renderer3D->IsInsideCameraView(_AABB)) {
 						mesh->Update();
+					}
 				}
+
 				else
 				{
 					components[i]->Update();
@@ -81,6 +88,38 @@ void GameObject::Update()
 		{
 			children[i]->Update();
 		}
+
+
+	}
+}
+
+void GameObject::UpdateUI()
+{
+	if (enabled)
+	{
+		for (size_t i = 0; i < components.size(); i++)
+		{
+			//Update Components
+			if (components[i]->IsEnabled())
+			{
+				if (!components[i]->GetIsUI()) {
+					continue;
+				}
+
+				else
+				{
+					components[i]->Update();
+				}
+			}
+		}
+
+		//Update Children
+		for (size_t i = 0; i < children.size(); i++)
+		{
+			children[i]->Update();
+		}
+
+
 	}
 }
 
@@ -98,11 +137,11 @@ void GameObject::OnEditor()
 		components[i]->OnEditor();
 	}
 
-	if(ImGui::CollapsingHeader("Debugging Information")) 
+	if (ImGui::CollapsingHeader("Debugging Information"))
 	{
-		if(_parent != nullptr)
+		if (_parent != nullptr)
 			ImGui::Text("Parent: %s", _parent->GetName());
-		else 
+		else
 			ImGui::Text("No parent");
 
 		ImGui::Text("UUID: %d", UUID);
@@ -115,9 +154,9 @@ void GameObject::Save(GnJSONArray& save_array)
 
 	save_object.AddInt("UUID", UUID);
 
-	if(_parent != nullptr)
-		save_object.AddInt("Parent UUID",_parent->UUID);
-	else 
+	if (_parent != nullptr)
+		save_object.AddInt("Parent UUID", _parent->UUID);
+	else
 		save_object.AddInt("Parent UUID", 0);
 
 	save_object.AddString("Name", name.c_str());
@@ -210,26 +249,49 @@ Component* GameObject::AddComponent(ComponentType type)
 	switch (type)
 	{
 	case TRANSFORM:
+		/*if (transform != nullptr)
+		{
+			RemoveComponent(transform);
+		}
+		if (ui_transform != nullptr)
+		{
+			RemoveComponent(ui_transform);
+		}*/
+		transform = new Transform();
+		component = transform;
+		break;
+
+	case MESH:
+		component = new GnMesh();
+		break;
+
+	case MATERIAL:
+		component = new Material(this);
+		break;
+
+	case CAMERA:
+		component = new Camera(this);
+		break;
+
+	case LIGHT:
+		component = new Light(this);
+		break;
+		//UI Components
 		if (transform != nullptr)
 		{
 			RemoveComponent(transform);
 		}
+		/*
+		if (ui_transform != nullptr)
+		{
+			RemoveComponent(ui_transform);
+		}
 
-		transform = new Transform();
-		component = transform;
-		break;
-	case MESH:
-		component = new GnMesh();
-		break;
-	case MATERIAL:
-		component = new Material(this);
-		break;
-	case CAMERA:
-		component = new Camera(this);
-		break;
-	case LIGHT:
-		component = new Light(this);
-		break;
+		ui_transform = new RectTransform();*/
+
+	case CANVAS:
+		component = new Canvas(this);
+
 	default:
 		break;
 	}
@@ -265,7 +327,7 @@ bool GameObject::RemoveComponent(Component* component)
 
 const char* GameObject::GetName() { return name.c_str(); }
 
-void GameObject::SetName(const char* g_name) 
+void GameObject::SetName(const char* g_name)
 {
 	name = g_name;
 }
@@ -294,7 +356,7 @@ bool GameObject::IsVisible()
 
 void GameObject::AddChild(GameObject* child)
 {
-	if(child != nullptr)
+	if (child != nullptr)
 		children.push_back(child);
 
 	child->SetParent(this);
@@ -322,7 +384,7 @@ void GameObject::SetParent(GameObject* g_parent)
 
 void GameObject::Reparent(GameObject* newParent)
 {
-	if (newParent != nullptr) 
+	if (newParent != nullptr)
 	{
 		_parent->RemoveChild(this);
 		_parent = newParent;
