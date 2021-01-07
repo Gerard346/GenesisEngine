@@ -23,7 +23,10 @@ public:
 	void Draw();
 	bool IsInsideCanvas();
 
+	void SetDraggable();
+
 private:
-	bool draggable = true;
+	bool draggable = false;
 	RectTransform* ui_transform = nullptr;
+	float2 pivot = { 0.0f, 0.0f };
 };

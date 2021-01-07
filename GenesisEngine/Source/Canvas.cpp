@@ -25,6 +25,7 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	is_UI = true;
 	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
 	ui_transform = _gameObject->GetRectTransform();
+	ui_transform->SetPivot(pivot);
 }
 
 Canvas::~Canvas()
@@ -61,7 +62,18 @@ void Canvas::Update()
 
 void Canvas::OnEditor()
 {
+	if (ImGui::CollapsingHeader("Canvas", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		bool full_screen = ui_transform->GetFullScreen();
+		if (ImGui::Checkbox("Full Screen", &full_screen)) {
+			ui_transform->SetFullScreen();
+		}
+		ImGui::Spacing();
 
+		if (ImGui::Checkbox("Set canvas draggable", &draggable)) {
+		}
+		ImGui::Spacing();
+	}
 }
 
 void Canvas::Save(GnJSONArray& save_array)
@@ -105,4 +117,9 @@ bool Canvas::IsInsideCanvas()
 			return false;
 	}
 	return false;
+}
+
+void Canvas::SetDraggable()
+{
+	this->draggable = !this->draggable;
 }

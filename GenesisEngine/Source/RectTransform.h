@@ -18,6 +18,8 @@ public:
 	void SetHeight(float new_height);
 	void SetRotation(float3 new_rotation);
 	void SetPostion(float3 new_position);
+	void SetPivot(float2 new_pivot);
+	void SetFullScreen() { full_screen = !full_screen; }
 
 	float3 GetScale() const;
 	float2 GetPivot() const;
@@ -59,7 +61,7 @@ private:
 	float width = 100.0f;
 	float height = 100.0f;
 
-	float2 pivot = { 0.5, 0.5f };
+	float2 pivot = { 0.0, 0.0f };
 
 	float3 _position = { 0.0f, 0.0f, 0.0f };
 	Quat _rotation;
