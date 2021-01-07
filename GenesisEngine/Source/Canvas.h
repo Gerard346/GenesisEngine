@@ -21,9 +21,10 @@ public:
 	void Load(GnJSONObj& load_object) override;
 
 	void Draw();
-	bool IsInsideCanvas();
 
 private:
 	bool draggable = true;
-	RectTransform* ui_transform = nullptr;
+
+	
+	//RectTransform* ui_transform = nullptr;
 };

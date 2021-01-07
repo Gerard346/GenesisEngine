@@ -23,8 +23,8 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 {
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
-	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
-	ui_transform = _gameObject->GetRectTransform();
+
+	RectTransform* ui_transform = _gameObject->GetRectTransform();
 }
 
 Canvas::~Canvas()
@@ -33,13 +33,11 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
-	if (draggable && App->editor->MouseOnScene()) {
-
+	if (draggable) {
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+			RectTransform* ui_transform = _gameObject->GetRectTransform();
 			float3 canvas_pos = ui_transform->GetPosition();
-			if (IsInsideCanvas()) {
-				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
-			}
+			ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
 		}
 	}
 
@@ -80,18 +78,6 @@ void Canvas::Draw()
 	glVertex2f(position.x, position.y + height);
 
 	glEnd(); 
-}
-
-bool Canvas::IsInsideCanvas()
-{
-	float3 position = ui_transform->GetPosition();
-	if (position.x < App->editor->mouseScenePosition.x < position.x + ui_transform->GetWidth()) {
-		if (position.y < App->editor->mouseScenePosition.y < position.y + ui_transform->GetHeight())
-			return true;
-		else
-			return false;
-	}
-		return false;
 }
 
 
