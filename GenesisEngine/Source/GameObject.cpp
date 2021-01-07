@@ -297,9 +297,11 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 	case CANVAS_UI:
 		component = new Canvas(this);
+		is_ui = true;
 		break;
 	case IMAGE:
 		component = new Image(this);
+		is_ui = true;
 		break;
 	default:
 		break;

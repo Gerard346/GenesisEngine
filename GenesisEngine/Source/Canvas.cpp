@@ -34,31 +34,24 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
-	if (draggable && App->editor->MouseOnScene()) {
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-			float3 canvas_pos = ui_transform->GetPosition();
-			if (IsInsideCanvas()) {
-				if ((canvas_pos.x + App->input->GetMouseXMotion()) < 0 ||
-					(canvas_pos.x + ui_transform->GetWidth() + App->input->GetMouseXMotion()) > App->editor->image_size.x) {
-					if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 ||
-						(canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
+	if (ui_transform->GetVisible()) {
+		if (ui_transform->GetInteractive()) {
+			if (App->editor->MouseOnScene()) {
+				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+					if (IsInsideCanvas()) {
+						App->scene->selectedGameObject = this->GetGameObject();
+						if (draggable) {
+							MoveCanvas();
+						}
 					}
-					else
-						ui_transform->SetPosition(canvas_pos.x, canvas_pos.y - App->input->GetMouseYMotion(), 0);
-				}
-				else {
-					if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 || (canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
-						ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y, 0);
-					}
-					else
-						ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
+
 				}
 			}
 		}
+		Draw();
 	}
-
-	Draw();
 }
+
 
 void Canvas::OnEditor()
 {
@@ -71,6 +64,18 @@ void Canvas::OnEditor()
 		ImGui::Spacing();
 
 		if (ImGui::Checkbox("Set canvas draggable", &draggable)) {
+		}
+		ImGui::Spacing();
+
+		bool interactive = ui_transform->GetInteractive();
+		if (ImGui::Checkbox("Set Interactive", &interactive)) {
+			ui_transform->SetInteractive();
+		}
+		ImGui::Spacing();
+
+		bool visible = ui_transform->GetVisible();
+		if (ImGui::Checkbox("Set visibility canvas", &visible)) {
+			ui_transform->SetVisible();
 		}
 		ImGui::Spacing();
 	}
@@ -111,12 +116,35 @@ bool Canvas::IsInsideCanvas()
 {
 	float3 position = ui_transform->GetPosition();
 	if (position.x < App->editor->mouseScenePosition.x < position.x + ui_transform->GetWidth()) {
-		if (position.y < App->editor->mouseScenePosition.y < position.y + ui_transform->GetHeight())
+		if (position.y < App->editor->mouseScenePosition.y < position.y + ui_transform->GetHeight()) {
 			return true;
+		}
 		else
 			return false;
 	}
 	return false;
+}
+
+void Canvas::MoveCanvas()
+{
+	float3 canvas_pos = ui_transform->GetPosition();
+	if (IsInsideCanvas()) {
+		if ((canvas_pos.x + App->input->GetMouseXMotion()) < 0 ||
+			(canvas_pos.x + ui_transform->GetWidth() + App->input->GetMouseXMotion()) > App->editor->image_size.x) {
+			if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 ||
+				(canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
+			}
+			else
+				ui_transform->SetPosition(canvas_pos.x, canvas_pos.y - App->input->GetMouseYMotion(), 0);
+		}
+		else {
+			if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 || (canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
+				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y, 0);
+			}
+			else
+				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
+		}
+	}
 }
 
 void Canvas::SetDraggable()
