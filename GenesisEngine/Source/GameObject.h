@@ -40,7 +40,6 @@ public:
 	const char* GetName();
 	void SetName(const char* name);
 	void SetTransform(Transform transform);
-	void SetRectTransform(RectTransform* rect_transform);
 
 	Transform* GetTransform();
 	RectTransform* GetRectTransform();
@@ -58,7 +57,6 @@ public:
 	bool RemoveChild(GameObject* gameObject);
 	void DeleteChildren();
 	void UpdateChildrenTransforms();
-	void UpdateChildrenRectTransforms();
 
 public: 
 	bool to_delete;

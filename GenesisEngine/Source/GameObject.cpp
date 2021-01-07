@@ -17,6 +17,7 @@
 GameObject::GameObject() : enabled(true), name("Empty Game Object"), _parent(nullptr), to_delete(false), transform(nullptr), _visible(false)
 {
 	transform = (Transform*)AddComponent(TRANSFORM);
+	ui_transform = (RectTransform*)AddComponent(RECT_TRANSFORM);
 
 	UUID = LCG().Int();
 }
@@ -34,8 +35,6 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		name = "Light";
 		break;
 	case ComponentType::CANVAS_UI:
-		RemoveComponent(transform);
-		ui_transform = (RectTransform*)AddComponent(RECT_TRANSFORM);
 		name = "Canvas";
 		break;
 	default:
@@ -271,32 +270,40 @@ Component* GameObject::AddComponent(ComponentType type)
 		{
 			RemoveComponent(transform);
 		}
+		if (ui_transform != nullptr)
+		{
+			RemoveComponent(ui_transform);
+		}
 		transform = new Transform();
 		component = transform;
 		break;
 
 	case MESH:
+		RemoveComponent(ui_transform);
 		component = new GnMesh();
 		break;
 
 	case MATERIAL:
+		RemoveComponent(ui_transform);
 		component = new Material(this);
 		break;
 
 	case CAMERA:
+		RemoveComponent(ui_transform);
 		component = new Camera(this);
 		break;
 
 	case LIGHT:
+		RemoveComponent(ui_transform);
 		component = new Light(this);
 		break;
 	//UI Components
 	case RECT_TRANSFORM:
-		RemoveComponent(transform);
 		ui_transform = new RectTransform();
 		component = ui_transform;
 		break;
 	case CANVAS_UI:
+		RemoveComponent(transform);
 		component = new Canvas(this);
 		break;
 	default:
@@ -344,11 +351,6 @@ void GameObject::SetTransform(Transform g_transform)
 	//localTransform->Set(g_transform.GetLocalTransform());
 	//localTransform->UpdateLocalTransform();
 	memcpy(transform, &g_transform, sizeof(g_transform));
-}
-
-void GameObject::SetRectTransform(RectTransform* rect_transform)
-{
-	memcpy(ui_transform, &rect_transform, sizeof(rect_transform));
 }
 
 Transform* GameObject::GetTransform()
@@ -446,17 +448,6 @@ void GameObject::UpdateChildrenTransforms()
 	{
 		children[i]->GetTransform()->UpdateGlobalTransform(transform->GetGlobalTransform());
 		children[i]->UpdateChildrenTransforms();
-	}
-}
-
-void GameObject::UpdateChildrenRectTransforms()
-{
-	ui_transform->UpdateGlobalTransform();
-
-	for (size_t i = 0; i < children.size(); i++)
-	{
-		children[i]->GetRectTransform()->UpdateGlobalTransform(ui_transform->GetGlobalTransform());
-		children[i]->UpdateChildrenRectTransforms();
 	}
 }
 
