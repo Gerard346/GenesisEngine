@@ -88,9 +88,7 @@ void WindowScene::Draw()
 		}
 		ImGui::PopID();
 
-		if (App->fade->GetFadeStep() == fade_step::NONE) {
 			App->scene->EditTransform();
-		}
 		
 	}
 	ImGui::End();

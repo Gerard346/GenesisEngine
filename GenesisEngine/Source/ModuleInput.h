@@ -57,9 +57,7 @@ public:
 	{
 		return mouse_y_motion;
 	}
-	void SetActive(){
-		input_active = !input_active;
-	}
+
 private:
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];
@@ -68,6 +66,5 @@ private:
 	int mouse_z;
 	int mouse_x_motion;
 	int mouse_y_motion;
-	bool input_active = true;
 	//int mouse_z_motion;
 };
