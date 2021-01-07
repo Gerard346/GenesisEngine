@@ -60,8 +60,6 @@ public:
 	void UpdateChildrenTransforms();
 	void UpdateChildrenRectTransforms();
 
-	bool isUI() { return is_ui; }
-
 public: 
 	bool to_delete;
 	uint UUID = 0;
@@ -72,7 +70,6 @@ private:
 private:
 	bool enabled;
 	bool _visible;
-	bool is_ui = false;
 	std::string name;
 	GameObject* _parent;
 	Transform* transform;

@@ -48,12 +48,6 @@ public:
 
 	bool GetFullScreen() { return full_screen; }
 
-	bool GetInteractive() { return interactive; }
-	void SetInteractive() { interactive = !interactive; }
-
-	bool GetVisible() { return visible; }
-	void SetVisible() { visible = !visible; }
-
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
 
@@ -76,6 +70,4 @@ private:
 
 	bool update = false;
 	bool full_screen = true;
-	bool interactive = true;
-	bool visible = true;
 };
