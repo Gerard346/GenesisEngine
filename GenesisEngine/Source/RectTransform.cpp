@@ -21,12 +21,10 @@ RectTransform::~RectTransform()
 
 void RectTransform::Update()
 {
-	if (full_screen) {
-		width = App->editor->image_size.x;
-		height = App->editor->image_size.y;
-		_position.x = 0.0f + pivot.x;
-		_position.y = 0.0f + pivot.y;
-	}
+	/*if (full_screen) {
+		width = App->window->width;
+		height = App->window->height;
+	}*/
 }
 
 void RectTransform::OnEditor()
@@ -64,11 +62,6 @@ void RectTransform::SetWidth(float new_width)
 void RectTransform::SetHeight(float new_height)
 {
 	height = new_height;
-}
-
-void RectTransform::SetPivot(float2 new_pivot)
-{
-	pivot = new_pivot;
 }
 
 float2 RectTransform::GetPivot() const
