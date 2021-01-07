@@ -1,11 +1,9 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
-#include "RectTransform.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "Camera.h"
-#include "Canvas.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
@@ -63,19 +61,14 @@ void GameObject::Update()
 			//Update Components
 			if (components[i]->IsEnabled()) 
 			{
-				if (components[i]->GetIsUI()) {
-					continue;
-				}
 				if (components[i]->GetType() == ComponentType::MESH) 
 				{
-						GnMesh* mesh = (GnMesh*)components[i];
-						GenerateAABB(mesh);
+					GnMesh* mesh = (GnMesh*)components[i];
+					GenerateAABB(mesh);
 
-					if (App->renderer3D->IsInsideCameraView(_AABB)) {
+					if(App->renderer3D->IsInsideCameraView(_AABB))
 						mesh->Update();
-					}
 				}
-
 				else
 				{
 					components[i]->Update();
@@ -88,38 +81,6 @@ void GameObject::Update()
 		{
 			children[i]->Update();
 		}
-
-
-	}
-}
-
-void GameObject::UpdateUI()
-{
-	if (enabled)
-	{
-		for (size_t i = 0; i < components.size(); i++)
-		{
-			//Update Components
-			if (components[i]->IsEnabled())
-			{
-				if (!components[i]->GetIsUI()) {
-					continue;
-				}
-
-				else
-				{
-					components[i]->Update();
-				}
-			}
-		}
-
-		//Update Children
-		for (size_t i = 0; i < children.size(); i++)
-		{
-			children[i]->Update();
-		}
-
-
 	}
 }
 
@@ -249,49 +210,26 @@ Component* GameObject::AddComponent(ComponentType type)
 	switch (type)
 	{
 	case TRANSFORM:
-		/*if (transform != nullptr)
-		{
-			RemoveComponent(transform);
-		}
-		if (ui_transform != nullptr)
-		{
-			RemoveComponent(ui_transform);
-		}*/
-		transform = new Transform();
-		component = transform;
-		break;
-
-	case MESH:
-		component = new GnMesh();
-		break;
-
-	case MATERIAL:
-		component = new Material(this);
-		break;
-
-	case CAMERA:
-		component = new Camera(this);
-		break;
-
-	case LIGHT:
-		component = new Light(this);
-		break;
-	//UI Components
 		if (transform != nullptr)
 		{
 			RemoveComponent(transform);
 		}
-		/*
-		if (ui_transform != nullptr)
-		{
-			RemoveComponent(ui_transform);
-		}
-		
-		ui_transform = new RectTransform();*/
 
-	case CANVAS:
-		component = new Canvas(this);
-
+		transform = new Transform();
+		component = transform;
+		break;
+	case MESH:
+		component = new GnMesh();
+		break;
+	case MATERIAL:
+		component = new Material(this);
+		break;
+	case CAMERA:
+		component = new Camera(this);
+		break;
+	case LIGHT:
+		component = new Light(this);
+		break;
 	default:
 		break;
 	}

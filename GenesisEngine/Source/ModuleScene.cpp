@@ -6,7 +6,6 @@
 #include "FileSystem.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "UI.h"
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr) 
 {
@@ -66,9 +65,6 @@ update_status ModuleScene::Update(float dt)
 	HandleInput();
 
 	root->Update();
-	//App->ui->SetUpOrtho();
-	//root->UpdateUI();
-	//App->ui->ResetRender();
 
 	return UPDATE_CONTINUE;
 }

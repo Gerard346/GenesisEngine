@@ -16,7 +16,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	scene = new ModuleScene(true);
 	editor = new Editor(true);
 	resources = new ModuleResources(true);
-	ui = new UI(true);
+
 	// Main Modules
 	AddModule(window);
 	AddModule(resources);
@@ -27,7 +27,6 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 
 	// Renderer last!
 	AddModule(renderer3D);
-	//AddModule(renderer2D);
 
 	int cap = 60;
 	capped_ms = 1000 / cap;
