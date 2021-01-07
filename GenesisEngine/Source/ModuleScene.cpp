@@ -30,11 +30,17 @@ bool ModuleScene::Start()
 	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
 	//AddGameObject(baker_house);
 	
-	GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
-	AddGameObject(rayman);
+	GameObject* water = App->resources->RequestGameObject("Assets/Models/complex_plane.fbx");
+	water->UpdateChildrenTransforms();
+	AddGameObject(water);
 
-	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	AddGameObject(street_environment);
+	/*GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
+	AddGameObject(rayman);
+	rayman->GetTransform()->SetScale(float3(0.15, 0.15, 0.15));
+	rayman->UpdateChildrenTransforms();*/
+
+	//GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	//AddGameObject(street_environment);
 	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
@@ -43,7 +49,7 @@ bool ModuleScene::Start()
 	AddGameObject(camera);
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
 
-	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+	selectedGameObject = nullptr;
 
 	return ret;
 }
@@ -71,7 +77,7 @@ update_status ModuleScene::Update(float dt)
 
 void ModuleScene::HandleInput()
 {
-	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && (selectedGameObject != nullptr) && (selectedGameObject != root))
+	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) && (selectedGameObject != nullptr) && (selectedGameObject != root) && App->editor->scene_window_focused)
 		selectedGameObject->to_delete = true;
 
 	if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN))
@@ -209,7 +215,7 @@ bool ModuleScene::Load(const char* scene_file)
 {
 	bool ret = true;
 
-	std::string format = FileSystem::GetFileFormat(scene_file);
+	std::string format = FileSystem::GetFileExtension(scene_file);
 	if (format != ".scene")
 	{
 		LOG_WARNING("%s is not a valid scene format and can't be loaded", scene_file);

@@ -6,11 +6,15 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "ResourceTexture.h"
+#include "ResourceShader.h"
 #include "glew/include/glew.h"
 #include "ResourceMaterial.h"
 #include "WindowAssets.h"
+#include "WindowShaderEditor.h"
+#include "Transform.h"
+#include "Time.h"
 
-Material::Material() : Component(), checkers_image(false), _resource(nullptr), colored(false)
+Material::Material() : Component(), checkers_image(false), _resource(nullptr), colored(false), shader(nullptr)
 {
 	type = ComponentType::MATERIAL;
 
@@ -42,6 +46,9 @@ Material::Material(GameObject* gameObject) : Component(gameObject), checkers_ima
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	//shader = dynamic_cast<ResourceShader*>(App->resources->RequestResource(App->resources->Find("Assets/Shaders/default_shader.vert")));
+	shader = dynamic_cast<ResourceShader*>(App->resources->RequestResource(App->resources->Find("Assets/Shaders/water_shader.vert")));
 }
 
 Material::~Material()
@@ -95,7 +102,9 @@ void Material::BindTexture()
 	else if (!checkers_image)
 	{
 		if (_diffuseTexture != nullptr && App->resources->Exists(_resource->diffuseTextureUID))
+		{
 			_diffuseTexture->BindTexture();
+		}
 		else
 			AssignCheckersImage();
 	}
@@ -103,6 +112,24 @@ void Material::BindTexture()
 	{
 		glBindTexture(GL_TEXTURE_2D, checkersID);
 	}
+}
+
+void Material::UseShader()
+{
+	shader->Use();
+
+	BindTexture();
+
+	shader->SetMat4("model_matrix", _gameObject->GetTransform()->GetGlobalTransform().Transposed().ptr());
+	shader->SetMat4("view", App->camera->GetViewMatrixM().Transposed().ptr());
+	shader->SetMat4("projection", App->camera->GetProjectionMatrixM().Transposed().ptr());
+	
+	float4x4 normalMatrix = _gameObject->GetTransform()->GetGlobalTransform();
+	normalMatrix.Inverse();
+	normalMatrix.Transpose();
+	shader->SetMat4("normalMatrix", normalMatrix.ptr());
+
+	shader->SetFloat("time", Time::realClock.timeSinceStartup());
 }
 
 void Material::Save(GnJSONArray& save_array)
@@ -212,7 +239,39 @@ void Material::OnEditor()
 			}
 		}
 
-		ImGui::Text("UID: %d", _resourceUID);
+		ImGui::Text("Material UID: %d", _resourceUID);
+
+		ImGui::Spacing();
+		ImGui::Separator();
+		ImGui::Spacing();
+
+		ImGui::Text("Shader: ");
+		ImGui::SameLine();
+		ImGui::Button(shader->name.c_str());
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS"))
+			{
+				IM_ASSERT(payload->DataSize == sizeof(int));
+				int UID = *(const int*)payload->Data;
+				shader = dynamic_cast<ResourceShader*>(App->resources->RequestResource(UID));
+			}
+			ImGui::EndDragDropTarget();
+		}
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		if(ImGui::Button("Open Shader editor")) {
+			WindowShaderEditor* shaderEditor = dynamic_cast<WindowShaderEditor*>(App->editor->windows[SHADER_EDITOR_WINDOW]);
+			shaderEditor->Open(shader->assetsFile.c_str());
+		}
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		shader->OnEditor();
 	}
 }
 

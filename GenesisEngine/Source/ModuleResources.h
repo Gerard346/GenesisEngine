@@ -25,6 +25,7 @@ public:
 	~ModuleResources();
 
 	bool Init() override;
+	bool Start() override;
 	bool CleanUp() override;
 	void OnEditor();
 	void LoadEngineAssets(AssetsIcons& icons);
@@ -56,6 +57,7 @@ public:
 
 	Resource* CreateResource(const char* assetsPath, ResourceType type, uint UID = 0);
 	Resource* CreateResource(uint UID, ResourceType type, std::string assets_file = "");
+	Resource* GetResource(uint UID);
 	Resource* RequestResource(uint UID);
 	ResourceData RequestResourceData(uint UID);
 	GameObject* RequestGameObject(const char* assets_file);
@@ -85,6 +87,6 @@ public:
 private:
 	std::map<uint, Resource*> resources;
 	std::map<uint, ResourceData> resources_data;
-	int _toDeleteAsset;
-	int _toDeleteResource;
+	std::string _toDeleteAsset;
+	uint _toDeleteResource;
 };
