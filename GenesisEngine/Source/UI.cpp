@@ -60,7 +60,7 @@ void UI::SetUpOrtho()
 	glLoadIdentity();
 
 	//
-	/*
+
 	float2 position;
 	float width = App->window->width;
 	float height = App->window->height;
@@ -77,7 +77,7 @@ void UI::SetUpOrtho()
 	glVertex2f(0.0f, 0.0f);
 	glVertex2f(width, 0.0f);
 	glVertex2f(width, height);
-	glEnd();*/
+	glEnd();
 	/*
 	static const GLfloat vertex[] = {
 	position.x, position.y, 0,

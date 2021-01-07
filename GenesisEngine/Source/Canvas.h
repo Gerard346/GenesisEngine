@@ -8,6 +8,11 @@
 class GameObject;
 class RectTransform;
 
+struct DataCanvas {
+	float2 size;
+	float2 position;
+};
+
 class Canvas : public Component {
 public:
 	Canvas();
@@ -20,11 +25,13 @@ public:
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
 
-	void Draw();
+	DataCanvas GetDataCanvas();
 
 private:
+	DataCanvas canvas_data;
 
-
+	uint width = 0;
+	uint height = 0;
 	
 	//RectTransform* ui_transform = nullptr;
 };

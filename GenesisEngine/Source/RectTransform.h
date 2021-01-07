@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include "Component.h"
 #include "UI.h"
@@ -13,7 +13,7 @@ public:
 	void Update() override;
 	void OnEditor() override;
 
-	void SetTransform(float3 new_scale, Quat new_rotation, float3 new_position);
+	void SetTransform(float3 new_scale, Quat rotation, float3 position);
 	void SetWidth(float new_width);
 	void SetHeight(float new_height);
 
@@ -23,8 +23,6 @@ public:
 
 	float GetWidth() const;
 	float GetHeight() const;
-
-	bool GetFullScreen() { return full_screen; }
 
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
@@ -47,5 +45,4 @@ private:
 	Quat rotation = Quat::identity;
 
 	bool update = false;
-	bool full_screen = true;
-};
+};*/

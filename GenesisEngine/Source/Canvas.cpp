@@ -6,21 +6,16 @@
 #include "WindowAssets.h"
 #include "Canvas.h"
 #include "RectTransform.h"
-#include "glew/include/glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include "ImGuizmo/ImGuizmo.h"
 
-Canvas::Canvas() : Component(nullptr)
+Canvas::Canvas()
 {
-	type = ComponentType::CANVAS_UI;
+	type = ComponentType::CANVAS;
 	is_UI = true;
 }
 
-Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
+Canvas::Canvas(GameObject* gameobject)
 {
-	type = ComponentType::CANVAS_UI;
+	type = ComponentType::CANVAS;
 	is_UI = true;
 }
 
@@ -30,7 +25,7 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
-	Draw();
+	
 }
 
 void Canvas::OnEditor()
@@ -45,25 +40,7 @@ void Canvas::Load(GnJSONObj& load_object)
 {
 }
 
-void Canvas::Draw()
+DataCanvas Canvas::GetDataCanvas()
 {
-	float2 position;
-	float width = _gameObject->GetRectTransform()->GetWidth();
-	float height = _gameObject->GetRectTransform()->GetHeight();
-	float size = 250.0f;
-
-	position.x = 0 / 2;
-	position.y = 000 / 2;
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-	glBegin(GL_QUADS);
-	glVertex2f(0.0f, height);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(width, 0.0f);
-	glVertex2f(width, height);
-	glEnd(); 
+	return canvas_data;
 }
-
-

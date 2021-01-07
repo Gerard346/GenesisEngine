@@ -14,7 +14,7 @@ enum ComponentType {
 	MATERIAL, 
 	CAMERA, 
 	LIGHT,
-	CANVAS_UI,
+	CANVAS,
 	IMAGE,
 	TEXT,
 	BUTTON,

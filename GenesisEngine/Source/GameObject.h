@@ -40,10 +40,7 @@ public:
 	const char* GetName();
 	void SetName(const char* name);
 	void SetTransform(Transform transform);
-
 	Transform* GetTransform();
-	RectTransform* GetRectTransform();
-
 	AABB GetAABB();
 	bool IsVisible();
 

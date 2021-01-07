@@ -30,6 +30,7 @@ Material::Material() : Component(), checkers_image(false), _resource(nullptr), c
 Material::Material(GameObject* gameObject) : Component(gameObject), checkers_image(false), _resource(nullptr), _diffuseTexture(nullptr)
 {
 	type = ComponentType::MATERIAL;
+
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &checkersID);
 	glBindTexture(GL_TEXTURE_2D, checkersID);

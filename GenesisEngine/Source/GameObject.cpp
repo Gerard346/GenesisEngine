@@ -17,8 +17,6 @@
 GameObject::GameObject() : enabled(true), name("Empty Game Object"), _parent(nullptr), to_delete(false), transform(nullptr), _visible(false)
 {
 	transform = (Transform*)AddComponent(TRANSFORM);
-	ui_transform = (RectTransform*)AddComponent(RECT_TRANSFORM);
-
 	UUID = LCG().Int();
 }
 
@@ -33,9 +31,6 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		break;
 	case ComponentType::LIGHT:
 		name = "Light";
-		break;
-	case ComponentType::CANVAS_UI:
-		name = "Canvas";
 		break;
 	default:
 		break;
@@ -53,7 +48,6 @@ GameObject::~GameObject()
 	}
 
 	transform = nullptr;
-	ui_transform = nullptr;
 	components.clear();
 	children.clear();
 	name.clear();
@@ -66,13 +60,12 @@ void GameObject::Update()
 	{
 		for (size_t i = 0; i < components.size(); i++)
 		{
-			if (components[i]->GetIsUI()) {
-				continue;
-			}
 			//Update Components
 			if (components[i]->IsEnabled()) 
 			{
-				
+				if (components[i]->GetIsUI()) {
+					continue;
+				}
 				if (components[i]->GetType() == ComponentType::MESH) 
 				{
 						GnMesh* mesh = (GnMesh*)components[i];
@@ -106,21 +99,11 @@ void GameObject::UpdateUI()
 	{
 		for (size_t i = 0; i < components.size(); i++)
 		{
-			if (!components[i]->GetIsUI()) {
-				continue;
-			}
 			//Update Components
 			if (components[i]->IsEnabled())
 			{
-
-				if (components[i]->GetType() == ComponentType::MESH)
-				{
-					GnMesh* mesh = (GnMesh*)components[i];
-					GenerateAABB(mesh);
-
-					if (App->renderer3D->IsInsideCameraView(_AABB)) {
-						mesh->Update();
-					}
+				if (!components[i]->GetIsUI()) {
+					continue;
 				}
 
 				else
@@ -133,7 +116,7 @@ void GameObject::UpdateUI()
 		//Update Children
 		for (size_t i = 0; i < children.size(); i++)
 		{
-			children[i]->UpdateUI();
+			children[i]->Update();
 		}
 
 
@@ -266,46 +249,49 @@ Component* GameObject::AddComponent(ComponentType type)
 	switch (type)
 	{
 	case TRANSFORM:
-		if (transform != nullptr)
+		/*if (transform != nullptr)
 		{
 			RemoveComponent(transform);
 		}
 		if (ui_transform != nullptr)
 		{
 			RemoveComponent(ui_transform);
-		}
+		}*/
 		transform = new Transform();
 		component = transform;
 		break;
 
 	case MESH:
-		RemoveComponent(ui_transform);
 		component = new GnMesh();
 		break;
 
 	case MATERIAL:
-		RemoveComponent(ui_transform);
 		component = new Material(this);
 		break;
 
 	case CAMERA:
-		RemoveComponent(ui_transform);
 		component = new Camera(this);
 		break;
 
 	case LIGHT:
-		RemoveComponent(ui_transform);
 		component = new Light(this);
 		break;
 	//UI Components
-	case RECT_TRANSFORM:
-		ui_transform = new RectTransform();
-		component = ui_transform;
-		break;
-	case CANVAS_UI:
-		RemoveComponent(transform);
+		if (transform != nullptr)
+		{
+			RemoveComponent(transform);
+		}
+		/*
+		if (ui_transform != nullptr)
+		{
+			RemoveComponent(ui_transform);
+		}
+		
+		ui_transform = new RectTransform();*/
+
+	case CANVAS:
 		component = new Canvas(this);
-		break;
+
 	default:
 		break;
 	}
@@ -355,15 +341,7 @@ void GameObject::SetTransform(Transform g_transform)
 
 Transform* GameObject::GetTransform()
 {
-	if (transform == nullptr) {
-		return nullptr;
-	}
 	return transform;
-}
-
-RectTransform* GameObject::GetRectTransform()
-{
-	return ui_transform;
 }
 
 AABB GameObject::GetAABB()
