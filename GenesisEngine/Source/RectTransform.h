@@ -4,6 +4,8 @@
 #include "UI.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
+class Canvas;
+
 class RectTransform : public Component {
 public:
 	RectTransform();
@@ -66,6 +68,9 @@ public:
 
 	void SetAtMiddle();
 
+	GameObject* GetCanvas();
+	void SetCanvas(GameObject* _canvas);
+
 public:
 
 private:
@@ -82,6 +87,8 @@ private:
 	Quat _rotation;
 	float3 _scale;
 	float3 _eulerRotation;
+
+	Canvas* canvas_parent = nullptr;
 
 	bool update = false;
 	bool full_screen = true;

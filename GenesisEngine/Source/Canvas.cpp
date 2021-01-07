@@ -25,7 +25,11 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	is_UI = true;
 	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
 	ui_transform = _gameObject->GetRectTransform();
-	ui_transform->SetPivot(pivot);
+
+
+	GameObject* root_scene = App->scene->GetRoot();
+	gameobject->SetParent(root_scene);
+	root_scene->AddChild(gameobject);
 }
 
 Canvas::~Canvas()

@@ -2,20 +2,30 @@
 #include "FileSystem.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "RectTransform.h"
 #include "GnJSON.h"
 #include "Image.h"
 #include "ResourceTexture.h"
 
-Image::Image()
+Image::Image() : Component(nullptr)
 {
 	type = ComponentType::IMAGE;
 	is_UI = true;
+
+	
+
 }
 
-Image::Image(GameObject* gameObject)
+Image::Image(GameObject* gameObject) : Component(gameObject)
 {
 	type = ComponentType::IMAGE;
 	is_UI = true;
+
+	gameObject->AddComponent(ComponentType::RECT_TRANSFORM);
+	ui_transform = _gameObject->GetRectTransform();
+	GameObject* canvas = ui_transform->GetCanvas();
+	canvas->AddChild(gameObject);
+	ui_transform->SetCanvas(canvas);
 }
 
 Image::~Image()

@@ -107,10 +107,15 @@ bool ModuleScene::CleanUp()
 
 void ModuleScene::AddGameObject(GameObject* gameObject)
 {
-	if (gameObject != nullptr) 
+	if (gameObject != nullptr)
 	{
-		gameObject->SetParent(root);
-		root->AddChild(gameObject);
+		if (gameObject->isUI()) {
+
+		}
+		else {
+			gameObject->SetParent(root);
+			root->AddChild(gameObject);
+		}
 
 		selectedGameObject = gameObject;
 	}

@@ -206,3 +206,26 @@ void RectTransform::SetAtMiddle()
 
 	SetPosition(mid_x - width/2, mid_y - height/2, 0);
 }
+
+GameObject* RectTransform::GetCanvas()
+{
+	GameObject* ret = nullptr;
+
+	std::vector<GameObject*> sceneGameObjects = App->scene->GetAllGameObjects();
+
+	for (size_t i = 0; i < sceneGameObjects.size(); i++)
+	{
+		Canvas* ret_canvas = ((Canvas*)sceneGameObjects.at(i)->GetComponent(ComponentType::CANVAS_UI));
+		
+		if (ret_canvas != nullptr) {
+			return sceneGameObjects[i];
+		}
+	}
+
+}
+
+void RectTransform::SetCanvas(GameObject* _canvas)
+{
+	canvas_parent = (Canvas*)_canvas->GetComponent(ComponentType::CANVAS_UI);
+	_gameObject->SetParent(_canvas);
+}

@@ -8,6 +8,7 @@
 
 class GameObject;
 class GnTexture;
+class Canvas;
 
 class ModuleScene : public Module
 {
