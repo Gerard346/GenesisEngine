@@ -1,5 +1,6 @@
 #include "ImGui/imgui.h"
 #include "FileSystem.h"
+#include "ModuleInput.h"
 #include "GnJSON.h"
 #include "GameObject.h"
 #include "Application.h"
@@ -22,6 +23,8 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 {
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
+
+	RectTransform* ui_transform = _gameObject->GetRectTransform();
 }
 
 Canvas::~Canvas()
@@ -30,6 +33,14 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
+	if (draggable) {
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+			RectTransform* ui_transform = _gameObject->GetRectTransform();
+			float3 canvas_pos = ui_transform->GetPosition();
+			ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
+		}
+	}
+
 	Draw();
 }
 
@@ -60,9 +71,11 @@ void Canvas::Draw()
 
 	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 	glBegin(GL_QUADS);
-	glVertex2f(0.0f, height);
+
 	glVertex2f(position.x, position.y);
-	glVertex2f(width, 0.0f);
-	glVertex2f(width, height);
+	glVertex2f(position.x + width, position.y);
+	glVertex2f(position.x + width, position.y + height);
+	glVertex2f(position.x, position.y + height);
+
 	glEnd();
 }
