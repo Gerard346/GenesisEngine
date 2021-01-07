@@ -4,7 +4,9 @@
 #include "Component.h"
 
 class GameObject;
+class RectTransform;
 class ResourceTexture;
+class Canvas;
 
 class Image : public Component {
 public:
@@ -24,5 +26,5 @@ public:
 	uint GetImageID() const;
 
 private:
-
+	RectTransform* ui_transform = nullptr;
 };

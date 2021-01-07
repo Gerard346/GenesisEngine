@@ -2,7 +2,6 @@
 
 #include "Globals.h"
 #include "Component.h"
-#include <list>
 #include "MathGeoLib/include/Math/float2.h"
 
 class GameObject;
@@ -21,7 +20,6 @@ public:
 	void Load(GnJSONObj& load_object) override;
 
 	void Draw();
-	bool IsInsideCanvas();
 	void MoveCanvas();
 
 	void SetDraggable();
@@ -29,5 +27,4 @@ public:
 private:
 	bool draggable = false;
 	RectTransform* ui_transform = nullptr;
-	float2 pivot = { 0.0f, 0.0f };
 };
