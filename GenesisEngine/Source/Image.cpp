@@ -24,11 +24,6 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 	gameObject->AddComponent(ComponentType::RECT_TRANSFORM);
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
-
-	if (canvas == nullptr) {
-		App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
-	}
-	canvas = ui_transform->GetCanvas();
 	canvas->AddChild(gameObject);
 	ui_transform->SetCanvas(canvas);
 }
@@ -43,15 +38,6 @@ void Image::Update()
 
 void Image::OnEditor()
 {
-	if (ImGui::CollapsingHeader("Image", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		const char* items[] = { "Background image", "Button Image", "Menu", "Box", "Check", "Crosshair" };
-		static int item_current = 1;
-		if (ImGui::ListBox("listbox\n(single select)", &item_current, items, IM_ARRAYSIZE(items), 4)) {
-			LOG("%d", item_current);
-		}
-	}
-	ImGui::Spacing();
 }
 
 void Image::Save(GnJSONArray& save_array)

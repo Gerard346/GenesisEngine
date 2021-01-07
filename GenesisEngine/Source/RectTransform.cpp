@@ -221,6 +221,7 @@ GameObject* RectTransform::GetCanvas()
 			return sceneGameObjects[i];
 		}
 	}
+
 }
 
 void RectTransform::SetCanvas(GameObject* _canvas)
