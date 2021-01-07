@@ -88,8 +88,7 @@ void WindowScene::Draw()
 		}
 		ImGui::PopID();
 
-			App->scene->EditTransform();
-		
+		App->scene->EditTransform();
 	}
 	ImGui::End();
 	ImGui::PopStyleVar();
