@@ -22,6 +22,7 @@ public:
 
 	void Draw();
 	bool IsInsideCanvas();
+	void MoveCanvas();
 
 	void SetDraggable();
 
