@@ -44,12 +44,7 @@ Image::~Image()
 
 void Image::Update()
 {
-	if (ui_transform->GetVisible()) {
-		if (ui_transform->GetInteractive()) {
-
-		}
-		Draw();
-	}
+	Draw();
 }
 
 void Image::OnEditor()
@@ -80,30 +75,8 @@ void Image::OnEditor()
 				LOG("Crosshair img");
 			}
 		}
-		bool full_screen = ui_transform->GetFullScreen();
-		if (ImGui::Checkbox("Full Screen", &full_screen)) {
-			ui_transform->SetFullScreen();
-		}
-		ImGui::Spacing();
-
-		bool interactive = ui_transform->GetInteractive();
-		if (ImGui::Checkbox("Set Interactive", &interactive)) {
-			ui_transform->SetInteractive();
-		}
-		ImGui::Spacing();
-
-		bool visible = ui_transform->GetVisible();
-		if (ImGui::Checkbox("Set visibility", &visible)) {
-			ui_transform->SetVisible();
-		}
-
-		bool set_up_at_mid = ui_transform->GetMid();
-		if (ImGui::Checkbox("Set mid canvas", &set_up_at_mid)) {
-			ui_transform->SetMid();
-		}
-
-		ImGui::Spacing();
 	}
+	ImGui::Spacing();
 }
 
 void Image::Draw()
