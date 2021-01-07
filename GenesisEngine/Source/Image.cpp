@@ -30,12 +30,9 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
 
-	ui_transform->SetFullScreen();
-
 	if (canvas == nullptr) {
 		App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 	}
-
 	canvas = ui_transform->GetCanvas();
 	canvas->AddChild(gameObject);
 	ui_transform->SetCanvas(canvas);
@@ -49,13 +46,7 @@ void Image::Update()
 {
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
-			if (App->editor->MouseOnScene()) {
-				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
-					if (ui_transform->IsInsideUIElement()) {
-						App->scene->selectedGameObject = this->GetGameObject();
-					}
-				}
-			}
+
 		}
 		Draw();
 	}
