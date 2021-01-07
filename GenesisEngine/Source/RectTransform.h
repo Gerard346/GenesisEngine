@@ -63,7 +63,7 @@ public:
 	bool GetMid(){ return mid; }
 	void SetMid() { 
 		SetAtMiddle(); 
-		mid = false;
+		mid = !mid;
 	}
 
 	void SetAtMiddle();

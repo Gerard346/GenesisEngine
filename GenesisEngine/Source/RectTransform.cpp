@@ -27,6 +27,9 @@ void RectTransform::Update()
 		_position.x = 0.0f + pivot.x;
 		_position.y = 0.0f + pivot.y;
 	}
+	if (mid) {
+		SetAtMiddle();
+	}
 }
 
 void RectTransform::OnEditor()

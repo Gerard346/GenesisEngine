@@ -1,10 +1,10 @@
 #pragma once
 #include "Globals.h"
 #include "Component.h"
-#include "Image.h"
 
 class GameObject;
 class ResourceTexture;
+class Image;
 
 class Button : public Component {
 public:
@@ -22,7 +22,5 @@ public:
 
 private:
 	Image* button = nullptr;
-	ResourceTexture* clicked = nullptr;
-	ResourceTexture* hover = nullptr;
 
 };

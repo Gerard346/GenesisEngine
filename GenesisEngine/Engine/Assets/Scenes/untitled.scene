@@ -1,7 +1,7 @@
 {
     "Game Objects": [
         {
-            "UUID": 1140890497,
+            "UUID": 1917539040,
             "Parent UUID": 0,
             "Name": "Root",
             "Components": [
@@ -28,7 +28,7 @@
         },
         {
             "UUID": 1919438695,
-            "Parent UUID": 1140890497,
+            "Parent UUID": 1917539040,
             "Name": "rayman",
             "Components": [
                 {
@@ -124,7 +124,7 @@
         },
         {
             "UUID": 278822943,
-            "Parent UUID": 1140890497,
+            "Parent UUID": 1917539040,
             "Name": "street environment_v01",
             "Components": [
                 {
@@ -1368,8 +1368,8 @@
             ]
         },
         {
-            "UUID": 695372090,
-            "Parent UUID": 1140890497,
+            "UUID": 1165477285,
+            "Parent UUID": 1917539040,
             "Name": "Main Camera",
             "Components": [
                 {
@@ -1422,6 +1422,18 @@
                     ]
                 }
             ]
+        },
+        {
+            "UUID": 1027600057,
+            "Parent UUID": 1917539040,
+            "Name": "Canvas",
+            "Components": []
+        },
+        {
+            "UUID": 944194099,
+            "Parent UUID": 1027600057,
+            "Name": "Image",
+            "Components": []
         }
     ]
 } 
