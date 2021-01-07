@@ -58,14 +58,6 @@ public:
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
 
-	bool GetMid(){ return mid; }
-	void SetMid() { 
-		SetAtMiddle(); 
-		mid = false;
-	}
-
-	void SetAtMiddle();
-
 public:
 
 private:
@@ -87,5 +79,4 @@ private:
 	bool full_screen = true;
 	bool interactive = true;
 	bool visible = true;
-	bool mid = false;
 };

@@ -78,12 +78,6 @@ void Canvas::OnEditor()
 		if (ImGui::Checkbox("Set visibility canvas", &visible)) {
 			ui_transform->SetVisible();
 		}
-
-		bool set_up_at_mid = ui_transform->GetMid();
-		if (ImGui::Checkbox("Set mid canvas", &set_up_at_mid)) {
-			ui_transform->SetMid();
-		}
-
 		ImGui::Spacing();
 	}
 }
