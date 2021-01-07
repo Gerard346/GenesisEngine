@@ -198,3 +198,11 @@ void RectTransform::Save(GnJSONArray& save_array)
 void RectTransform::Load(GnJSONObj& load_object)
 {
 }
+
+void RectTransform::SetAtMiddle()
+{
+	float mid_x = App->editor->image_size.x / 2;
+	float mid_y = App->editor->image_size.y / 2;
+
+	SetPosition(mid_x - width / 2, mid_y - height / 2, 0);
+}
