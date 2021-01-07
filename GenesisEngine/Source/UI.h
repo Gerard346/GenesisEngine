@@ -3,7 +3,6 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include <string>
 
 class UI : public Module {
 public:
@@ -21,6 +20,7 @@ public:
 	void ResetRender();
 
 private:
+
 };
 
 #endif // ! _UI_H_
