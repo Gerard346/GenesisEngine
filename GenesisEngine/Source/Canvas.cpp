@@ -26,7 +26,7 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
 	ui_transform = _gameObject->GetRectTransform();
 
-
+	ui_transform->SetInteractive();
 	GameObject* root_scene = App->scene->GetRoot();
 	gameobject->SetParent(root_scene);
 	root_scene->AddChild(gameobject);
@@ -41,11 +41,6 @@ void Canvas::Update()
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
-				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
-					if (ui_transform->IsInsideUIElement()) {
-						App->scene->selectedGameObject = this->GetGameObject();
-					}
-				}
 				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 					if (draggable) {
 						MoveCanvas();
