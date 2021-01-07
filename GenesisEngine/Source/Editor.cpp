@@ -381,9 +381,6 @@ bool Editor::CreateMainMenuBar() {
 			else if (ImGui::MenuItem("Canvas")) {
 				App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 			}
-			else if (ImGui::MenuItem("Image")) {
-				App->scene->AddGameObject(new GameObject(ComponentType::IMAGE));
-			}
 			ImGui::EndMenu();
 		}
 

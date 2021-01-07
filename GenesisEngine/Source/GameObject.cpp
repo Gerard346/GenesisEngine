@@ -6,10 +6,10 @@
 #include "Material.h"
 #include "Camera.h"
 #include "Canvas.h"
-#include "Image.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
+#include "Image.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
 #include <vector>
@@ -36,10 +36,6 @@ GameObject::GameObject(ComponentType component) : GameObject()
 	case ComponentType::CANVAS_UI:
 		RemoveComponent(transform);
 		name = "Canvas";
-		break;
-	case ComponentType::IMAGE:
-		RemoveComponent(transform);
-		name = "Image";
 		break;
 	default:
 		break;
