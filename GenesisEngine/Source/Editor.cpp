@@ -105,7 +105,7 @@ update_status Editor::Draw()
 {
 	for (size_t i = 0; i < MAX_WINDOWS; i++)
 	{
-		if(windows[i]->visible)
+		if (windows[i]->visible)
 			windows[i]->Draw();
 	}
 
@@ -116,7 +116,7 @@ update_status Editor::Draw()
 	{
 		if (ImGui::Begin("Console", &show_console_window, ImGuiWindowFlags_MenuBar)) {
 
-			if (ImGui::BeginMenuBar()) 
+			if (ImGui::BeginMenuBar())
 			{
 				if (ImGui::MenuItem("Clear"))
 				{
@@ -183,7 +183,7 @@ bool Editor::CleanUp()
 bool Editor::LoadConfig(GnJSONObj& config)
 {
 	GnJSONArray jsonWindows(config.GetArray("windows"));
-	
+
 	GnJSONObj window = jsonWindows.GetObjectInArray("scene");
 	windows[SCENE_WINDOW]->visible = window.GetBool("visible");
 
@@ -207,7 +207,7 @@ bool Editor::LoadConfig(GnJSONObj& config)
 
 	window = jsonWindows.GetObjectInArray("about");
 	windows[ABOUT_WINDOW]->visible = window.GetBool("visible");
-	
+
 	return true;
 }
 
@@ -218,8 +218,8 @@ bool Editor::IsSceneFocused()
 
 bool Editor::MouseOnScene()
 {
-	return mouseScenePosition.x > 0 && mouseScenePosition.x < image_size.x 
-		   && mouseScenePosition.y > 0 && mouseScenePosition.y < image_size.y;
+	return mouseScenePosition.x > 0 && mouseScenePosition.x < image_size.x
+		&& mouseScenePosition.y > 0 && mouseScenePosition.y < image_size.y;
 }
 
 void Editor::AddConsoleLog(const char* log, int warning_level)
@@ -228,7 +228,7 @@ void Editor::AddConsoleLog(const char* log, int warning_level)
 	console_log.push_back(message);
 }
 
-update_status Editor::ShowDockSpace(bool* p_open) 
+update_status Editor::ShowDockSpace(bool* p_open)
 {
 	update_status ret = UPDATE_CONTINUE;
 
@@ -257,7 +257,7 @@ update_status Editor::ShowDockSpace(bool* p_open)
 	if (!opt_padding)
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-	if(ImGui::Begin("DockSpace", p_open, window_flags)){
+	if (ImGui::Begin("DockSpace", p_open, window_flags)) {
 		if (!opt_padding)
 			ImGui::PopStyleVar();
 
@@ -335,7 +335,7 @@ bool Editor::CreateMainMenuBar() {
 			}
 			ImGui::EndMenu();
 		}
-	
+
 		if (ImGui::BeginMenu("Game Object"))
 		{
 			if (ImGui::MenuItem("Empty Object"))
@@ -377,6 +377,9 @@ bool Editor::CreateMainMenuBar() {
 			else if (ImGui::MenuItem("Camera"))
 			{
 				App->scene->AddGameObject(new GameObject(ComponentType::CAMERA));
+			}
+			else if (ImGui::MenuItem("Canvas")) {
+				App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 			}
 			ImGui::EndMenu();
 		}
@@ -456,14 +459,14 @@ void Editor::ShowGameButtons()
 		}
 
 		ImGui::NextColumn();
-		if (Time::gameClock.paused) 
+		if (Time::gameClock.paused)
 		{
 			if (ImGui::Button("Resume", ImVec2(45, 20)))
 				Time::gameClock.Resume();
 		}
-		else 
+		else
 		{
-			if (ImGui::Button("Pause", ImVec2(45, 20))) 
+			if (ImGui::Button("Pause", ImVec2(45, 20)))
 				Time::gameClock.Pause();
 		}
 
@@ -480,7 +483,7 @@ void Editor::LoadFile(const char* filter_extension, const char* from_dir)
 
 		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
 		ImGui::BeginChild("File Browser", ImVec2(0, 300), true);
-		 DrawDirectoryRecursive(from_dir, filter_extension);
+		DrawDirectoryRecursive(from_dir, filter_extension);
 		ImGui::EndChild();
 		ImGui::PopStyleVar();
 
@@ -584,7 +587,7 @@ void Editor::DrawDirectoryRecursive(const char* directory, const char* filter_ex
 		{
 			flags = ImGuiTreeNodeFlags_None;
 
-			if(ImGui::IsItemClicked())
+			if (ImGui::IsItemClicked())
 				sprintf_s(selected_folder, 256, "%s%s", directory, (*it).c_str());
 
 			DrawDirectoryRecursive((dir + (*it)).c_str(), filter_extension);
@@ -608,7 +611,7 @@ void Editor::DrawDirectoryRecursive(const char* directory, const char* filter_ex
 		flags = ImGuiTreeNodeFlags_Leaf;
 
 		std::string complete_path = std::string(directory) + "/" + str;
-		if(strcmp(selected_file, complete_path.c_str()) == 0)
+		if (strcmp(selected_file, complete_path.c_str()) == 0)
 			flags |= ImGuiTreeNodeFlags_Selected;
 
 		if (ok && ImGui::TreeNodeEx(str.c_str(), flags))
@@ -635,4 +638,3 @@ void Editor::OnResize(ImVec2 window_size)
 	App->camera->OnResize(image_size.x, image_size.y);
 	App->renderer3D->OnResize(image_size.x, image_size.y);
 }
-

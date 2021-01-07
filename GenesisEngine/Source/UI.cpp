@@ -60,24 +60,22 @@ void UI::SetUpOrtho()
 	glLoadIdentity();
 
 	//
-
+	/*
 	float2 position;
 	float width = App->window->width;
 	float height = App->window->height;
 	float size = 250.0f;
-
 	position.x = 0 / 2;
 	position.y = 000 / 2;
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	glColor4f(0.3f, 0.1f, 0.8f, 0.5f);
 	glBegin(GL_QUADS);
 	glVertex2f(0.0f, height);
 	glVertex2f(0.0f, 0.0f);
 	glVertex2f(width, 0.0f);
 	glVertex2f(width, height);
-	glEnd();
+	glEnd();*/
 	/*
 	static const GLfloat vertex[] = {
 	position.x, position.y, 0,
