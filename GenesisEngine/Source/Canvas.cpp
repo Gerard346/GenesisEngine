@@ -1,6 +1,5 @@
 #include "ImGui/imgui.h"
 #include "FileSystem.h"
-#include "ModuleInput.h"
 #include "GnJSON.h"
 #include "GameObject.h"
 #include "Application.h"
@@ -33,14 +32,6 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
-	if (draggable) {
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-			RectTransform* ui_transform = _gameObject->GetRectTransform();
-			float3 canvas_pos = ui_transform->GetPosition();
-			ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
-		}
-	}
-
 	Draw();
 }
 
