@@ -44,6 +44,18 @@ public:
 	void SetPosition(float3 new_position);
 	float3 GetPosition();
 
+	void SetRotation(float x, float y, float z);
+	void SetRotation(Quat new_rotation);
+	void SetRotation(float i, float j, float k, float w);
+	Quat GetRotation();
+	void UpdateEulerRotation();
+
+	void SetScale(float x, float y, float z);
+	void SetScale(float3 new_scale);
+	void SetProportionalScale(float multiplier);
+	float3 GetScale();
+
+
 	bool GetFullScreen() { return full_screen; }
 
 	void Save(GnJSONArray& save_array) override;
@@ -61,7 +73,7 @@ private:
 
 	float2 pivot = { 0.5, 0.5f };
 
-	float3 _position = { 0.0f, 0.0f, 0.0f };
+	float3 _position;
 	Quat _rotation;
 	float3 _scale;
 	float3 _eulerRotation;

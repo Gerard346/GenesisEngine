@@ -31,13 +31,29 @@ void RectTransform::OnEditor()
 {
 	if (ImGui::CollapsingHeader("Rect_Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		float position4f[2] = { _position.x, _position.y };
-		if (ImGui::DragFloat2("Position", position4f, 0.1f, -10000.0f, 10000.0f))
+		float position4f[4] = { _position.x, _position.y, _position.z, 1.0f };
+		if (ImGui::DragFloat3("Position", position4f, 0.1f, -10000.0f, 10000.0f))
 		{
-			SetPosition(position4f[0], position4f[1], 0);
+			SetPosition(position4f[0], position4f[1], position4f[2]);
 			UpdateGlobalTransform();
 			_gameObject->UpdateChildrenRectTransforms();
 		}
+
+		float rotation4f[4] = { _eulerRotation.x, _eulerRotation.y, _eulerRotation.z, 1.0f };
+		if (ImGui::DragFloat3("Rotation", rotation4f, 0.1f, -360.0f, 360.0f))
+		{
+			SetRotation(rotation4f[0], rotation4f[1], rotation4f[2]);
+			UpdateGlobalTransform();
+			_gameObject->UpdateChildrenRectTransforms();
+		}
+
+		float scale4f[4] = { _scale.x, _scale.y, _scale.z, 1.0f };
+		if (ImGui::DragFloat3("Scale", scale4f, 0.01f, -10000.0f, 10000.0f))
+		{
+			SetScale(scale4f[0], scale4f[1], scale4f[2]);
+			UpdateGlobalTransform();
+			_gameObject->UpdateChildrenRectTransforms();
+		};
 
 		if (ImGui::DragFloat("Width", &width, 1))
 			SetWidth(width);
@@ -107,11 +123,13 @@ void RectTransform::SetGlobalTransform(float4x4 newTransform)
 void RectTransform::UpdateLocalTransform()
 {
 	_localTransform = float4x4::FromTRS(_position, _rotation, _scale);
+	UpdateEulerRotation();
 }
 
 void RectTransform::UpdateTRS()
 {
 	_localTransform.Decompose(_position, _rotation, _scale);
+	UpdateEulerRotation();
 }
 
 void RectTransform::UpdateGlobalTransform()
@@ -139,7 +157,9 @@ void RectTransform::ChangeParentTransform(float4x4 newParentGlobalTransform)
 void RectTransform::Reset()
 {
 	_position = float3::zero;
+	_rotation = Quat::identity;
 	_scale = float3::one;
+	_eulerRotation = float3::zero;
 
 	UpdateGlobalTransform();
 	_gameObject->UpdateChildrenRectTransforms();
@@ -164,6 +184,72 @@ void RectTransform::SetPosition(float3 new_position)
 float3 RectTransform::GetPosition()
 {
 	return _position;
+}
+
+
+//Set rotation from Euler angles
+void RectTransform::SetRotation(float x, float y, float z)
+{
+	_eulerRotation = float3(x, y, z);
+	_rotation = Quat::FromEulerXYZ(x * DEGTORAD, y * DEGTORAD, z * DEGTORAD);
+	UpdateGlobalTransform();
+}
+
+void RectTransform::SetRotation(Quat new_rotation)
+{
+	_rotation = new_rotation;
+	_eulerRotation = _rotation.ToEulerXYZ() * RADTODEG;
+
+	UpdateGlobalTransform();
+}
+
+void RectTransform::SetRotation(float x, float y, float z, float w)
+{
+	_rotation.x = x;
+	_rotation.y = y;
+	_rotation.z = z;
+	_rotation.w = w;
+
+	UpdateGlobalTransform();
+}
+
+Quat RectTransform::GetRotation()
+{
+	return _rotation;
+}
+
+void RectTransform::UpdateEulerRotation()
+{
+	_eulerRotation = _rotation.ToEulerXYZ();
+	_eulerRotation *= RADTODEG;
+}
+
+void RectTransform::SetScale(float x, float y, float z)
+{
+	_scale.x = x;
+	_scale.y = y;
+	_scale.z = z;
+
+	UpdateGlobalTransform();
+}
+
+void RectTransform::SetScale(float3 new_scale)
+{
+	_scale = new_scale;
+
+	UpdateGlobalTransform();
+}
+
+void RectTransform::SetProportionalScale(float multiplier)
+{
+	_scale.x = _scale.y = _scale.z = multiplier;
+
+	UpdateGlobalTransform();
+}
+
+float3 RectTransform::GetScale()
+{
+	return _scale;
 }
 
 void RectTransform::Save(GnJSONArray& save_array)
