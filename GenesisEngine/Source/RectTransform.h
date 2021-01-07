@@ -20,6 +20,7 @@ public:
 	void SetPostion(float3 new_position);
 	void SetPivot(float2 new_pivot);
 	void SetFullScreen() { full_screen = !full_screen; }
+	bool IsInsideUIElement();
 
 	float3 GetScale() const;
 	float2 GetPivot() const;
