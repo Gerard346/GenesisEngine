@@ -12,6 +12,7 @@ public:
 	Button(GameObject* gameObject);
 	~Button();
 
+	virtual void Update() override;
 	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;

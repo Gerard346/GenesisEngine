@@ -85,17 +85,18 @@ void RectTransform::SetPivot(float2 new_pivot)
 
 bool RectTransform::IsInsideUIElement()
 {
-	float position_x = _position.x;
-	float scene_pos_x = App->editor->mouseScenePosition.x;
-	float position_xw = _position.x + GetWidth();
+	float position_y = App->editor->image_size.y - _position.y;
 
 	if (_position.x < App->editor->mouseScenePosition.x) {
 		if (App->editor->mouseScenePosition.x < _position.x + GetWidth()) {
-			if (_position.y < App->editor->mouseScenePosition.y < _position.y + GetHeight()) {
-				return true;
+			if (position_y > App->editor->mouseScenePosition.y) {
+				if (position_y - GetHeight() < App->editor->mouseScenePosition.y) {
+					return true;
+				}
 			}
-			else
-				return false;
+		}
+		else {
+			return false;
 		}
 	}
 	return false;
