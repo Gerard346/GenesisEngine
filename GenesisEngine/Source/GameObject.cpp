@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Canvas.h"
 #include "Image.h"
+#include "Button.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
@@ -40,6 +41,10 @@ GameObject::GameObject(ComponentType component) : GameObject()
 	case ComponentType::IMAGE:
 		RemoveComponent(transform);
 		name = "Image";
+		break;
+	case ComponentType::BUTTON:
+		RemoveComponent(transform);
+		name = "Button";
 		break;
 	default:
 		break;
@@ -305,6 +310,10 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 	case IMAGE:
 		component = new Image(this);
+		is_ui = true;
+		break;
+	case BUTTON:
+		component = new Button(this);
 		is_ui = true;
 		break;
 	default:

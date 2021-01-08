@@ -16,9 +16,6 @@ Image::Image() : Component(nullptr)
 {
 	type = ComponentType::IMAGE;
 	is_UI = true;
-
-
-
 }
 
 Image::Image(GameObject* gameObject) : Component(gameObject)

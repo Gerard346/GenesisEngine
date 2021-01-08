@@ -12,6 +12,8 @@ public:
 	Button(GameObject* gameObject);
 	~Button();
 
+	void OnEditor() override;
+
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
 
@@ -22,5 +24,5 @@ public:
 
 private:
 	Image* button = nullptr;
-
+	RectTransform* ui_transform = nullptr;
 };

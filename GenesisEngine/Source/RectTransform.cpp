@@ -55,7 +55,7 @@ void RectTransform::OnEditor()
 		if (ImGui::DragFloat("Heigth", &height, 1)) {
 			SetHeight(height);
 			if (lock_aspect_ratio) {
-				SetWidth(height*lock_aspect_ratio);
+				SetWidth(height * aspect_ratio);
 			}
 		}
 
