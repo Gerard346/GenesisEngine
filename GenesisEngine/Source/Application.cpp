@@ -18,6 +18,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	resources = new ModuleResources(true);
 	ui = new UI(true);
 	fade = new ModuleFade(true);
+	function = new Functions(true);
 	// Main Modules
 	AddModule(window);
 	AddModule(resources);
@@ -25,7 +26,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), want_
 	AddModule(input);
 	AddModule(scene);
 	AddModule(editor);
-	AddModule(fade);
+
 	// Renderer last!
 	AddModule(renderer3D);
 

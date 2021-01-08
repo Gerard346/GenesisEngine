@@ -251,6 +251,9 @@
     <ClCompile Include="CheckBox.cpp">
       <Filter>GameObjects &amp; Components\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Functions.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -615,6 +618,9 @@
       <Filter>GameObjects &amp; Components\UI</Filter>
     </ClInclude>
     <ClInclude Include="CheckBox.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
       <Filter>GameObjects &amp; Components\UI</Filter>
     </ClInclude>
   </ItemGroup>

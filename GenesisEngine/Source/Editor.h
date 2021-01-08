@@ -17,6 +17,13 @@ struct log_message {
 	int warning_level;
 };
 
+enum class SceneOperation
+{
+	SAVE,
+	LOAD,
+	NONE
+};
+
 class Editor : public Module 
 {
 public:
@@ -39,6 +46,7 @@ public:
 	void SaveFile(const char* filter_extension, const char* from_dir);
 	void DrawDirectoryRecursive(const char* directory, const char* filter_extension);
 
+	void SetSceneOperation(SceneOperation scene_type);
 private:
 	//Dock Space
 	update_status ShowDockSpace(bool* p_open);
@@ -73,7 +81,7 @@ private:
 	int current_theme;
 
 	std::vector<log_message> console_log;
-
+	SceneOperation scene_operation = SceneOperation::NONE;
 	enum
 	{
 		closed,
@@ -81,12 +89,7 @@ private:
 		ready_to_close
 	} file_dialog = closed;
 
-	enum class SceneOperation
-	{
-		SAVE,
-		LOAD, 
-		NONE
-	}scene_operation = SceneOperation::NONE;
+
 
 	bool in_modal = false;
 	char selected_folder[256];

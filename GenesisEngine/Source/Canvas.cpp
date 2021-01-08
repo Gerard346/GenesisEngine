@@ -23,14 +23,21 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 {
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
+	if (gameobject->GetComponent(RECT_TRANSFORM) != nullptr) {
+		Component* comp = gameobject->GetComponent(RECT_TRANSFORM);
+		gameobject->RemoveComponent(comp);
+	}
 	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
+
 	ui_transform = _gameObject->GetRectTransform();
 
 	ui_transform->SetInteractive();
 	ui_transform->SetLockAspectRatio();
 	GameObject* root_scene = App->scene->GetRoot();
-	gameobject->SetParent(root_scene);
-	root_scene->AddChild(gameobject);
+	if (gameobject->GetParent() == root_scene) {
+		gameobject->SetParent(root_scene);
+		root_scene->AddChild(gameobject);
+	}
 }
 
 Canvas::~Canvas()
@@ -90,10 +97,16 @@ void Canvas::OnEditor()
 
 void Canvas::Save(GnJSONArray& save_array)
 {
+	GnJSONObj save_object;
+	save_object.AddInt("Type", type);
+
+	save_array.AddObject(save_object);
 }
 
 void Canvas::Load(GnJSONObj& load_object)
 {
+	int canvasID = load_object.GetInt("CanvasID");
+	SetResourceUID(canvasID);
 }
 
 void Canvas::Draw()

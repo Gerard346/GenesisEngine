@@ -9,7 +9,7 @@ class Canvas;
 class RectTransform : public Component {
 public:
 	RectTransform();
-	RectTransform(GameObject* gameobject);
+	RectTransform(float3 position, Quat rotation, float3 scale);
 	~RectTransform();
 
 	void Update() override;
@@ -55,7 +55,7 @@ public:
 	void SetInteractive() { interactive = !interactive; }
 
 	bool GetVisible() { return visible; }
-	void SetVisible() { visible = !visible; }
+	void SetVisible();
 
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;

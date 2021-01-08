@@ -67,6 +67,9 @@ void Checkbox::Update()
 				if (ui_transform->IsInsideUIElement()) {
 					Hover();
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+						for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
+							_gameObject->GetChildAt(i)->GetRectTransform()->SetVisible();
+						}
 						OnClicked();
 					}
 				}
@@ -93,6 +96,8 @@ void Checkbox::Load(GnJSONObj& load_object)
 
 void Checkbox::OnClicked()
 {
+
+
 	checkbox_state = CHECKBOX_ON;
 
 	float width = _gameObject->GetRectTransform()->GetWidth();

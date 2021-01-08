@@ -3,17 +3,29 @@
 #include "RectTransform.h"
 #include "GameObject.h"
 #include "ImGui/imgui.h"
+#include "GnJSON.h"
 
-RectTransform::RectTransform()
-{
-	type = ComponentType::RECT_TRANSFORM;
-
-}
-
-RectTransform::RectTransform(GameObject* gameobject)
+RectTransform::RectTransform() : Component()
 {
 	type = ComponentType::RECT_TRANSFORM;
 }
+
+RectTransform::RectTransform(float3 position, Quat rotation, float3 scale)
+{
+	type = ComponentType::RECT_TRANSFORM;
+
+	_position = position;
+	_rotation = rotation;
+	_eulerRotation = rotation.ToEulerXYZ();
+	_eulerRotation *= RADTODEG;
+	_scale = scale;
+
+	_localTransform = float4x4::FromTRS(_position, _rotation, _scale);
+	_globalTransform = _localTransform;
+	_parentGlobalTransform = float4x4::identity;
+}
+
+
 
 RectTransform::~RectTransform()
 {
@@ -212,12 +224,66 @@ float3 RectTransform::GetPosition()
 	return _position;
 }
 
+void RectTransform::SetVisible()
+{
+	visible = !visible;
+	for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
+		_gameObject->GetChildAt(i)->GetRectTransform()->SetVisible();
+	}
+}
+
 void RectTransform::Save(GnJSONArray& save_array)
 {
+	GnJSONObj save_object;
+
+	save_object.AddInt("Type", type);
+
+	save_object.AddFloat3("UI Position", _position);
+
+	save_object.AddQuaternion("UI Rotation", _rotation);
+
+	save_object.AddFloat3("UI Scale", _scale);
+
+	save_object.AddFloat3("UI Euler", _eulerRotation);
+
+	save_object.AddFloat("Width", width);
+
+	save_object.AddFloat("Height", height);
+
+	save_object.AddFloat("Aspect Ratio", aspect_ratio);
+
+	save_object.AddBool("Full Screen", full_screen);
+
+	save_object.AddBool("Interactive", interactive);
+
+	save_object.AddBool("Visible", visible);
+
+	save_array.AddObject(save_object);
 }
 
 void RectTransform::Load(GnJSONObj& load_object)
 {
+	_position = load_object.GetFloat3("UI Position");
+
+	_rotation = load_object.GetQuaternion("UI Rotation");
+	
+	_scale = load_object.GetFloat3("UI Scale");
+
+	_eulerRotation = load_object.GetFloat3("UI Euler");
+
+	width = load_object.GetFloat("Width");
+
+	height = load_object.GetFloat("Height");
+
+	aspect_ratio = load_object.GetFloat("Aspect Ratio");
+
+	full_screen = load_object.GetBool("Full Screen");
+
+	interactive = load_object.GetBool("Interactive");
+
+	visible = load_object.GetBool("Visible");
+
+	UpdateGlobalTransform();
 }
 
 void RectTransform::SetAtMiddle()

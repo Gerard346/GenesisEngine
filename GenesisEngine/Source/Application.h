@@ -14,7 +14,7 @@
 #include "Editor.h"
 #include "ModuleResources.h"
 #include "ModuleFade.h"
-
+#include "Functions.h"
 #include <string>
 #include <stack>
 
@@ -56,6 +56,7 @@ public:
 	UI* ui;
 	ModuleResources* resources;
 	ModuleFade* fade;
+	Functions* function;
 
 	const char* engine_name;
 	const char* engine_version;

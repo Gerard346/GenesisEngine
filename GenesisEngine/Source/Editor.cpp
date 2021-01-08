@@ -641,6 +641,11 @@ void Editor::DrawDirectoryRecursive(const char* directory, const char* filter_ex
 	}
 }
 
+void Editor::SetSceneOperation(SceneOperation scene_type)
+{
+	scene_operation = scene_type;
+}
+
 void Editor::OnResize(ImVec2 window_size)
 {
 	image_size = window_size;

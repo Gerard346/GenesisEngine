@@ -305,7 +305,12 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 		//UI Components
 	case RECT_TRANSFORM:
+		if (ui_transform != nullptr)
+		{
+			RemoveComponent(ui_transform);
+		}
 		RemoveComponent(transform);
+
 		ui_transform = new RectTransform();
 		component = ui_transform;
 		break;
