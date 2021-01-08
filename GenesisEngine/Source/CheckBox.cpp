@@ -4,48 +4,59 @@
 #include "Transform.h"
 #include "RectTransform.h"
 #include "GnJSON.h"
-#include "Button.h"
+#include "Checkbox.h"
 #include "ResourceTexture.h"
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "ImGuizmo/ImGuizmo.h"
+#include "Image.h"
 
-Button::Button() : Component(nullptr)
+Checkbox::Checkbox() : Component(nullptr)
 {
-	type = ComponentType::BUTTON;
+	type = ComponentType::CHECKBOX;
 	is_UI = true;
 
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
 
-	_gameObject->AddComponent(ComponentType::IMAGE);
+	check = (Image*)_gameObject->AddComponent(ComponentType::IMAGE);
+
+	_box = new GameObject();
+
+	_gameObject->AddChild(_box);
 }
 
-Button::Button(GameObject* gameObject) : Component(gameObject)
+Checkbox::Checkbox(GameObject* gameObject) : Component(gameObject)
 {
-	type = ComponentType::BUTTON;
+	type = ComponentType::CHECKBOX;
 	is_UI = true;
-	button = (Image*)_gameObject->AddComponent(ComponentType::IMAGE);
+
+	check = (Image*)_gameObject->AddComponent(ComponentType::IMAGE);
 
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
 
+	_box = new GameObject();
+	_box->SetName("Tick");
+	_box->AddComponent(ComponentType::IMAGE);
+
+	_gameObject->AddChild(_box);
 }
 
-Button::~Button()
+Checkbox::~Checkbox()
 {
 }
 
-void Button::Update()
+void Checkbox::Update()
 {
-	if (button_state == BUTTON_ON) {
+	if (checkbox_state == CHECKBOX_ON) {
 		timer += App->GetLastDt();
 		OnClicked();
-		if (timer > button_on_delay) {
+		if (timer > check_on_delay) {
 			timer = 0.0f;
-			button_state = BUTTON_HOVER;
+			checkbox_state = CHECKBOX_HOVER;
 		}
 		return;
 	}
@@ -60,29 +71,29 @@ void Button::Update()
 					}
 				}
 				else {
-					button_state = BUTTON_OFF;
+					checkbox_state = CHECKBOX_OFF;
 				}
-			
+
 			}
 		}
 	}
 }
 
-void Button::OnEditor()
+void Checkbox::OnEditor()
 {
 }
 
-void Button::Save(GnJSONArray& save_array)
+void Checkbox::Save(GnJSONArray& save_array)
 {
 }
 
-void Button::Load(GnJSONObj& load_object)
+void Checkbox::Load(GnJSONObj& load_object)
 {
 }
 
-void Button::OnClicked()
+void Checkbox::OnClicked()
 {
-	button_state = BUTTON_ON;
+	checkbox_state = CHECKBOX_ON;
 
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
@@ -102,9 +113,9 @@ void Button::OnClicked()
 	glEnd();
 }
 
-void Button::Hover()
+void Checkbox::Hover()
 {
-	button_state = BUTTON_HOVER;
+	checkbox_state = CHECKBOX_HOVER;
 
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
@@ -124,6 +135,6 @@ void Button::Hover()
 	glEnd();
 }
 
-void Button::OnRelease()
+void Checkbox::OnRelease()
 {
 }

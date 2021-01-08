@@ -130,34 +130,14 @@ void Canvas::MoveCanvas()
 			}
 			else
 				ui_transform->SetPosition(canvas_pos.x, canvas_pos.y - App->input->GetMouseYMotion(), 0);
-			for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
-				RectTransform* child_transform = _gameObject->GetChildAt(i)->GetRectTransform();
-				float3 child_pos = child_transform->GetPosition();
-				if (child_transform != nullptr) {
-					child_transform->SetPosition(child_pos.x, child_pos.y - App->input->GetMouseYMotion(), 0);
-				}
-			}
 		}
 		else {
 			if ((canvas_pos.y - App->input->GetMouseYMotion()) < 0 || (canvas_pos.y + ui_transform->GetHeight() - App->input->GetMouseYMotion()) > App->editor->image_size.y) {
 				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y, 0);
-				for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
-					RectTransform* child_transform = _gameObject->GetChildAt(i)->GetRectTransform();
-					float3 child_pos = child_transform->GetPosition();
-					if (child_transform != nullptr) {
-						child_transform->SetPosition(child_pos.x + App->input->GetMouseXMotion(), child_pos.y, 0);
-					}
-				}
+				
 			}
 			else {
 				ui_transform->SetPosition(canvas_pos.x + App->input->GetMouseXMotion(), canvas_pos.y - App->input->GetMouseYMotion(), 0);
-				for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
-					RectTransform* child_transform = _gameObject->GetChildAt(i)->GetRectTransform();
-					float3 child_pos = child_transform->GetPosition();
-					if (child_transform != nullptr) {
-						child_transform->SetPosition(child_pos.x + App->input->GetMouseXMotion(), child_pos.y - App->input->GetMouseYMotion(), 0);
-					}
-				}
 			}
 		}
 	}

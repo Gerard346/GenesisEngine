@@ -23,7 +23,10 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 	type = ComponentType::IMAGE;
 	is_UI = true;
 
-	gameObject->AddComponent(ComponentType::RECT_TRANSFORM);
+	if (gameObject->GetComponent(RECT_TRANSFORM) == nullptr) {
+		gameObject->AddComponent(ComponentType::RECT_TRANSFORM);
+	}
+
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
 
@@ -33,9 +36,11 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 		App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 	}
 
-	canvas = ui_transform->GetCanvas();
-	canvas->AddChild(gameObject);
-	ui_transform->SetCanvas(canvas);
+	if (strcmp(gameObject->GetName(), "Tick") != 0) {
+		canvas = ui_transform->GetCanvas();
+		canvas->AddChild(gameObject);
+		ui_transform->SetCanvas(canvas);
+	}
 }
 
 Image::~Image()

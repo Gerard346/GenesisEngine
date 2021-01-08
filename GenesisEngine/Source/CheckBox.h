@@ -7,17 +7,17 @@ class ResourceTexture;
 class Image;
 class RectTransform;
 
-enum State_Button {
-	BUTTON_OFF,
-	BUTTON_ON,
-	BUTTON_HOVER
+enum State_CheckBox {
+	CHECKBOX_OFF,
+	CHECKBOX_ON,
+	CHECKBOX_HOVER
 };
 
-class Button : public Component {
+class Checkbox : public Component {
 public:
-	Button();
-	Button(GameObject* gameObject);
-	~Button();
+	Checkbox();
+	Checkbox(GameObject* gameObject);
+	~Checkbox();
 
 	virtual void Update() override;
 	void OnEditor() override;
@@ -30,11 +30,12 @@ public:
 	void OnRelease();
 
 private:
-	Image* button = nullptr;
+	Image* check = nullptr;
 	RectTransform* ui_transform = nullptr;
+	GameObject* _box = nullptr;
 
-	float button_on_delay =0.2f;
+	float check_on_delay = 0.3f;
 	float timer = 0.0f;
 
-	State_Button button_state = BUTTON_OFF;
+	State_CheckBox checkbox_state = CHECKBOX_OFF;
 };

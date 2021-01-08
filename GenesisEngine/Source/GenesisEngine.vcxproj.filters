@@ -248,6 +248,9 @@
     <ClCompile Include="RectTransform.cpp">
       <Filter>GameObjects &amp; Components\UI</Filter>
     </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -609,6 +612,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="RectTransform.h">
+      <Filter>GameObjects &amp; Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBox.h">
       <Filter>GameObjects &amp; Components\UI</Filter>
     </ClInclude>
   </ItemGroup>

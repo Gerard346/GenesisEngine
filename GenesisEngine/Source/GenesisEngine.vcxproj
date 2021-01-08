@@ -96,6 +96,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="FileSystem.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Editor.cpp" />

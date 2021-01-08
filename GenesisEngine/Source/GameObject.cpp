@@ -8,6 +8,7 @@
 #include "Canvas.h"
 #include "Image.h"
 #include "Button.h"
+#include "CheckBox.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
 #include "Application.h"
@@ -45,6 +46,10 @@ GameObject::GameObject(ComponentType component) : GameObject()
 	case ComponentType::BUTTON:
 		RemoveComponent(transform);
 		name = "Button";
+		break;
+	case ComponentType::CHECKBOX:
+		RemoveComponent(transform);
+		name = "CheckBox";
 		break;
 	default:
 		break;
@@ -314,6 +319,10 @@ Component* GameObject::AddComponent(ComponentType type)
 		break;
 	case BUTTON:
 		component = new Button(this);
+		is_ui = true;
+		break;
+	case CHECKBOX:
+		component = new Checkbox(this);
 		is_ui = true;
 		break;
 	default:

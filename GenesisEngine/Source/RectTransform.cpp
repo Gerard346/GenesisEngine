@@ -186,10 +186,18 @@ void RectTransform::Reset()
 
 void RectTransform::SetPosition(float x, float y, float z)
 {
+	float diff_x = x - _position.x;
+	float diff_y = y - _position.y;
+	float diff_z = z - _position.z;
+
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
 
+	for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
+		float3 pos_child = _gameObject->GetChildAt(i)->GetRectTransform()->GetPosition();
+		_gameObject->GetChildAt(i)->GetRectTransform()->SetPosition(pos_child.x + diff_x, pos_child.y + diff_y, pos_child.z + diff_z);
+	}
 	UpdateLocalTransform();
 }
 

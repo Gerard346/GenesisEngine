@@ -387,6 +387,10 @@ bool Editor::CreateMainMenuBar() {
 			else if (ImGui::MenuItem("Button")) {
 				App->scene->AddGameObject(new GameObject(ComponentType::BUTTON));
 			}
+			else if (ImGui::MenuItem("Checkbox")) {
+				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
+				
+			}
 			ImGui::EndMenu();
 		}
 
