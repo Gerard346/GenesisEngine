@@ -52,6 +52,7 @@ void UI::SetUpOrtho()
 	glDisable(GL_DEPTH_CLAMP);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//Get Canvas size

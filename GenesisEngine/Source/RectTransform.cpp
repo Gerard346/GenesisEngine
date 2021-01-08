@@ -30,6 +30,7 @@ void RectTransform::Update()
 	if (mid) {
 		SetAtMiddle();
 	}
+
 }
 
 void RectTransform::OnEditor()
@@ -44,11 +45,19 @@ void RectTransform::OnEditor()
 			_gameObject->UpdateChildrenRectTransforms();
 		}
 
-		if (ImGui::DragFloat("Width", &width, 1))
+		if (ImGui::DragFloat("Width", &width, 1)) {
 			SetWidth(width);
+			if (lock_aspect_ratio) {
+				SetHeight(width/aspect_ratio);
+			}
+		}
 
-		if (ImGui::DragFloat("Heigth", &height, 1))
+		if (ImGui::DragFloat("Heigth", &height, 1)) {
 			SetHeight(height);
+			if (lock_aspect_ratio) {
+				SetWidth(height*lock_aspect_ratio);
+			}
+		}
 
 		ImGui::Spacing();
 
@@ -208,6 +217,11 @@ void RectTransform::SetAtMiddle()
 	float mid_y = App->editor->image_size.y / 2;
 
 	SetPosition(mid_x - width / 2, mid_y - height / 2, 0);
+}
+
+void RectTransform::SetAspectRatio(float new_aspect_ratio)
+{
+	aspect_ratio = new_aspect_ratio;
 }
 
 GameObject* RectTransform::GetCanvas()

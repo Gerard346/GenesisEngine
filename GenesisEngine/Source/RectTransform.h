@@ -68,6 +68,9 @@ public:
 
 	void SetAtMiddle();
 
+	void SetLockAspectRatio() { lock_aspect_ratio = !lock_aspect_ratio; }
+	bool GetAspectRatio() { return lock_aspect_ratio; }
+	void SetAspectRatio(float new_aspect_ratio);
 	GameObject* GetCanvas();
 	void SetCanvas(GameObject* _canvas);
 
@@ -87,6 +90,7 @@ private:
 	Quat _rotation;
 	float3 _scale;
 	float3 _eulerRotation;
+	float aspect_ratio;
 
 	Canvas* canvas_parent = nullptr;
 
@@ -95,4 +99,6 @@ private:
 	bool interactive = true;
 	bool visible = true;
 	bool mid = false;
+
+	bool lock_aspect_ratio = true;
 };

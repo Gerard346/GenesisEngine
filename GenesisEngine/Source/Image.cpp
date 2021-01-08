@@ -75,6 +75,8 @@ void Image::OnEditor()
 			}
 			if (item_current == 1) {
 				LOG("Button img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/shotgun.PNG")));
+
 			}
 			if (item_current == 2) {
 				LOG("Menu img");
@@ -107,8 +109,13 @@ void Image::OnEditor()
 		}
 
 		bool set_up_at_mid = ui_transform->GetMid();
-		if (ImGui::Checkbox("Set mid canvas", &set_up_at_mid)) {
+		if (ImGui::Checkbox("Set mid image on canvas", &set_up_at_mid)) {
 			ui_transform->SetMid();
+		}
+
+		bool lock_ratio = ui_transform->GetAspectRatio();
+		if (ImGui::Checkbox("Set lock aspect ratio image", &lock_ratio)) {
+			ui_transform->SetLockAspectRatio();
 		}
 
 		ImGui::Spacing();
@@ -180,10 +187,16 @@ void Image::SetTexture(ResourceTexture* texture)
 {
 	if (texture != nullptr)
 	{
+		float img_w = texture->GeWidth() ;
+		float img_h = texture->GetHeight();
+		float aspect = img_w / img_h;
 		if (_diffuseTexture != nullptr)
 			App->resources->ReleaseResource(_diffuseTexture->GetUID());
 
 		_diffuseTexture = texture;
+		ui_transform->SetWidth(img_w);
+		ui_transform->SetHeight(img_h);
+		ui_transform->SetAspectRatio(aspect);
 	}
 }
 

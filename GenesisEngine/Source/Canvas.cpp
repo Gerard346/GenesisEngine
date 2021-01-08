@@ -106,7 +106,6 @@ void Canvas::Draw()
 	position = ui_transform->GetPosition();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 	glBegin(GL_QUADS);
 
