@@ -6,6 +6,12 @@ class GameObject;
 class ResourceTexture;
 class Image;
 
+enum State_Button {
+	BUTTON_OFF,
+	BUTTON_ON,
+	BUTTON_HOVER
+};
+
 class Button : public Component {
 public:
 	Button();
@@ -19,11 +25,15 @@ public:
 	void Load(GnJSONObj& load_object) override;
 
 	void OnClicked();
-	void Idle();
 	void Hover();
 	void OnRelease();
 
 private:
 	Image* button = nullptr;
 	RectTransform* ui_transform = nullptr;
+
+	float button_on_delay =0.3f;
+	float timer = 0.0f;
+
+	State_Button button_state = BUTTON_OFF;
 };

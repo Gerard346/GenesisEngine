@@ -40,6 +40,16 @@ Button::~Button()
 
 void Button::Update()
 {
+	if (button_state == BUTTON_ON) {
+		timer += App->GetLastDt();
+		OnClicked();
+		if (timer > button_on_delay) {
+			timer = 0.0f;
+			button_state = BUTTON_HOVER;
+		}
+		return;
+	}
+
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
@@ -48,6 +58,9 @@ void Button::Update()
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 						OnClicked();
 					}
+				}
+				else {
+					button_state = BUTTON_OFF;
 				}
 			
 			}
@@ -69,6 +82,8 @@ void Button::Load(GnJSONObj& load_object)
 
 void Button::OnClicked()
 {
+	button_state = BUTTON_ON;
+
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
 	float3 position;
@@ -89,6 +104,8 @@ void Button::OnClicked()
 
 void Button::Hover()
 {
+	button_state = BUTTON_HOVER;
+
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
 	float3 position;
