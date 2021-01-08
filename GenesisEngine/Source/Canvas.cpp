@@ -27,6 +27,7 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	ui_transform = _gameObject->GetRectTransform();
 
 	ui_transform->SetInteractive();
+	ui_transform->SetLockAspectRatio();
 	GameObject* root_scene = App->scene->GetRoot();
 	gameobject->SetParent(root_scene);
 	root_scene->AddChild(gameobject);

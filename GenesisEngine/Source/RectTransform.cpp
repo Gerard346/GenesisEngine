@@ -213,10 +213,21 @@ void RectTransform::Load(GnJSONObj& load_object)
 
 void RectTransform::SetAtMiddle()
 {
-	float mid_x = App->editor->image_size.x / 2;
-	float mid_y = App->editor->image_size.y / 2;
+	if (canvas_parent == nullptr) {
+		float mid_x = App->editor->image_size.x / 2;
+		float mid_y = App->editor->image_size.y / 2;
 
-	SetPosition(mid_x - width / 2, mid_y - height / 2, 0);
+		SetPosition(mid_x - width / 2, mid_y - height / 2, 0);
+	}
+	else {
+		GameObject* canvas_obj = GetCanvas();
+		RectTransform* canvas_transform = canvas_obj->GetRectTransform();
+		float3 canvas_pos = canvas_transform->GetPosition();
+		float mid_x = canvas_pos.x + (canvas_transform->GetWidth() / 2);
+		float mid_y = canvas_pos.y + (canvas_transform->GetHeight() / 2);
+
+		SetPosition(mid_x - width / 2, mid_y - height / 2, 0);
+	}
 }
 
 void RectTransform::SetAspectRatio(float new_aspect_ratio)
