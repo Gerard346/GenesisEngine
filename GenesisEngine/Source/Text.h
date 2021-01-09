@@ -3,6 +3,8 @@
 #include "Component.h"
 #include "FontImporter.h"
 
+#include <string>
+
 class GameObject;
 class RectTransform;
 class Canvas;
@@ -25,4 +27,6 @@ public:
 
 private:
 	RectTransform* ui_transform = nullptr;
+	std::string label;
+	bool opened = true;
 };
