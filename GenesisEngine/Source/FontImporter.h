@@ -67,7 +67,7 @@ namespace freetype_mod {
 		void CleanUp();
 	};
 
-	void Print(const font_data& ft_font, const char* fmt, ...);
+	void Print(const font_data& ft_font, const char* fmt, float3 pos);
 
 }
 

@@ -402,7 +402,13 @@ bool Editor::CreateMainMenuBar() {
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 			}
-
+			else if (ImGui::MenuItem("Text")) {
+				GameObject* canvas = App->scene->FindCanvas();
+				if (canvas == nullptr) {
+					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+				}
+				App->scene->AddGameObject(new GameObject(ComponentType::TEXT));
+			}
 			ImGui::EndMenu();
 		}
 

@@ -8,6 +8,7 @@
 #include "Canvas.h"
 #include "Image.h"
 #include "Button.h"
+#include "Text.h"
 #include "CheckBox.h"
 #include "ImGui/imgui.h"
 #include "GnJSON.h"
@@ -54,6 +55,11 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		ui_transform->SetFullScreen(false);
 		RemoveComponent(transform);
 		name = "CheckBox";
+		break;
+	case ComponentType::TEXT:
+		ui_transform->SetFullScreen(false);
+		RemoveComponent(transform);
+		name = "Text";
 		break;
 	default:
 		break;
@@ -336,6 +342,10 @@ Component* GameObject::AddComponent(ComponentType type)
 		is_ui = true;
 		break;
 
+	case TEXT:
+		component = new Text(this);
+		is_ui = true;
+		break;
 	default:
 		break;
 	}

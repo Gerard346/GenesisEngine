@@ -49,9 +49,6 @@ bool ModuleScene::Start()
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
 
 
-	our_font;
-
-	our_font.init("Assets/Fonts/Test.ttf", 32);
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
 
 	return ret;
@@ -61,7 +58,6 @@ bool ModuleScene::Init()
 {
 	return true;
 }
-GLfloat cnt1;
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
@@ -79,8 +75,6 @@ update_status ModuleScene::Update(float dt)
 		App->fade->DrawFade();
 	}
 	
-	freetype_mod::Print(our_font, "Gerard", cnt1);
-	cnt1 += 0.051;
 
 	App->ui->ResetRender();
 

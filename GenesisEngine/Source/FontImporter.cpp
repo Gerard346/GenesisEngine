@@ -18,7 +18,7 @@ inline void move_raster_y(int y) {
     glBitmap(0, 0, 0, 0, 0, y, NULL);
 }
 
-void freetype_mod::Print(const font_data& ft_font, const char* fmt, ...)
+void freetype_mod::Print(const font_data& ft_font, const char* fmt, float3 pos)
 {
     char		text[256];								
     va_list		ap;										
@@ -50,6 +50,9 @@ void freetype_mod::Print(const font_data& ft_font, const char* fmt, ...)
     glPixelTransferf(GL_GREEN_SCALE, color[1]);
     glPixelTransferf(GL_BLUE_SCALE, color[2]);
     glPixelTransferf(GL_ALPHA_SCALE, color[3]);
+
+    move_raster_x(pos.x);
+    move_raster_y(pos.y);
 
     for (int i = 0; text[i]; i++) {
         const char_data& cdata = *ft_font.chars[text[i]];

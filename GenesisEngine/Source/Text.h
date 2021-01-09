@@ -1,12 +1,11 @@
 #pragma once
-/*
 #include "Globals.h"
 #include "Component.h"
+#include "FontImporter.h"
 
 class GameObject;
 class RectTransform;
 class Canvas;
-class Image;
 
 class Text : public Component {
 public:
@@ -22,12 +21,8 @@ public:
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
 
-	void SetUpText();
-
-	void RenderText(std::string text, float scale);
+	freetype_mod::font_data our_font;
 
 private:
 	RectTransform* ui_transform = nullptr;
-	Image* text_img = nullptr;
-	uint VAO, VBO;
-};*/
+};
