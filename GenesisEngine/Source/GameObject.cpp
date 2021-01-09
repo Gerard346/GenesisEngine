@@ -16,10 +16,10 @@
 
 #include <vector>
 
-GameObject::GameObject() : enabled(true), name("Empty Game Object"), _parent(nullptr), to_delete(false), transform(nullptr), _visible(false)
+GameObject::GameObject() : enabled(true), name("Empty Game Object"), _parent(nullptr), to_delete(false), transform(nullptr), _visible(false), ui_transform(nullptr)
 {
 	transform = (Transform*)AddComponent(TRANSFORM);
-
+	ui_transform = (RectTransform*)AddComponent(RECT_TRANSFORM);
 	UUID = LCG().Int();
 }
 
@@ -41,13 +41,16 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		break;
 	case ComponentType::IMAGE:
 		RemoveComponent(transform);
+		ui_transform->SetFullScreen();
 		name = "Image";
 		break;
 	case ComponentType::BUTTON:
+		ui_transform->SetFullScreen();
 		RemoveComponent(transform);
 		name = "Button";
 		break;
 	case ComponentType::CHECKBOX:
+		ui_transform->SetFullScreen();
 		RemoveComponent(transform);
 		name = "CheckBox";
 		break;
@@ -86,7 +89,6 @@ void GameObject::Update()
 			//Update Components
 			if (components[i]->IsEnabled())
 			{
-
 				if (components[i]->GetType() == ComponentType::MESH)
 				{
 					GnMesh* mesh = (GnMesh*)components[i];
@@ -96,7 +98,6 @@ void GameObject::Update()
 						mesh->Update();
 					}
 				}
-
 				else
 				{
 					components[i]->Update();
@@ -303,35 +304,45 @@ Component* GameObject::AddComponent(ComponentType type)
 	case LIGHT:
 		component = new Light(this);
 		break;
+
 		//UI Components
 	case RECT_TRANSFORM:
 		if (ui_transform != nullptr)
 		{
 			RemoveComponent(ui_transform);
 		}
-		RemoveComponent(transform);
-
 		ui_transform = new RectTransform();
 		component = ui_transform;
 		break;
+
 	case CANVAS_UI:
 		component = new Canvas(this);
 		is_ui = true;
 		break;
+
 	case IMAGE:
 		component = new Image(this);
 		is_ui = true;
 		break;
+
 	case BUTTON:
 		component = new Button(this);
 		is_ui = true;
 		break;
+
 	case CHECKBOX:
 		component = new Checkbox(this);
 		is_ui = true;
 		break;
+
 	default:
 		break;
+	}
+	if (component->GetIsUI()) {
+		RemoveComponent(transform);
+	}
+	else {
+		RemoveComponent(ui_transform);
 	}
 
 	component->SetGameObject(this);

@@ -35,6 +35,8 @@ public:
 	bool Save(const char* file_path);
 	bool Load(const char* scene_file);
 
+	GameObject* FindCanvas();
+
 public:
 	bool show_grid;
 	GameObject* selectedGameObject;
@@ -43,4 +45,5 @@ private:
 	GameObject* root;
 	ImGuizmo::OPERATION mCurrentGizmoOperation;
 	ImGuizmo::MODE mCurrentGizmoMode;
+
 };

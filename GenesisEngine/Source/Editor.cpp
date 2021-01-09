@@ -382,14 +382,25 @@ bool Editor::CreateMainMenuBar() {
 				App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 			}
 			else if (ImGui::MenuItem("Image")) {
+				GameObject* canvas = App->scene->FindCanvas();
+				if (canvas == nullptr){
+					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+				}
 				App->scene->AddGameObject(new GameObject(ComponentType::IMAGE));
 			}
 			else if (ImGui::MenuItem("Button")) {
+				GameObject* canvas = App->scene->FindCanvas();
+				if (canvas == nullptr) {
+					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+				}
 				App->scene->AddGameObject(new GameObject(ComponentType::BUTTON));
 			}
 			else if (ImGui::MenuItem("Checkbox")) {
-				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
-				
+				GameObject* canvas = App->scene->FindCanvas();
+				if (canvas == nullptr) {
+					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+					App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
+				}
 			}
 			ImGui::EndMenu();
 		}

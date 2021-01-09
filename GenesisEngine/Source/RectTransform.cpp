@@ -258,6 +258,11 @@ void RectTransform::Save(GnJSONArray& save_array)
 
 	save_object.AddBool("Visible", visible);
 
+	save_object.AddBool("Mid", mid);
+
+	save_object.AddBool("Lock Ratio", lock_aspect_ratio);
+
+
 	save_array.AddObject(save_object);
 }
 
@@ -282,6 +287,10 @@ void RectTransform::Load(GnJSONObj& load_object)
 	interactive = load_object.GetBool("Interactive");
 
 	visible = load_object.GetBool("Visible");
+
+	mid = load_object.GetBool("Mid");
+
+	lock_aspect_ratio = load_object.GetBool("Lock Ratio");
 
 	UpdateGlobalTransform();
 }

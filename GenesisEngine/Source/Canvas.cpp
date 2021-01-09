@@ -23,21 +23,11 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 {
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
-	if (gameobject->GetComponent(RECT_TRANSFORM) != nullptr) {
-		Component* comp = gameobject->GetComponent(RECT_TRANSFORM);
-		gameobject->RemoveComponent(comp);
-	}
-	gameobject->AddComponent(ComponentType::RECT_TRANSFORM);
 
 	ui_transform = _gameObject->GetRectTransform();
 
 	ui_transform->SetInteractive();
 	ui_transform->SetLockAspectRatio();
-	GameObject* root_scene = App->scene->GetRoot();
-	if (gameobject->GetParent() == root_scene) {
-		gameobject->SetParent(root_scene);
-		root_scene->AddChild(gameobject);
-	}
 }
 
 Canvas::~Canvas()

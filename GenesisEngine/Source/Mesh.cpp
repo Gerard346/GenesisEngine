@@ -26,6 +26,7 @@ GnMesh::~GnMesh()
 		App->resources->ReleaseResource(_resource->GetUID());
 		_resource = nullptr;
 	}
+
 }
 
 void GnMesh::Save(GnJSONArray& save_array)

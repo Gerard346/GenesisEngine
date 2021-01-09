@@ -101,4 +101,5 @@ private:
 	bool mid = false;
 
 	bool lock_aspect_ratio = true;
+
 };

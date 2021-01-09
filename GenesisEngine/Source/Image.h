@@ -33,4 +33,7 @@ public:
 private:
 	RectTransform* ui_transform = nullptr;
 	ResourceTexture* _diffuseTexture = nullptr;
+
+	char* path = nullptr;
+	bool loading = false;
 };

@@ -109,15 +109,28 @@ void ModuleScene::AddGameObject(GameObject* gameObject)
 {
 	if (gameObject != nullptr)
 	{
+		Component* canvas = gameObject->GetComponent(ComponentType::CANVAS_UI);
 		if (gameObject->isUI()) {
+			if (canvas == nullptr) {
+				GameObject* obj = FindCanvas();
+				gameObject->SetParent(obj);
+				obj->AddChild(gameObject);
 
+				selectedGameObject = gameObject;
+			}
+			else {
+				gameObject->SetParent(root);
+				root->AddChild(gameObject);
+
+				selectedGameObject = gameObject;
+			}
 		}
 		else {
 			gameObject->SetParent(root);
 			root->AddChild(gameObject);
-		}
 
-		selectedGameObject = gameObject;
+			selectedGameObject = gameObject;
+		}
 	}
 }
 
@@ -267,6 +280,17 @@ bool ModuleScene::Load(const char* scene_file)
 		LOG("Scene: %s loaded successfully", scene_file);
 
 	return ret;
+}
+
+GameObject* ModuleScene::FindCanvas()
+{
+	std::vector<GameObject*> list_obj = GetAllGameObjects();
+
+	for (int i = 0; i < list_obj.size(); i++) {
+		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
+			return list_obj.at(i);
+		}
+	}
 }
 
 bool ModuleScene::LoadConfig(GnJSONObj& config)
