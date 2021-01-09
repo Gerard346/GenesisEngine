@@ -8,111 +8,90 @@
 #include "FreeType/include/freetype/config/ftheader.h"
 
 #include "glew/include/glew.h"
-
 #pragma comment(lib, "FreeType/libx86/freetype.lib")
 
-FontImporter::FontImporter(bool start_enabled) :Module(start_enabled)
-{
-	name = "Fonts";
+
+inline void move_raster_x(int x) {
+    glBitmap(0, 0, 0, 0, x, 0, NULL);
+}
+inline void move_raster_y(int y) {
+    glBitmap(0, 0, 0, 0, 0, y, NULL);
 }
 
-FontImporter::~FontImporter()
+void freetype_mod::Print(const font_data& ft_font, const char* fmt, ...)
 {
-}
+    char		text[256];								
+    va_list		ap;										
 
-bool FontImporter::Init()
-{
-	LoadFont();
-	return true;
-}
+    if (fmt == NULL)									
+        *text = 0;											
 
-bool FontImporter::CleanUp()
-{
-	return true;
-}
-
-update_status FontImporter::PreUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status FontImporter::Update(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-update_status FontImporter::PostUpdate(float dt)
-{
-	return UPDATE_CONTINUE;
-}
-
-bool FontImporter::LoadFont()
-{
-	FT_Library ft;
-
-	if (FT_Init_FreeType(&ft)) {
-		LOG("FreeType Error loading freetype library. Could not init FreeType Library");
-	}
-	else {
-		LOG("FreeType Library initialized correctly");
-	}
-	FT_Face face;
-
-	//Set Font
-	if (FT_New_Face(ft, "Assets/Fonts/DroidSans.ttf", 0, &face)) {
-		fprintf(stderr, "Could not open font\n");
-		return true;
-	}
-	//Set size
-	FT_Set_Pixel_Sizes(face, 0, 48);
-
-	FT_GlyphSlot g = face->glyph;
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    for (unsigned char c = 0; c < 128; c++)
-    {
-        // load character glyph 
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-        {
-            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-            continue;
-        }
-        // generate texture
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-            g->bitmap.width,
-            g->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            g->bitmap.buffer
-        );
-        // set texture options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // now store character for later use
-        Character character = {
-            texture,
-            float2(g->bitmap.width, g->bitmap.rows),
-            float2(g->bitmap_left, g->bitmap_top),
-            g->advance.x
-        };
-
-        Characters.insert(std::pair<GLchar, Character>(c, character));
+    else {
+        va_start(ap, fmt);							
+        vsprintf(text, fmt, ap);						
+        va_end(ap);										
     }
 
+    glPushAttrib(GL_CURRENT_BIT | GL_PIXEL_MODE_BIT | GL_ENABLE_BIT);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    GLint old_unpack;
+    glGetIntegerv(GL_UNPACK_ALIGNMENT, &old_unpack);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    FT_Done_Face(face);
-    FT_Done_FreeType(ft);
+    float color[4];
+    glGetFloatv(GL_CURRENT_COLOR, color);
 
-    return true;
+    glPixelTransferf(GL_RED_SCALE, color[0]);
+    glPixelTransferf(GL_GREEN_SCALE, color[1]);
+    glPixelTransferf(GL_BLUE_SCALE, color[2]);
+    glPixelTransferf(GL_ALPHA_SCALE, color[3]);
+
+    for (int i = 0; text[i]; i++) {
+        const char_data& cdata = *ft_font.chars[text[i]];
+
+        move_raster_x(cdata.left);
+        move_raster_y(cdata.move_up);
+
+        glDrawPixels(cdata.w, cdata.h, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, cdata.data);
+
+        move_raster_y(-cdata.move_up);
+        move_raster_x(cdata.advance - cdata.left);
+
+    }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, old_unpack);
+    glPopAttrib();
+}
+
+void freetype_mod::font_data::CleanUp()
+{
+    for (int i = 0; i < 128; i++) delete chars[i];
+}
+
+void freetype_mod::font_data::init(const char* fname, unsigned int h)
+{
+    this->h = h;
+
+    FT_Library library;
+
+    if (FT_Init_FreeType(&library))
+        throw std::runtime_error("FT_Init_FreeType failed");
+
+    FT_Face face;
+
+    if (FT_New_Face(library, fname, 0, &face))
+        throw std::runtime_error("FT_New_Face failed (there is probably a problem with your font file)");
+
+    FT_Set_Char_Size(face, h << 6, h << 6, 96, 96);
+
+    for (int i = 0; i < 128; i++) chars[i] = new char_data(i, face);
+
+    FT_Done_Face(face);
+
+    FT_Done_FreeType(library);
 }

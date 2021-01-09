@@ -58,7 +58,7 @@ public:
 	ModuleResources* resources;
 	ModuleFade* fade;
 	Functions* function;
-	FontImporter* fonts;
+	//FontImporter* fonts;
 
 	const char* engine_name;
 	const char* engine_version;

@@ -8,6 +8,9 @@
 #include "Transform.h"
 #include "UI.h"
 #include "ModuleFade.h"
+#include "FontImporter.h"
+
+freetype_mod::font_data our_font;
 
 ModuleScene::ModuleScene(bool start_enabled) : Module(start_enabled), show_grid(true), selectedGameObject(nullptr), root(nullptr)
 {
@@ -45,6 +48,10 @@ bool ModuleScene::Start()
 	AddGameObject(camera);
 	App->renderer3D->SetMainCamera((Camera*)camera->GetComponent(ComponentType::CAMERA));
 
+
+	our_font;
+
+	our_font.init("Assets/Fonts/Test.ttf", 32);
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
 
 	return ret;
@@ -54,7 +61,7 @@ bool ModuleScene::Init()
 {
 	return true;
 }
-
+GLfloat cnt1;
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
@@ -71,6 +78,10 @@ update_status ModuleScene::Update(float dt)
 	if (App->fade->GetFadeStep() != fade_step::NONE) {
 		App->fade->DrawFade();
 	}
+	
+	freetype_mod::Print(our_font, "Gerard", cnt1);
+	cnt1 += 0.051;
+
 	App->ui->ResetRender();
 
 	return UPDATE_CONTINUE;
@@ -95,6 +106,8 @@ void ModuleScene::HandleInput()
 bool ModuleScene::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	our_font.CleanUp();
 
 	root->DeleteChildren();
 	delete root;
