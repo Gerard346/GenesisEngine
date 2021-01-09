@@ -203,7 +203,7 @@ void Image::SetTexture(ResourceTexture* texture)
 			App->resources->ReleaseResource(_diffuseTexture->GetUID());
 
 		_diffuseTexture = texture;
-
+		/*
 		if (!loading) {
 			float img_w = texture->GeWidth();
 			float img_h = texture->GetHeight();
@@ -212,7 +212,7 @@ void Image::SetTexture(ResourceTexture* texture)
 			ui_transform->SetWidth(img_w);
 			ui_transform->SetHeight(img_h);
 			ui_transform->SetAspectRatio(aspect);
-		}
+		}*/
 	}
 }
 

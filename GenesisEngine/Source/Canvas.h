@@ -26,5 +26,6 @@ public:
 
 private:
 	bool draggable = false;
+	bool debug_draw = false;
 	RectTransform* ui_transform = nullptr;
 };

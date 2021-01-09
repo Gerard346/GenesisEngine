@@ -100,6 +100,6 @@ private:
 	bool visible = true;
 	bool mid = false;
 
-	bool lock_aspect_ratio = true;
+	bool lock_aspect_ratio = false;
 
 };

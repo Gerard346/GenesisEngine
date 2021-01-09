@@ -401,7 +401,9 @@ bool Editor::CreateMainMenuBar() {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 					App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 				}
+				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 			}
+
 			ImGui::EndMenu();
 		}
 

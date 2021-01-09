@@ -20,6 +20,7 @@ public:
 	~Button();
 
 	virtual void Update() override;
+	void Draw();
 	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;
@@ -33,7 +34,7 @@ private:
 	Image* button = nullptr;
 	RectTransform* ui_transform = nullptr;
 
-	float button_on_delay =0.2f;
+	float button_on_delay =0.0f;
 	float timer = 0.0f;
 
 	State_Button button_state = BUTTON_OFF;

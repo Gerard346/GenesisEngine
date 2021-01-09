@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "RectTransform.h"
+#include "Image.h"
 #include "GnJSON.h"
 #include "Button.h"
 #include "ResourceTexture.h"
@@ -45,7 +46,7 @@ void Button::Update()
 		OnClicked();
 		if (timer > button_on_delay) {
 			timer = 0.0f;
-			button_state = BUTTON_HOVER;
+			button_state = BUTTON_OFF;
 		}
 		return;
 	}
@@ -54,9 +55,9 @@ void Button::Update()
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
 				if (ui_transform->IsInsideUIElement()) {
-					Hover();
+					button_state = BUTTON_HOVER;
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-						OnClicked();
+						button_state = BUTTON_ON;
 					}
 				}
 				else {
@@ -65,6 +66,22 @@ void Button::Update()
 			
 			}
 		}
+		Draw();
+	}
+}
+
+void Button::Draw()
+{
+	switch (button_state) {
+	case BUTTON_ON:
+		OnClicked();
+		break;
+	case BUTTON_OFF:
+		OnRelease();
+		break;
+	case BUTTON_HOVER:
+		Hover();
+		break;
 	}
 }
 
@@ -74,26 +91,32 @@ void Button::OnEditor()
 
 void Button::Save(GnJSONArray& save_array)
 {
+	GnJSONObj save_object;
+
+	save_object.AddInt("Type", type);
+
+	save_array.AddObject(save_object);
 }
 
 void Button::Load(GnJSONObj& load_object)
 {
+	_gameObject->RemoveComponent(button);
 }
 
 void Button::OnClicked()
 {
-	button_state = BUTTON_ON;
-
-	float width = _gameObject->GetRectTransform()->GetWidth();
-	float height = _gameObject->GetRectTransform()->GetHeight();
+	_gameObject->GetName();
+	float width = ui_transform->GetWidth();
+	float height = ui_transform->GetHeight();
 	float3 position;
 
 	position = ui_transform->GetPosition();
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+	
 	glBegin(GL_QUADS);
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
+	glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
 	glVertex2f(position.x, position.y);
 	glVertex2f(position.x + width, position.y);
 	glVertex2f(position.x + width, position.y + height);
@@ -104,14 +127,12 @@ void Button::OnClicked()
 
 void Button::Hover()
 {
-	button_state = BUTTON_HOVER;
-
-	float width = _gameObject->GetRectTransform()->GetWidth();
-	float height = _gameObject->GetRectTransform()->GetHeight();
+	float width = ui_transform->GetWidth();
+	float height = ui_transform->GetHeight();
 	float3 position;
 
 	position = ui_transform->GetPosition();
-
+	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glColor4f(1.0f, 1.0f, 1.0f, 0.35f);
 	glBegin(GL_QUADS);

@@ -27,7 +27,6 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	ui_transform = _gameObject->GetRectTransform();
 
 	ui_transform->SetInteractive();
-	ui_transform->SetLockAspectRatio();
 }
 
 Canvas::~Canvas()
@@ -46,6 +45,8 @@ void Canvas::Update()
 				}
 			}
 		}
+	}
+	if (debug_draw) {
 		Draw();
 	}
 }
@@ -79,6 +80,11 @@ void Canvas::OnEditor()
 		bool set_up_at_mid = ui_transform->GetMid();
 		if (ImGui::Checkbox("Set mid canvas", &set_up_at_mid)) {
 			ui_transform->SetMid();
+		}
+
+		bool draw_debug = debug_draw;
+		if (ImGui::Checkbox("Set draw debug", &draw_debug)) {
+			debug_draw = !debug_draw;
 		}
 
 		ImGui::Spacing();
