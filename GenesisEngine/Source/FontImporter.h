@@ -1,29 +1,21 @@
 #pragma once
-#include <vector>
-#include <string>
 
-class GLuint;
+#include "Module.h"
+#include "Globals.h"
 
-namespace freetype {
+class FontImporter : public Module
+{
+public:
+	FontImporter(bool start_enabled = true);
+	~FontImporter();
 
-    // Inside Of This Namespace, Give Ourselves The Ability
-    // To Write Just "vector" Instead Of "std::vector"
-    using std::vector;
+	bool Init();
+	bool CleanUp();
 
-    // Ditto For String.
-    using std::string;
+	update_status PreUpdate(float dt) override;
+	update_status Update(float dt) override;
+	update_status PostUpdate(float dt) override;
 
-    // This Holds All Of The Information Related To Any
-    // FreeType Font That We Want To Create. 
-    struct font_data {
-        float h;                                        // Holds The Height Of The Font.
-        GLuint* textures;                                  // Holds The Texture Id's
-        GLuint list_base;                                   // Holds The First Display List Id
-
-        // The Init Function Will Create A Font With
-        // The Height h From The File fname.
-        void Init(const char* fname, unsigned int h);
-
-        // Free All The Resources Associated With The Font.
-        void CleanUp();
-    };
+	void LoadFont();
+private:
+};

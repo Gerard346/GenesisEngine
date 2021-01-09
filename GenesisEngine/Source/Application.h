@@ -15,6 +15,7 @@
 #include "ModuleResources.h"
 #include "ModuleFade.h"
 #include "Functions.h"
+#include "FontImporter.h"
 #include <string>
 #include <stack>
 
@@ -57,6 +58,7 @@ public:
 	ModuleResources* resources;
 	ModuleFade* fade;
 	Functions* function;
+	FontImporter* fonts;
 
 	const char* engine_name;
 	const char* engine_version;
