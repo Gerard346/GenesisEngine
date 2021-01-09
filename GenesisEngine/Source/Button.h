@@ -30,6 +30,8 @@ public:
 	void Hover();
 	void OnRelease();
 
+	State_Button button_state = BUTTON_OFF;
+
 private:
 	Image* button = nullptr;
 	RectTransform* ui_transform = nullptr;
@@ -37,5 +39,4 @@ private:
 	float button_on_delay =0.0f;
 	float timer = 0.0f;
 
-	State_Button button_state = BUTTON_OFF;
 };

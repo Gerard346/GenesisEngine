@@ -21,7 +21,7 @@ public:
 	void SetRotation(float3 new_rotation);
 	void SetPostion(float3 new_position);
 	void SetPivot(float2 new_pivot);
-	void SetFullScreen() { full_screen = !full_screen; }
+	void SetFullScreen(bool new_state) { full_screen = new_state; }
 	bool IsInsideUIElement();
 
 	float3 GetScale() const;

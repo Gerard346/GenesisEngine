@@ -399,7 +399,6 @@ bool Editor::CreateMainMenuBar() {
 				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr) {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
-					App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 			}

@@ -22,19 +22,14 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 {
 	type = ComponentType::IMAGE;
 	is_UI = true;
-	
-	GameObject* canvas = ui_transform->GetCanvas();
 
+	GameObject* canvas = ui_transform->GetCanvas();
 
 	ui_transform = _gameObject->GetRectTransform();
 
-	/*
-	if (strcmp(gameObject->GetName(), "Tick") != 0) {
-		canvas = ui_transform->GetCanvas();
-		canvas->SetParent(gameObject);
-		canvas->AddChild(gameObject);
-		ui_transform->SetCanvas(canvas);
-	}*/
+	if (strcmp(gameObject->GetName(), "Tick") == 0) {
+		ui_transform->SetFullScreen(false);
+	}
 }
 
 Image::~Image()
@@ -90,7 +85,7 @@ void Image::OnEditor()
 		}
 		bool full_screen = ui_transform->GetFullScreen();
 		if (ImGui::Checkbox("Full Screen", &full_screen)) {
-			ui_transform->SetFullScreen();
+			ui_transform->SetFullScreen(full_screen);
 		}
 		ImGui::Spacing();
 
@@ -121,29 +116,31 @@ void Image::OnEditor()
 
 void Image::Draw()
 {
-	RectTransform* ui_transform = _gameObject->GetRectTransform();
-	float3 position;
+	if (ui_transform != nullptr) {
+		RectTransform* ui_transform = _gameObject->GetRectTransform();
+		float3 position;
 
-	float width = _gameObject->GetRectTransform()->GetWidth();
-	float height = _gameObject->GetRectTransform()->GetHeight();
+		float width = _gameObject->GetRectTransform()->GetWidth();
+		float height = _gameObject->GetRectTransform()->GetHeight();
 
-	position = ui_transform->GetPosition();
+		position = ui_transform->GetPosition();
 
-	BindTexture();
+		BindTexture();
 
-	glBegin(GL_QUADS);
-	_diffuseTexture;
+		glBegin(GL_QUADS);
+		_diffuseTexture;
 
-	glVertex2f(position.x, position.y);
-	glTexCoord2f(1, 1);
-	glVertex2f(position.x + width, position.y);
-	glTexCoord2f(1, 0);
-	glVertex2f(position.x + width, position.y + height);
-	glTexCoord2f(0, 0);
-	glVertex2f(position.x, position.y + height);
-	glTexCoord2f(0, 1);
+		glVertex2f(position.x, position.y);
+		glTexCoord2f(1, 1);
+		glVertex2f(position.x + width, position.y);
+		glTexCoord2f(1, 0);
+		glVertex2f(position.x + width, position.y + height);
+		glTexCoord2f(0, 0);
+		glVertex2f(position.x, position.y + height);
+		glTexCoord2f(0, 1);
 
-	glEnd();
+		glEnd();
+	}
 }
 
 void Image::Save(GnJSONArray& save_array)
@@ -166,8 +163,8 @@ void Image::Load(GnJSONObj& load_object)
 		loading = true;
 		SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find(path)));
 	}
+	loading = false;
 }
-
 
 void Image::ChangeImage(uint new_image)
 {
@@ -203,7 +200,7 @@ void Image::SetTexture(ResourceTexture* texture)
 			App->resources->ReleaseResource(_diffuseTexture->GetUID());
 
 		_diffuseTexture = texture;
-		/*
+		
 		if (!loading) {
 			float img_w = texture->GeWidth();
 			float img_h = texture->GetHeight();
@@ -212,7 +209,7 @@ void Image::SetTexture(ResourceTexture* texture)
 			ui_transform->SetWidth(img_w);
 			ui_transform->SetHeight(img_h);
 			ui_transform->SetAspectRatio(aspect);
-		}*/
+		}
 	}
 }
 

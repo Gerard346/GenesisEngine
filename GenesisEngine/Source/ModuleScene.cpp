@@ -117,6 +117,14 @@ void ModuleScene::AddGameObject(GameObject* gameObject)
 				obj->AddChild(gameObject);
 
 				selectedGameObject = gameObject;
+				
+				if (gameObject->GetComponent(ComponentType::CHECKBOX) != nullptr) {
+					GameObject* _box = new GameObject();
+					_box->SetName("Tick");
+					gameObject->AddChild(_box);
+
+					_box->AddComponent(ComponentType::IMAGE);
+				}
 			}
 			else {
 				gameObject->SetParent(root);

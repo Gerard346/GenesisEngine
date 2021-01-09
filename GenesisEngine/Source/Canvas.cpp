@@ -58,7 +58,7 @@ void Canvas::OnEditor()
 	{
 		bool full_screen = ui_transform->GetFullScreen();
 		if (ImGui::Checkbox("Full Screen", &full_screen)) {
-			ui_transform->SetFullScreen();
+			ui_transform->SetFullScreen(full_screen);
 		}
 		ImGui::Spacing();
 

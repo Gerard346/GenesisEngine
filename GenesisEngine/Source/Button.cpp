@@ -46,45 +46,26 @@ void Button::Update()
 		OnClicked();
 		if (timer > button_on_delay) {
 			timer = 0.0f;
-			button_state = BUTTON_OFF;
+			button_state = BUTTON_HOVER;
 		}
 		return;
 	}
-
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
 				if (ui_transform->IsInsideUIElement()) {
-					button_state = BUTTON_HOVER;
+					Hover();
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-						button_state = BUTTON_ON;
+						OnClicked();
 					}
 				}
 				else {
 					button_state = BUTTON_OFF;
 				}
-			
 			}
 		}
-		Draw();
 	}
 }
-
-void Button::Draw()
-{
-	switch (button_state) {
-	case BUTTON_ON:
-		OnClicked();
-		break;
-	case BUTTON_OFF:
-		OnRelease();
-		break;
-	case BUTTON_HOVER:
-		Hover();
-		break;
-	}
-}
-
 void Button::OnEditor()
 {
 }
@@ -105,7 +86,6 @@ void Button::Load(GnJSONObj& load_object)
 
 void Button::OnClicked()
 {
-	_gameObject->GetName();
 	float width = ui_transform->GetWidth();
 	float height = ui_transform->GetHeight();
 	float3 position;
@@ -123,6 +103,7 @@ void Button::OnClicked()
 	glVertex2f(position.x, position.y + height);
 
 	glEnd();
+	
 }
 
 void Button::Hover()
@@ -143,6 +124,7 @@ void Button::Hover()
 	glVertex2f(position.x, position.y + height);
 
 	glEnd();
+	
 }
 
 void Button::OnRelease()

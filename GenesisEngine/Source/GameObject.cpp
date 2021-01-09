@@ -37,20 +37,21 @@ GameObject::GameObject(ComponentType component) : GameObject()
 		break;
 	case ComponentType::CANVAS_UI:
 		RemoveComponent(transform);
+		ui_transform->SetFullScreen(true);
 		name = "Canvas";
 		break;
 	case ComponentType::IMAGE:
 		RemoveComponent(transform);
-		ui_transform->SetFullScreen();
+		ui_transform->SetFullScreen(false);
 		name = "Image";
 		break;
 	case ComponentType::BUTTON:
-		ui_transform->SetFullScreen();
+		ui_transform->SetFullScreen(false);
 		RemoveComponent(transform);
 		name = "Button";
 		break;
 	case ComponentType::CHECKBOX:
-		ui_transform->SetFullScreen();
+		ui_transform->SetFullScreen(false);
 		RemoveComponent(transform);
 		name = "CheckBox";
 		break;
