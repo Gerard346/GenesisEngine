@@ -7,15 +7,15 @@ To load the scene for this Assignment, when the engine is opened just go to file
 ### Team
 <img src="gg.jpg" class="img-responsive" alt=""> 
 
-Gerard Gil->Everything from here <a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864."Commit</a>
+Gerard Gil->Everything from here <br><a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864.">Github</a>.
 Marc Pagès Francesh -> Everything from before.
 
 # UI Sub System
 ## Main core Sub Systems
 - Function: Stores all the functions that our UI elements will use. The UI elemenents when clicked pass a function with the Function type that will call and himself.
-- Font Importer: Used to load .ttf fonts and creates textures from the fonts. Two main functions: 
-    -Stores every characther from the font loaded so we can use it later to print the string.
-    -Prints the string itsel.
+- Font Importer: Used to load .ttf fonts and creates textures from the fonts.  <br> Two main functions: <br>  
+    -Stores every characther from the font loaded so we can use it later to print the string. <br> 
+    -Prints the string itsel. <br> 
 - Module UI: Sets the render at Ortho and swaps again for prespective. When every gameobject that has no UI Element has been Update, we swap the render type and update every UI element. When it's finished we rever how it was.
 - Fade: Fade used between screens. Just renders a Quad with opacity.
 - UI Game Objects:
