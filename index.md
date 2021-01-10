@@ -19,6 +19,7 @@ Marc Pagès Francesh -> Everything from before.
 - Fade: Fade used between screens. Just renders a Quad with opacity.
 - UI Game Objects:
     - Button: 3 stats: Button On, Button Hover and Button Off, has a texture, and stores a function that will be called when clicked.
+    <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/Button.gif" class="img-responsive" alt=""> </div>
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/Button.gif" width=200>
     - Canvas: Parent of all the UI elements. Has the ability to move inside the viewport.
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/Dragging.gif" width=200>
