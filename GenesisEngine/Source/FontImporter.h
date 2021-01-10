@@ -20,11 +20,12 @@ namespace freetype_mod {
 	using std::string;
 
 	struct char_data {
-		int w, h;
-		int advance;
-		int left;
-		int move_up;
-		unsigned char* data;
+		int w = 0;
+		int h = 0;
+		int advance = 0;
+		int left = 0;
+		int move_up = 0;
+		unsigned char* data = nullptr;
 
 		char_data(char ch, FT_Face face) {
 

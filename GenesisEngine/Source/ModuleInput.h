@@ -4,6 +4,8 @@
 
 #define MAX_MOUSE_BUTTONS 5
 
+class Text;
+
 enum KEY_STATE
 {
 	KEY_IDLE = 0,
@@ -69,5 +71,6 @@ private:
 	int mouse_x_motion;
 	int mouse_y_motion;
 	bool input_active = true;
+	Text* text_box = nullptr;
 	//int mouse_z_motion;
 };

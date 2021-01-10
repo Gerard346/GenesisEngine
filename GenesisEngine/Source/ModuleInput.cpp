@@ -125,6 +125,12 @@ update_status ModuleInput::PreUpdate(float dt)
 			App->resources->DragDropFile(dropped_filedir);
 			SDL_free(dropped_filedir);
 			break;
+		case SDL_TEXTINPUT:
+			text_box = App->scene->FindInputText();
+			if (text_box != nullptr) {
+				text_box->AddChar(e.text.text);
+			}
+			break;
 
 		case SDL_WINDOWEVENT:
 		{
@@ -133,12 +139,6 @@ update_status ModuleInput::PreUpdate(float dt)
 				App->window->OnResize(e.window.data1, e.window.data2);
 			}
 		}
-
-		case SDL_TEXTINPUT:
-			Text* text_box = App->scene->FindInputText();
-			if (text_box != nullptr) {
-				text_box->AddChar(e.text.text);
-			}
 		}
 	}
 

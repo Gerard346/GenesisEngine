@@ -36,7 +36,7 @@ private:
 	Image* button = nullptr;
 	RectTransform* ui_transform = nullptr;
 
-	float button_on_delay =0.0f;
+	float button_on_delay =0.5f;
 	float timer = 0.0f;
 
 };

@@ -56,10 +56,21 @@ void Text::Draw()
 
 void Text::Save(GnJSONArray& save_array)
 {
+	GnJSONObj save_object;
+
+	save_object.AddInt("Type", type);
+
+	if (!label.empty()) {
+		save_object.AddString("StringText", label.c_str());
+	}
+
+	save_array.AddObject(save_object);
 }
 
 void Text::Load(GnJSONObj& load_object)
 {
+	label = (char*)load_object.GetString("StringText", "No path");
+	
 }
 
 void Text::AddChar(char* str)

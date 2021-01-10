@@ -50,6 +50,7 @@ void Button::Update()
 		}
 		return;
 	}
+
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
@@ -62,6 +63,7 @@ void Button::Update()
 				else {
 					button_state = BUTTON_OFF;
 				}
+
 			}
 		}
 	}
@@ -86,17 +88,18 @@ void Button::Load(GnJSONObj& load_object)
 
 void Button::OnClicked()
 {
-	float width = ui_transform->GetWidth();
-	float height = ui_transform->GetHeight();
+	button_state = BUTTON_ON;
+
+	float width = _gameObject->GetRectTransform()->GetWidth();
+	float height = _gameObject->GetRectTransform()->GetHeight();
 	float3 position;
 
 	position = ui_transform->GetPosition();
-	
-	glBegin(GL_QUADS);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	
 	glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+	glBegin(GL_QUADS);
+
 	glVertex2f(position.x, position.y);
 	glVertex2f(position.x + width, position.y);
 	glVertex2f(position.x + width, position.y + height);
@@ -108,12 +111,14 @@ void Button::OnClicked()
 
 void Button::Hover()
 {
-	float width = ui_transform->GetWidth();
-	float height = ui_transform->GetHeight();
+	button_state = BUTTON_HOVER;
+
+	float width = _gameObject->GetRectTransform()->GetWidth();
+	float height = _gameObject->GetRectTransform()->GetHeight();
 	float3 position;
 
 	position = ui_transform->GetPosition();
-	
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glColor4f(1.0f, 1.0f, 1.0f, 0.35f);
 	glBegin(GL_QUADS);

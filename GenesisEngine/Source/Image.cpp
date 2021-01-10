@@ -67,8 +67,8 @@ void Image::OnEditor()
 			}
 			if (item_current == 1) {
 				LOG("Button img");
-				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/shotgun.PNG")));
-				path = "Assets/Textures/shotgun.PNG";
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
+				path = "Assets/Textures/Play.PNG";
 			}
 			if (item_current == 2) {
 				LOG("Menu img");
@@ -132,13 +132,16 @@ void Image::Draw()
 
 
 		glVertex2f(position.x + width, position.y + height);
-		glTexCoord2f(1, 1);
-		glVertex2f(position.x, position.y + height);
-		glTexCoord2f(1, 0);
-		glVertex2f(position.x, position.y);
-		glTexCoord2f(0, 0);
-		glVertex2f(position.x + width, position.y);
 		glTexCoord2f(0, 1);
+
+		glVertex2f(position.x, position.y + height);
+		glTexCoord2f(0, 0);
+		
+		glVertex2f(position.x, position.y);
+		glTexCoord2f(1, 0);
+		
+		glVertex2f(position.x + width, position.y);
+		glTexCoord2f(1, 1);
 
 
 
