@@ -4,6 +4,8 @@ This is my website about a 3D engine I've made for the University for the Videog
 
 To load the scene for this Assignment, when the engine is opened just go to file->load->scenes->main_menu.
 
+Video of the Sub system working <a href="https://youtu.be/bkhq5X8IlhM">Video</a>.
+
 ### Team
 <img src="gg.jpg" class="img-responsive" alt=""> 
 
@@ -13,7 +15,7 @@ Marc Pagès Francesh -> Everything from before.
 # UI Sub System
 ## Main core Sub Systems
 - Function: Stores all the functions that our UI elements will use. The UI elemenents when clicked pass a function with the Function type that will call and himself.
-- Font Importer: Used to load .ttf fonts and creates textures from the fonts.  <br> Two main functions: <br>  
+- Font Importer: Used to load .ttf fonts and creates textures from the fonts.  <br> Two main functions:   
     -Stores every characther from the font loaded so we can use it later to print the string. <br> 
     -Prints the string itsel. <br> 
 - Module UI: Sets the render at Ortho and swaps again for prespective. When every gameobject that has no UI Element has been Update, we swap the render type and update every UI element. When it's finished we rever how it was.
