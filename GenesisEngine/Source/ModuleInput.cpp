@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "FileSystem.h"
-
+#include "GameObject.h"
+#include "Text.h"
 #include "ImGui/imgui_internal.h"
 #include "ImGui/imgui_impl_sdl.h"
 
@@ -132,6 +133,12 @@ update_status ModuleInput::PreUpdate(float dt)
 				App->window->OnResize(e.window.data1, e.window.data2);
 			}
 		}
+
+		case SDL_TEXTINPUT:
+			Text* text_box = App->scene->FindInputText();
+			if (text_box != nullptr) {
+				text_box->AddChar(e.text.text);
+			}
 		}
 	}
 

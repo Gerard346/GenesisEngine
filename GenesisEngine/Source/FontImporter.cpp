@@ -56,17 +56,16 @@ void freetype_mod::Print(const font_data& ft_font, const char* fmt, float3 pos)
 
     for (int i = 0; text[i]; i++) {
         const char_data& cdata = *ft_font.chars[text[i]];
+        if (cdata.data != nullptr) {
+            move_raster_x(cdata.left);
+            move_raster_y(cdata.move_up);
 
-        move_raster_x(cdata.left);
-        move_raster_y(cdata.move_up);
+            glDrawPixels(cdata.w, cdata.h, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, cdata.data);
 
-        glDrawPixels(cdata.w, cdata.h, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, cdata.data);
-
-        move_raster_y(-cdata.move_up);
-        move_raster_x(cdata.advance - cdata.left);
-
+            move_raster_y(-cdata.move_up);
+            move_raster_x(cdata.advance - cdata.left);
+        }
     }
-
     glPixelStorei(GL_UNPACK_ALIGNMENT, old_unpack);
     glPopAttrib();
 }

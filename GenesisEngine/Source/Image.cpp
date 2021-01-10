@@ -57,13 +57,13 @@ void Image::OnEditor()
 	if (ImGui::CollapsingHeader("Image", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		static int item_current = 1;
-		const char* list_img[] = { "Background image", "Button Image", "Menu", "Box", "Check", "Crosshair" };
+		const char* list_img[] = { "Main Menu image", "Button Image", "Menu", "Box", "Check", "Crosshair" };
 
 		if (ImGui::ListBox("List of Textures for UI elements", &item_current, list_img, IM_ARRAYSIZE(list_img), 4)) {
 			if (item_current == 0) {
-				LOG("Bck img");
-				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Captura.PNG")));
-				path = "Assets/Textures/Captura.PNG";
+				LOG("Main menu img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Main_Menu.PNG")));
+				path = "Assets/Textures/Main_Menu.PNG";
 			}
 			if (item_current == 1) {
 				LOG("Button img");
@@ -130,14 +130,17 @@ void Image::Draw()
 		glBegin(GL_QUADS);
 		_diffuseTexture;
 
-		glVertex2f(position.x, position.y);
-		glTexCoord2f(1, 1);
-		glVertex2f(position.x + width, position.y);
-		glTexCoord2f(1, 0);
+
 		glVertex2f(position.x + width, position.y + height);
-		glTexCoord2f(0, 0);
+		glTexCoord2f(1, 1);
 		glVertex2f(position.x, position.y + height);
+		glTexCoord2f(1, 0);
+		glVertex2f(position.x, position.y);
+		glTexCoord2f(0, 0);
+		glVertex2f(position.x + width, position.y);
 		glTexCoord2f(0, 1);
+
+
 
 		glEnd();
 	}

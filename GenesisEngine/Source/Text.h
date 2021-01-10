@@ -25,6 +25,8 @@ public:
 
 	freetype_mod::font_data our_font;
 
+	void AddChar(char* str);
+
 private:
 	RectTransform* ui_transform = nullptr;
 	std::string label;

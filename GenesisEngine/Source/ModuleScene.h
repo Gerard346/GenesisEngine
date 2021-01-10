@@ -9,6 +9,7 @@
 class GameObject;
 class GnTexture;
 class Canvas;
+class Text;
 
 class ModuleScene : public Module
 {
@@ -36,6 +37,7 @@ public:
 	bool Load(const char* scene_file);
 
 	GameObject* FindCanvas();
+	Text* FindInputText();
 
 public:
 	bool show_grid;

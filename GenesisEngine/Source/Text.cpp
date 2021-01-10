@@ -33,32 +33,16 @@ Text::~Text()
 
 void Text::Update()
 {
-	if (opened) {
-		SDL_Event event;
-		SDL_StartTextInput();
-		SDL_WaitEvent(&event);
-		if (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_TEXTINPUT:
-				label.append(event.text.text);
-				break;
-
-			case SDL_QUIT:
-				opened = false;
-				break;
-			}
-		}
-		freetype_mod::Print(our_font, label.c_str(), float3(0.0f, 0.0f, 0.0f));
-		if (App->scene->selectedGameObject == _gameObject) {
-			if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_REPEAT) {
+	if (ui_transform->GetVisible()) {
+		if (ui_transform->GetInteractive()) {
+			if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN) {
 				if (label.length() > 0) {
 					label.pop_back();
 				}
 			}
-
 		}
+		freetype_mod::Print(our_font, label.c_str(), ui_transform->GetPosition());
 	}
-	
 }
 
 void Text::OnEditor()
@@ -76,5 +60,10 @@ void Text::Save(GnJSONArray& save_array)
 
 void Text::Load(GnJSONObj& load_object)
 {
+}
+
+void Text::AddChar(char* str)
+{
+	label.append(str);
 }
 

@@ -36,11 +36,11 @@ bool ModuleScene::Start()
 	//AddGameObject(baker_house);
 
 
-	GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
-	AddGameObject(rayman);
+	/*GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
+	AddGameObject(rayman);*/
 
-	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	AddGameObject(street_environment);
+	/*GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	AddGameObject(street_environment);*/
 
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
@@ -307,6 +307,17 @@ GameObject* ModuleScene::FindCanvas()
 	for (int i = 0; i < list_obj.size(); i++) {
 		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
 			return list_obj.at(i);
+		}
+	}
+}
+
+Text* ModuleScene::FindInputText()
+{
+	std::vector<GameObject*> list_obj = GetAllGameObjects();
+
+	for (int i = 0; i < list_obj.size(); i++) {
+		if (list_obj.at(i)->GetComponent(ComponentType::TEXT) != nullptr) {
+			return (Text*)list_obj.at(i)->GetComponent(ComponentType::TEXT);
 		}
 	}
 }
