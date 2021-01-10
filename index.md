@@ -1,6 +1,6 @@
 #### Welcome to Genesis Engine Forked Version for UI Sub System
 
-This is my website about a 3D engine I've made for the University for the Videogame's engine assignment. This engine is not entirely made by me, props to Marc Pagès Francesh, link for his Github -> <a href="https://github.com/marcpages2020/GenesisEngine.">Github</a>. I've focus on doing the UI sub-system.
+This is my website about a 3D engine I've made for the University for the Videogame's engine assignment. This engine is not entirely made by me, props to Marc Pagès Francesh, link for his Github -> <a href="https://github.com/marcpages2020/GenesisEngine">Github</a>. I've focus on doing the UI sub-system.
 
 To load the scene for this Assignment, when the engine is opened just go to file->load->scenes->main_menu.
 
@@ -9,7 +9,7 @@ Video of the Sub system working <a href="https://youtu.be/bkhq5X8IlhM">Video</a>
 ### Team
 <img src="gg.jpg" class="img-responsive" alt=""> 
 
-Gerard Gil->Everything from here <br><a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864.">Github</a>.
+Gerard Gil->Everything from here <br><a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864">Github</a>.
 Marc Pagès Francesh -> Everything from before.
 
 # UI Sub System
@@ -43,8 +43,8 @@ Marc Pagès Francesh -> Everything from before.
     
 ## Link to Release
 
-<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864.">Release</a> <br> 
-<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864.">Repository</a>
+<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864">Release</a> <br> 
+<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864">Repository</a>
 
 ## License
 
