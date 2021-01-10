@@ -5,7 +5,7 @@ This is my website about a 3D engine I've made for the University for the Videog
 To load the scene for this Assignment just go to file->load->scenes->main_menu.
 
 ### Team
-<img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/gg.jpg" width=100>
+<img src="gg.jpg" width=100>
 Gerard Gil->Everything from here <a href="Commit where it started my code">https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864.</a></p>
 Marc Pagès Francesh -> Everything from before.
 
