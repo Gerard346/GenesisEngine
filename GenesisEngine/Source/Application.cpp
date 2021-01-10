@@ -85,6 +85,8 @@ bool Application::Init()
 
 	Time::realClock.deltaTimer.Start();
 
+	App->Load("Library/Scenes/main_menu.scene");
+
 
 	return ret;
 }
