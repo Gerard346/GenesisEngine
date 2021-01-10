@@ -59,6 +59,7 @@ bool ModuleFade::FadeToColor(float time)
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 	}
+
 	return true;
 }
 
@@ -78,6 +79,8 @@ bool ModuleFade::DrawFade()
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = FADE_FROM_BLACK;
+			App->Load("Library/Scenes/untitled.scene");
+
 			App->input->SetActive();
 		}
 	}	break;

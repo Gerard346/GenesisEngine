@@ -46,7 +46,10 @@ void Button::Update()
 		OnClicked();
 		if (timer > button_on_delay) {
 			timer = 0.0f;
-			button_state = BUTTON_HOVER;
+			button_state = BUTTON_OFF;
+			if (App->in_game) {
+				App->function->CallFunction(type_function, _gameObject);
+			}
 		}
 		return;
 	}
@@ -70,6 +73,26 @@ void Button::Update()
 }
 void Button::OnEditor()
 {
+	if (ImGui::CollapsingHeader("Image", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		static int item_current = 0;
+		const char* list_funcionts[] = { "None", "Start Game", "VSYNC", "Close Window" };
+
+		if (ImGui::ListBox("List of Functions avaliable", &item_current, list_funcionts, IM_ARRAYSIZE(list_funcionts), 4)) {
+			if (item_current == 0) {
+				type_function = TypeFunction::NONE_FUNCTION;
+			}
+			if (item_current == 1) {
+				type_function = TypeFunction::START_GAME;
+			}
+			if (item_current == 2) {
+				type_function = TypeFunction::ACTIVATE_VSYNC;
+			}
+			if (item_current == 3) {
+				type_function = TypeFunction::CLOSE_WINDOW;
+			}
+		}
+	}
 }
 
 void Button::Save(GnJSONArray& save_array)
@@ -78,12 +101,44 @@ void Button::Save(GnJSONArray& save_array)
 
 	save_object.AddInt("Type", type);
 
+	int function_id;
+	if (type_function == NONE_FUNCTION) {
+		function_id = 0;
+	}
+	if (type_function == START_GAME) {
+		function_id = 1;
+	}
+	if (type_function == ACTIVATE_VSYNC) {
+		function_id = 2;
+	}
+	if (type_function == CLOSE_WINDOW) {
+		function_id = 3;
+	}
+	save_object.AddInt("ID function", function_id);
+
 	save_array.AddObject(save_object);
 }
 
 void Button::Load(GnJSONObj& load_object)
 {
+
+	int function_id = load_object.GetInt("ID function", 0);
+
+	if (function_id == 0) {
+		type_function = TypeFunction::NONE_FUNCTION;
+	}
+	if (function_id == 1) {
+		type_function = TypeFunction::START_GAME;
+	}
+	if (function_id == 2) {
+		type_function = TypeFunction::ACTIVATE_VSYNC;
+	}
+	if (function_id == 3) {
+		type_function = TypeFunction::CLOSE_WINDOW;
+	}
+	
 	_gameObject->RemoveComponent(button);
+
 }
 
 void Button::OnClicked()

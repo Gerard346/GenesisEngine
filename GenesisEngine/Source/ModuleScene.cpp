@@ -27,7 +27,7 @@ bool ModuleScene::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
+	
 	root = new GameObject();
 	selectedGameObject = root;
 	root->SetName("Root");
@@ -41,7 +41,7 @@ bool ModuleScene::Start()
 
 	/*GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
 	AddGameObject(street_environment);*/
-
+	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
 	camera->SetName("Main Camera");
@@ -51,6 +51,10 @@ bool ModuleScene::Start()
 
 
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+	App->fade->FadeToColor(2.0);
+	App->Load("Library/Scenes/untitled.scene");
+	App->input->SetActive();
+
 
 	return ret;
 }
@@ -288,6 +292,8 @@ bool ModuleScene::Load(const char* scene_file)
 			if (createdObjects[i]->UUID == parentUUID)
 			{
 				createdObjects[i]->AddChild(gameObject);
+				selectedGameObject = gameObject;
+
 			}
 		}
 	}

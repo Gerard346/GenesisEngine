@@ -1,6 +1,7 @@
 #pragma once
 #include "Globals.h"
 #include "Component.h"
+#include "Functions.h"
 
 class GameObject;
 class ResourceTexture;
@@ -35,6 +36,7 @@ public:
 private:
 	Image* button = nullptr;
 	RectTransform* ui_transform = nullptr;
+	TypeFunction type_function = TypeFunction::NONE_FUNCTION;
 
 	float button_on_delay =0.5f;
 	float timer = 0.0f;

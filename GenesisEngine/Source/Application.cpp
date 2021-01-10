@@ -84,6 +84,8 @@ bool Application::Init()
 	RELEASE_ARRAY(buffer);
 
 	Time::realClock.deltaTimer.Start();
+
+
 	return ret;
 }
 

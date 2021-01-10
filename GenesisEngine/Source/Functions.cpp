@@ -45,7 +45,7 @@ void Functions::CallFunction(TypeFunction type, GameObject* obj)
 		break;
 
 	case TypeFunction::START_GAME:
-		App->editor->SetSceneOperation(SceneOperation::LOAD);
+		App->fade->FadeToBlack(3.0f);
 		break;
 
 	case TypeFunction::ACTIVATE_VSYNC:
@@ -63,7 +63,7 @@ void Functions::CallFunction(TypeFunction type, GameObject* obj)
 		}
 		tmp_obj->GetRectTransform()->SetVisible();
 		break;
-		
+	
 	default:
 		break;
 	}

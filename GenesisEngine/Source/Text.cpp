@@ -75,6 +75,8 @@ void Text::Load(GnJSONObj& load_object)
 
 void Text::AddChar(char* str)
 {
-	label.append(str);
+	if (App->in_game) {
+		label.append(str);
+	}
 }
 
