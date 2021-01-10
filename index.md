@@ -33,8 +33,9 @@ Marc Pagès Francesh -> Everything from before.
      <img src="ImageComponent2.gif" class="img-responsive" alt=""> 
     
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/ImageComponent.gif" width=200>
-    - RectTransform: Stores all the info about our UI elements; position, visibility, interactive, stay on mid,...
+    - RectTransform: Stores all the info about our UI elements; position, visibility, interactive, stay on mid,... When resizing if mid is enable it mantains the position.
      <img src="Rect_Transform.gif" class="img-responsive" alt="">
+     <img src="Resize.gif" class="img-responsive" alt="">
     
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/Rect_Transform.gif" width=200>
     - Text: Stores the string that will be printed.
