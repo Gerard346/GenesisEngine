@@ -72,15 +72,23 @@ void Image::OnEditor()
 			}
 			if (item_current == 2) {
 				LOG("Menu img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
+				path = "Assets/Textures/Play.PNG";
 			}
 			if (item_current == 3) {
 				LOG("Box img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
+				path = "Assets/Textures/Play.PNG";
 			}
 			if (item_current == 4) {
 				LOG("Check img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
+				path = "Assets/Textures/Play.PNG";
 			}
 			if (item_current == 5) {
 				LOG("Crosshair img");
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/CloseButton.PNG")));
+				path = "Assets/Textures/CloseButton.PNG";
 			}
 		}
 		bool full_screen = ui_transform->GetFullScreen();
@@ -130,7 +138,7 @@ void Image::Draw()
 		glBegin(GL_QUADS);
 		_diffuseTexture;
 
-
+		
 		glVertex2f(position.x + width, position.y + height);
 		glTexCoord2f(0, 1);
 
@@ -143,7 +151,7 @@ void Image::Draw()
 		glVertex2f(position.x + width, position.y);
 		glTexCoord2f(1, 1);
 
-
+		
 
 		glEnd();
 	}

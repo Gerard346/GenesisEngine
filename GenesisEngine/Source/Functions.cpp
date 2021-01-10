@@ -54,14 +54,7 @@ void Functions::CallFunction(TypeFunction type, GameObject* obj)
 		break;
 		
 	case TypeFunction::CLOSE_WINDOW:
-		tmp_obj = obj;
-		while (tmp_obj->GetParent()->GetComponent(ComponentType::CANVAS_UI) == nullptr){
-			tmp_obj = obj->GetParent();
-			if (tmp_obj->GetParent()->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
-				break;
-			}
-		}
-		tmp_obj->GetRectTransform()->SetVisible();
+		App->scene->EnableDisableCanvas();
 		break;
 	
 	default:

@@ -38,7 +38,7 @@ void Canvas::Update()
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
 				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-					if (draggable) {
+					if (!draggable) {
 						MoveCanvas();
 					}
 				}
@@ -62,6 +62,7 @@ void Canvas::OnEditor()
 		ImGui::Spacing();
 
 		if (ImGui::Checkbox("Set canvas draggable", &draggable)) {
+
 		}
 		ImGui::Spacing();
 

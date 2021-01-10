@@ -1425,7 +1425,7 @@
                     "Full Screen": false,
                     "Interactive": true,
                     "Visible": true,
-                    "Mid": false,
+                    "Mid": true,
                     "Lock Ratio": false
                 },
                 {

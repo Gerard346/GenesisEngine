@@ -9,6 +9,7 @@
 #include "UI.h"
 #include "ModuleFade.h"
 #include "FontImporter.h"
+#include "RectTransform.h"
 
 freetype_mod::font_data our_font;
 
@@ -32,15 +33,15 @@ bool ModuleScene::Start()
 	selectedGameObject = root;
 	root->SetName("Root");
 	root->RemoveComponent((Component*)root->GetRectTransform());
-	//GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
-	//AddGameObject(baker_house);
+	/*GameObject* baker_house = App->resources->RequestGameObject("Assets/Models/baker_house/BakerHouse.fbx");
+	AddGameObject(baker_house);*/
 
 
 	/*GameObject* rayman = App->resources->RequestGameObject("Assets/Models/Rayman/rayman.fbx");
 	AddGameObject(rayman);*/
 
-	/*GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
-	AddGameObject(street_environment);*/
+	GameObject* street_environment = App->resources->RequestGameObject("Assets/Models/street/Street environment_V01.fbx");
+	AddGameObject(street_environment);
 	
 	GameObject* camera = new GameObject();
 	camera->AddComponent(ComponentType::CAMERA);
@@ -51,10 +52,11 @@ bool ModuleScene::Start()
 
 
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
+#if 0
 	App->fade->FadeToColor(2.0);
 	App->Load("Library/Scenes/untitled.scene");
 	App->input->SetActive();
-
+#endif // 0
 
 	return ret;
 }
@@ -99,6 +101,8 @@ void ModuleScene::HandleInput()
 
 	else if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN))
 		mCurrentGizmoOperation = ImGuizmo::OPERATION::SCALE;
+	else if ((App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
+		EnableDisableCanvas();
 }
 
 // Load assets
@@ -313,6 +317,18 @@ GameObject* ModuleScene::FindCanvas()
 	for (int i = 0; i < list_obj.size(); i++) {
 		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
 			return list_obj.at(i);
+		}
+	}
+}
+
+void ModuleScene::EnableDisableCanvas()
+{
+	std::vector<GameObject*> list_obj = GetAllGameObjects();
+
+	for (int i = 0; i < list_obj.size(); i++) {
+		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
+			RectTransform* rect_canvas = list_obj.at(i)->GetRectTransform();
+			rect_canvas->SetVisible();
 		}
 	}
 }

@@ -226,10 +226,10 @@ float3 RectTransform::GetPosition()
 
 void RectTransform::SetVisible()
 {
-	visible = !visible;
 	for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
 		_gameObject->GetChildAt(i)->GetRectTransform()->SetVisible();
 	}
+	visible = !visible;
 }
 
 void RectTransform::Save(GnJSONArray& save_array)

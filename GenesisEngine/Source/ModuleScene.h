@@ -37,6 +37,7 @@ public:
 	bool Load(const char* scene_file);
 
 	GameObject* FindCanvas();
+	void EnableDisableCanvas();
 	Text* FindInputText();
 
 public:

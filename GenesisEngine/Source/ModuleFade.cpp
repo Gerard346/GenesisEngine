@@ -79,7 +79,7 @@ bool ModuleFade::DrawFade()
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = FADE_FROM_BLACK;
-			App->Load("Library/Scenes/untitled.scene");
+			App->Load("Library/Scenes/main_menu.scene");
 
 			App->input->SetActive();
 		}
