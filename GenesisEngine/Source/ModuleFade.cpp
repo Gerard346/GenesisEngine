@@ -112,3 +112,8 @@ bool ModuleFade::DrawFade()
 
 	return true;
 }
+
+fade_step ModuleFade::GetFadeStep()
+{
+	return current_step;
+}

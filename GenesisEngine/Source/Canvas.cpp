@@ -11,7 +11,6 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "ImGuizmo/ImGuizmo.h"
 
 Canvas::Canvas() : Component(nullptr)
 {

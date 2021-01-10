@@ -30,7 +30,7 @@ public:
 	bool DrawFade();
 
 	bool IsFading() const { return isFading; }
-	fade_step GetFadeStep() const { return current_step; }
+	fade_step GetFadeStep();
 private:
 	UINT32 start_time = NULL;
 	UINT32 total_time = NULL;

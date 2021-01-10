@@ -188,7 +188,9 @@ void ModuleScene::EditTransform()
 {
 	if (selectedGameObject == nullptr)
 		return;
-
+	if (selectedGameObject->isUI()) {
+		return;
+	}
 	float4x4 viewMatrix = App->camera->GetViewMatrixM().Transposed();
 	float4x4 projectionMatrix = App->camera->GetProjectionMatrixM().Transposed();
 	float4x4 objectTransform = selectedGameObject->GetTransform()->GetGlobalTransform().Transposed();

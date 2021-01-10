@@ -335,7 +335,7 @@ bool Editor::CreateMainMenuBar() {
 			}
 			ImGui::EndMenu();
 		}
-
+		
 		if (ImGui::BeginMenu("Game Object"))
 		{
 			if (ImGui::MenuItem("Empty Object"))
@@ -409,9 +409,10 @@ bool Editor::CreateMainMenuBar() {
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::TEXT));
 			}
+
 			ImGui::EndMenu();
 		}
-
+		
 		if (ImGui::BeginMenu("Window"))
 		{
 			if (ImGui::MenuItem("Inspector", NULL, windows[INSPECTOR_WINDOW]->visible))
