@@ -46,6 +46,7 @@ public:
 	bool GetVSYNC() { return vsync; }
 	void DrawRay();
 
+	void SetDisableVSYNC();
 private:
 	void GenerateBuffers();
 	void DrawDirectModeCube();
@@ -76,6 +77,8 @@ public:
 	bool draw_face_normals;
 
 	bool vsync;
+
+	bool disable_vsync = false;
 
 private: 
 	Camera* _mainCamera;

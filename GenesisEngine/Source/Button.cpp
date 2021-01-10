@@ -57,9 +57,13 @@ void Button::Update()
 	if (ui_transform->GetVisible()) {
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
+				if (App->input->GetKey(SDLK_KP_ENTER) == KEY_DOWN) {
+					OnClicked();
+					return;
+				}
 				if (ui_transform->IsInsideUIElement()) {
 					Hover();
-					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
 						OnClicked();
 					}
 				}
@@ -73,7 +77,7 @@ void Button::Update()
 }
 void Button::OnEditor()
 {
-	if (ImGui::CollapsingHeader("Image", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Button", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		static int item_current = 0;
 		const char* list_funcionts[] = { "None", "Start Game", "VSYNC", "Close Window" };

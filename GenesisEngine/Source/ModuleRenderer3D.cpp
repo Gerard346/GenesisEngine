@@ -160,6 +160,11 @@ bool ModuleRenderer3D::LoadConfig(GnJSONObj& config)
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	if (disable_vsync) {
+		SetVSYNC(vsync);
+		vsync = !vsync;
+		disable_vsync = false;
+	}
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
 	Color c = App->camera->background;
@@ -383,6 +388,11 @@ void ModuleRenderer3D::DrawRay()
 	glVertex3f(_ray.b.x, _ray.b.y, _ray.b.z);
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glEnd();
+}
+
+void ModuleRenderer3D::SetDisableVSYNC()
+{
+	disable_vsync = !disable_vsync;
 }
 
 void ModuleRenderer3D::GenerateBuffers()

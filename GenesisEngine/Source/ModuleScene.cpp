@@ -52,9 +52,9 @@ bool ModuleScene::Start()
 
 
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
-#if 0
+#if 1
 	App->fade->FadeToColor(2.0);
-	App->Load("Library/Scenes/untitled.scene");
+	App->Load("Library/Scenes/main_menu.scene");
 	App->input->SetActive();
 #endif // 0
 
@@ -102,7 +102,7 @@ void ModuleScene::HandleInput()
 	else if ((App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN))
 		mCurrentGizmoOperation = ImGuizmo::OPERATION::SCALE;
 	else if ((App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN))
-		EnableDisableCanvas();
+		EnableCanvas();
 }
 
 // Load assets
@@ -140,6 +140,7 @@ void ModuleScene::AddGameObject(GameObject* gameObject)
 					gameObject->AddChild(_box);
 
 					_box->AddComponent(ComponentType::IMAGE);
+					gameObject->AddComponent(ComponentType::IMAGE);
 				}
 			}
 			else {
@@ -321,14 +322,26 @@ GameObject* ModuleScene::FindCanvas()
 	}
 }
 
-void ModuleScene::EnableDisableCanvas()
+void ModuleScene::DisableCanvas()
 {
 	std::vector<GameObject*> list_obj = GetAllGameObjects();
 
 	for (int i = 0; i < list_obj.size(); i++) {
 		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
 			RectTransform* rect_canvas = list_obj.at(i)->GetRectTransform();
-			rect_canvas->SetVisible();
+			rect_canvas->SetVisible(false);
+		}
+	}
+}
+
+void ModuleScene::EnableCanvas()
+{
+	std::vector<GameObject*> list_obj = GetAllGameObjects();
+
+	for (int i = 0; i < list_obj.size(); i++) {
+		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
+			RectTransform* rect_canvas = list_obj.at(i)->GetRectTransform();
+			rect_canvas->SetVisible(true);
 		}
 	}
 }

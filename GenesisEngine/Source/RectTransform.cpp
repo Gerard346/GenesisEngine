@@ -232,6 +232,14 @@ void RectTransform::SetVisible()
 	visible = !visible;
 }
 
+void RectTransform::SetVisible(bool state)
+{
+	for (int i = 0; i < _gameObject->GetChildrenAmount(); i++) {
+		_gameObject->GetChildAt(i)->GetRectTransform()->SetVisible(state);
+	}
+	visible = state;
+}
+
 void RectTransform::Save(GnJSONArray& save_array)
 {
 	GnJSONObj save_object;

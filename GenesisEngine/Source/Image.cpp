@@ -72,18 +72,18 @@ void Image::OnEditor()
 			}
 			if (item_current == 2) {
 				LOG("Menu img");
-				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
-				path = "Assets/Textures/Play.PNG";
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Menu_In_Game.PNG")));
+				path = "Assets/Textures/Menu_In_Game.PNG";
 			}
 			if (item_current == 3) {
 				LOG("Box img");
-				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
-				path = "Assets/Textures/Play.PNG";
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/checkbox.PNG")));
+				path = "Assets/Textures/checkbox.PNG";
 			}
 			if (item_current == 4) {
 				LOG("Check img");
-				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/Play.PNG")));
-				path = "Assets/Textures/Play.PNG";
+				SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find("Assets/Textures/checkbox_tick.PNG")));
+				path = "Assets/Textures/checkbox_tick.PNG";
 			}
 			if (item_current == 5) {
 				LOG("Crosshair img");

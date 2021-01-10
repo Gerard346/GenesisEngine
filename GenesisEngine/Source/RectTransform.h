@@ -56,6 +56,7 @@ public:
 
 	bool GetVisible() { return visible; }
 	void SetVisible();
+	void SetVisible(bool state);
 
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;

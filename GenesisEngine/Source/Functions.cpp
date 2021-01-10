@@ -49,12 +49,11 @@ void Functions::CallFunction(TypeFunction type, GameObject* obj)
 		break;
 
 	case TypeFunction::ACTIVATE_VSYNC:
-		vsync = App->renderer3D->GetVSYNC();
-		App->renderer3D->SetVSYNC(vsync);
+		App->renderer3D->SetDisableVSYNC();
 		break;
 		
 	case TypeFunction::CLOSE_WINDOW:
-		App->scene->EnableDisableCanvas();
+		App->scene->DisableCanvas();
 		break;
 	
 	default:

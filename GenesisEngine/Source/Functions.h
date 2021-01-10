@@ -7,7 +7,8 @@ enum TypeFunction {
 	NONE_FUNCTION,
 	START_GAME,
 	CLOSE_WINDOW,
-	ACTIVATE_VSYNC
+	ACTIVATE_VSYNC,
+	WINDOW_DRAGGED
 };
 
 class Functions : public Module

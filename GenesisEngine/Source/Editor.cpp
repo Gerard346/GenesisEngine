@@ -379,7 +379,13 @@ bool Editor::CreateMainMenuBar() {
 				App->scene->AddGameObject(new GameObject(ComponentType::CAMERA));
 			}
 			else if (ImGui::MenuItem("Canvas")) {
-				App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+				GameObject* canvas = App->scene->FindCanvas();
+				if (canvas == nullptr) {
+					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
+				}
+				else {
+					LOG("Canvas already created.");
+				}
 			}
 			else if (ImGui::MenuItem("Image")) {
 				GameObject* canvas = App->scene->FindCanvas();

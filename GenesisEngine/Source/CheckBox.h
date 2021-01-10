@@ -1,6 +1,7 @@
 #pragma once
 #include "Globals.h"
 #include "Component.h"
+#include "Functions.h"
 
 class GameObject;
 class ResourceTexture;
@@ -29,6 +30,7 @@ public:
 	void Hover();
 	void OnRelease();
 
+	void IsOn() { is_on = !is_on; }
 private:
 	Image* check = nullptr;
 	RectTransform* ui_transform = nullptr;
@@ -36,6 +38,9 @@ private:
 
 	float check_on_delay = 0.3f;
 	float timer = 0.0f;
+
+	bool is_on = false;
+	TypeFunction type_function = TypeFunction::NONE_FUNCTION;
 
 	State_CheckBox checkbox_state = CHECKBOX_OFF;
 };
