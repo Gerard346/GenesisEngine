@@ -30,6 +30,10 @@ Button::Button(GameObject* gameObject) : Component(gameObject)
 	is_UI = true;
 	button = (Image*)_gameObject->AddComponent(ComponentType::IMAGE);
 
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
+
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
 
@@ -41,12 +45,12 @@ Button::~Button()
 
 void Button::Update()
 {
-	if (button_state == BUTTON_ON) {
+	if (button_state == State_Button::BUTTON_ON) {
 		timer += App->GetLastDt();
 		OnClicked();
 		if (timer > button_on_delay) {
 			timer = 0.0f;
-			button_state = BUTTON_OFF;
+			button_state = State_Button::BUTTON_OFF;
 			if (App->in_game) {
 				App->function->CallFunction(type_function, _gameObject);
 			}
@@ -68,7 +72,7 @@ void Button::Update()
 					}
 				}
 				else {
-					button_state = BUTTON_OFF;
+					button_state = State_Button::BUTTON_OFF;
 				}
 
 			}
@@ -140,14 +144,17 @@ void Button::Load(GnJSONObj& load_object)
 	if (function_id == 3) {
 		type_function = TypeFunction::CLOSE_WINDOW;
 	}
-	
-	_gameObject->RemoveComponent(button);
+	if(button!= nullptr)
+		_gameObject->RemoveComponent(button);
 
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 }
 
 void Button::OnClicked()
 {
-	button_state = BUTTON_ON;
+	button_state = State_Button::BUTTON_ON;
 
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();
@@ -170,7 +177,7 @@ void Button::OnClicked()
 
 void Button::Hover()
 {
-	button_state = BUTTON_HOVER;
+	button_state = State_Button::BUTTON_HOVER;
 
 	float width = _gameObject->GetRectTransform()->GetWidth();
 	float height = _gameObject->GetRectTransform()->GetHeight();

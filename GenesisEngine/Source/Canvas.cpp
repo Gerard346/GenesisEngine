@@ -23,9 +23,13 @@ Canvas::Canvas(GameObject* gameobject) : Component(gameobject)
 	type = ComponentType::CANVAS_UI;
 	is_UI = true;
 
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
+
 	ui_transform = _gameObject->GetRectTransform();
 
-	ui_transform->SetInteractive();
+	//ui_transform->SetInteractive();
 }
 
 Canvas::~Canvas()
@@ -38,7 +42,7 @@ void Canvas::Update()
 		if (ui_transform->GetInteractive()) {
 			if (App->editor->MouseOnScene()) {
 				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-					if (!draggable) {
+					if (ui_transform->GetDraggable()) {
 						MoveCanvas();
 					}
 				}
@@ -60,9 +64,9 @@ void Canvas::OnEditor()
 			ui_transform->SetFullScreen(full_screen);
 		}
 		ImGui::Spacing();
-
+		bool draggable = ui_transform->GetDraggable();
 		if (ImGui::Checkbox("Set canvas draggable", &draggable)) {
-
+			ui_transform->SetDraggable();
 		}
 		ImGui::Spacing();
 
@@ -103,6 +107,10 @@ void Canvas::Load(GnJSONObj& load_object)
 {
 	int canvasID = load_object.GetInt("CanvasID");
 	SetResourceUID(canvasID);
+
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 }
 
 void Canvas::Draw()
@@ -150,9 +158,4 @@ void Canvas::MoveCanvas()
 			}
 		}
 	}
-}
-
-void Canvas::SetDraggable()
-{
-	this->draggable = !this->draggable;
 }

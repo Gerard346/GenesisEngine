@@ -43,8 +43,8 @@ update_status ModuleFade::PostUpdate(float dt)
 
 bool ModuleFade::FadeToBlack(float time)
 {
-	if (current_step == NONE) {
-		current_step = FADE_TO_BLACK;
+	if (current_step == fade_step::NONE) {
+		current_step = fade_step::FADE_TO_BLACK;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 	}
@@ -54,8 +54,8 @@ bool ModuleFade::FadeToBlack(float time)
 
 bool ModuleFade::FadeToColor(float time)
 {
-	if (current_step == NONE) {
-		current_step = FADE_FROM_BLACK;
+	if (current_step == fade_step::NONE) {
+		current_step = fade_step::FADE_FROM_BLACK;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 	}
@@ -65,7 +65,7 @@ bool ModuleFade::FadeToColor(float time)
 
 bool ModuleFade::DrawFade()
 {
-	if (current_step == NONE) {
+	if (current_step == fade_step::NONE) {
 		return true;
 	}
 
@@ -73,23 +73,23 @@ bool ModuleFade::DrawFade()
 	float normalized = MIN(1.0f, (float)now / (float)total_time);
 
 	switch (current_step) {
-	case FADE_TO_BLACK:
+	case fade_step::FADE_TO_BLACK:
 	{
 		if (now >= total_time) {
 			total_time += total_time;
 			start_time = SDL_GetTicks();
-			current_step = FADE_FROM_BLACK;
+			current_step = fade_step::FADE_FROM_BLACK;
 			App->Load("Library/Scenes/untitled.scene");
 
 			App->input->SetActive();
 		}
 	}	break;
 
-	case FADE_FROM_BLACK:
+	case fade_step::FADE_FROM_BLACK:
 	{
 		normalized = 1.0f - normalized;
 		if (now >= total_time) {
-			current_step = NONE;
+			current_step = fade_step::NONE;
 			App->input->SetActive();
 		}
 	}break;

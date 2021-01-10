@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FUNCTIONS_H_
+#define _FUNCTIONS_H_
 
 #include "Module.h"
 #include "Globals.h"
@@ -29,7 +30,8 @@ public:
 private:
 	TypeFunction function_type = NONE_FUNCTION;
 	bool vsync;
-	GameObject* tmp_obj;
+	GameObject* tmp_obj = nullptr;
 
 
 };
+#endif

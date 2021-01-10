@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _TEXT_H_
+#define _TEXT_H_
+
 #include "Globals.h"
 #include "Component.h"
 #include "FontImporter.h"
@@ -32,3 +34,4 @@ private:
 	std::string label;
 	bool opened = true;
 };
+#endif

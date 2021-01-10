@@ -1,11 +1,12 @@
-#pragma once
+#ifndef _FADE_H_
+#define _FADE_H_
 
 #include "Module.h"
 #include "Globals.h"
 
 #define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
 
-enum fade_step {
+enum class fade_step {
 	NONE,
 	FADE_TO_BLACK,
 	FADE_FROM_BLACK
@@ -35,7 +36,8 @@ private:
 	UINT32 start_time = NULL;
 	UINT32 total_time = NULL;
 
-	fade_step current_step = NONE;
+	fade_step current_step = fade_step::NONE;
 
 	bool isFading = false;
 };
+#endif

@@ -349,17 +349,13 @@ Component* GameObject::AddComponent(ComponentType type)
 	default:
 		break;
 	}
-	if (component->GetIsUI()) {
-		RemoveComponent(transform);
-	}
-	else {
-		RemoveComponent(ui_transform);
-	}
 
 	component->SetGameObject(this);
 	components.push_back(component);
 
 	return component;
+
+
 }
 
 void GameObject::AddComponent(Component* component)

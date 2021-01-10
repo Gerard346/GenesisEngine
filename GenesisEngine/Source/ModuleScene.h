@@ -44,10 +44,10 @@ public:
 
 public:
 	bool show_grid;
-	GameObject* selectedGameObject;
+	GameObject* selectedGameObject = nullptr;
 
 private:
-	GameObject* root;
+	GameObject* root = nullptr;
 	ImGuizmo::OPERATION mCurrentGizmoOperation;
 	ImGuizmo::MODE mCurrentGizmoMode;
 

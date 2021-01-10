@@ -8,7 +8,8 @@ class GnJSONArray;
 class Resource;
 enum ResourceType;
 
-enum ComponentType {
+enum ComponentType{
+	NONE,
 	TRANSFORM,
 	MESH,
 	MATERIAL,
@@ -49,10 +50,10 @@ public:
 	std::string name;
 
 protected:
-	ComponentType type;
+	ComponentType type = ComponentType::NONE;
 	bool is_UI = false;
-	GameObject* _gameObject;
-	bool enabled;
+	GameObject* _gameObject = nullptr;
+	bool enabled= true;
 
-	uint _resourceUID;
+	uint _resourceUID = 0;
 };

@@ -81,5 +81,5 @@ public:
 	bool disable_vsync = false;
 
 private: 
-	Camera* _mainCamera;
+	Camera* _mainCamera = nullptr;
 };

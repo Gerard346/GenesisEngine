@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _IMAGE_H_
+#define _IMAGE_H_
 
 #include "Globals.h"
 #include "Component.h"
@@ -38,3 +39,4 @@ private:
 	bool loading = false;
 	float alpha = 0;
 };
+#endif

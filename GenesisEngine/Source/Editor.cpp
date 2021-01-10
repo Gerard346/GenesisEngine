@@ -301,7 +301,7 @@ void Editor::ChangeTheme(std::string theme)
 
 bool Editor::CreateMainMenuBar() {
 	bool ret = true;
-
+	canvas = App->scene->FindCanvas();
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -379,7 +379,6 @@ bool Editor::CreateMainMenuBar() {
 				App->scene->AddGameObject(new GameObject(ComponentType::CAMERA));
 			}
 			else if (ImGui::MenuItem("Canvas")) {
-				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr) {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 				}
@@ -388,28 +387,24 @@ bool Editor::CreateMainMenuBar() {
 				}
 			}
 			else if (ImGui::MenuItem("Image")) {
-				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr){
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::IMAGE));
 			}
 			else if (ImGui::MenuItem("Button")) {
-				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr) {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::BUTTON));
 			}
 			else if (ImGui::MenuItem("Checkbox")) {
-				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr) {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 				}
 				App->scene->AddGameObject(new GameObject(ComponentType::CHECKBOX));
 			}
 			else if (ImGui::MenuItem("Text")) {
-				GameObject* canvas = App->scene->FindCanvas();
 				if (canvas == nullptr) {
 					App->scene->AddGameObject(new GameObject(ComponentType::CANVAS_UI));
 				}
@@ -540,7 +535,7 @@ void Editor::LoadFile(const char* filter_extension, const char* from_dir)
 		if (file_dialog == ready_to_close)
 		{
 			selected_file[0] = '\0';
-			strcpy(selected_folder, "Library/Scenes");
+			strcpy_s(selected_folder, "Library/Scenes");
 		}
 
 		ImGui::EndPopup();
@@ -565,7 +560,7 @@ void Editor::SaveFile(const char* filter_extension, const char* from_dir)
 		{
 			file_dialog = ready_to_close;
 			if (scene_name[0] == '\0')
-				strcpy(scene_name, "untitled");
+				strcpy_s(scene_name, "untitled");
 
 			sprintf_s(selected_file, 128, "%s/%s.scene", selected_folder, scene_name);
 			App->Save(selected_file);
@@ -579,7 +574,7 @@ void Editor::SaveFile(const char* filter_extension, const char* from_dir)
 		{
 			file_dialog = ready_to_close;
 			if (scene_name[0] == '\0')
-				strcpy(scene_name, "untitled");
+				strcpy_s(scene_name, "untitled");
 
 			sprintf_s(selected_file, 128, "%s/%s.scene", selected_folder, scene_name);
 			App->Save(selected_file);
@@ -594,7 +589,7 @@ void Editor::SaveFile(const char* filter_extension, const char* from_dir)
 		if (file_dialog == ready_to_close)
 		{
 			selected_file[0] = '\0';
-			strcpy(selected_folder, "Library/Scenes");
+			strcpy_s(selected_folder, "Library/Scenes");
 			scene_name[0] = '\0';
 		}
 

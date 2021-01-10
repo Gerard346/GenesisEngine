@@ -48,20 +48,20 @@ struct HardwareSpecs
 class Application
 {
 public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleCamera3D* camera;
-	ModuleScene* scene;
-	Editor* editor;
-	ModuleRenderer3D* renderer3D;
-	UI* ui;
-	ModuleResources* resources;
-	ModuleFade* fade;
-	Functions* function;
+	ModuleWindow* window = nullptr;
+	ModuleInput* input = nullptr;
+	ModuleCamera3D* camera = nullptr;
+	ModuleScene* scene = nullptr;
+	Editor* editor = nullptr;
+	ModuleRenderer3D* renderer3D = nullptr;
+	UI* ui = nullptr;
+	ModuleResources* resources = nullptr;
+	ModuleFade* fade = nullptr;
+	Functions* function = nullptr;
 	//FontImporter* fonts;
 
-	const char* engine_name;
-	const char* engine_version;
+	const char* engine_name = nullptr;
+	const char* engine_version = nullptr;
 	bool in_game;
 
 public:
@@ -103,7 +103,7 @@ private:
 	float	capped_ms;
 	std::vector<Module*> modules_vector;
 
-	const char* config_path;
+	const char* config_path = nullptr;
 
 	bool want_to_save;
 	bool want_to_load;

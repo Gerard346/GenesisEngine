@@ -25,7 +25,7 @@ public:
 
 	uint normals_buffer = 0;
 	uint normals_amount = 0;
-	float* normals;
+	float* normals = nullptr;
 
 	uint texcoords_buffer = 0;
 	uint texcoords_amount = 0;

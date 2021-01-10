@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _BUTTON_H_
+#define _BUTTON_H_
+
 #include "Globals.h"
 #include "Component.h"
 #include "Functions.h"
@@ -8,7 +10,7 @@ class ResourceTexture;
 class Image;
 class RectTransform;
 
-enum State_Button {
+enum class State_Button {
 	BUTTON_OFF,
 	BUTTON_ON,
 	BUTTON_HOVER
@@ -21,7 +23,6 @@ public:
 	~Button();
 
 	virtual void Update() override;
-	void Draw();
 	void OnEditor() override;
 
 	void Save(GnJSONArray& save_array) override;
@@ -31,7 +32,7 @@ public:
 	void Hover();
 	void OnRelease();
 
-	State_Button button_state = BUTTON_OFF;
+	State_Button button_state = State_Button::BUTTON_OFF;
 
 private:
 	Image* button = nullptr;
@@ -42,3 +43,4 @@ private:
 	float timer = 0.0f;
 
 };
+#endif

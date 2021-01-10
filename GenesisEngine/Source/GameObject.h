@@ -74,8 +74,8 @@ private:
 	bool _visible;
 	bool is_ui = false;
 	std::string name;
-	GameObject* _parent;
-	Transform* transform;
+	GameObject* _parent = nullptr;
+	Transform* transform = nullptr;
 	RectTransform* ui_transform = nullptr;
 	std::vector<Component*> components;
 	std::vector<GameObject*> children;

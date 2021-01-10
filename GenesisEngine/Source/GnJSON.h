@@ -49,8 +49,8 @@ public:
 	GnJSONArray AddArray(GnJSONArray array);
 
 private:
-	JSON_Object* _object;
-	JSON_Value* _root;
+	JSON_Object* _object = nullptr;
+	JSON_Value* _root = nullptr;
 };
 
 class GnJSONArray 
@@ -72,7 +72,7 @@ public:
 	void AddString(const char* string);
 
 private: 
-	JSON_Array* _array;
-	JSON_Value* _value;
+	JSON_Array* _array = nullptr;
+	JSON_Value* _value = nullptr;
 	bool _nested;
 };

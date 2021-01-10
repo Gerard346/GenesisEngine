@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CANVAS_H_
+#define _CANVAS_H_
 
 #include "Globals.h"
 #include "Component.h"
@@ -22,10 +23,8 @@ public:
 	void Draw();
 	void MoveCanvas();
 
-	void SetDraggable();
-
 private:
-	bool draggable = false;
 	bool debug_draw = false;
 	RectTransform* ui_transform = nullptr;
 };
+#endif

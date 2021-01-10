@@ -20,12 +20,20 @@ Checkbox::Checkbox() : Component(nullptr)
 
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
+
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 }
 
 Checkbox::Checkbox(GameObject* gameObject) : Component(gameObject)
 {
 	type = ComponentType::CHECKBOX;
 	is_UI = true;
+
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 
 	ui_transform = _gameObject->GetRectTransform();
 	GameObject* canvas = ui_transform->GetCanvas();
@@ -160,6 +168,10 @@ void Checkbox::Load(GnJSONObj& load_object)
 	if (function_id == 4) {
 		type_function = TypeFunction::WINDOW_DRAGGED;
 	}
+
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 }
 
 void Checkbox::OnClicked()

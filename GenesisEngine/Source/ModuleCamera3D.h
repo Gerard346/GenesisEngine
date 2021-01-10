@@ -58,7 +58,7 @@ public:
 private:
 	//mat4x4 ViewMatrix, ViewMatrixInverse;
 	float3 X, Y, Z;
-	Camera* _camera;
+	Camera* _camera = nullptr;
 	float3 _position;
 	float3 _reference;
 };

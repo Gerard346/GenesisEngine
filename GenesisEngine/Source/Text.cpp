@@ -24,7 +24,11 @@ Text::Text(GameObject* gameObject) : Component(gameObject)
     ui_transform = _gameObject->GetRectTransform();
 	our_font.init("Assets/Fonts/Test.ttf", 32);
 
-	label = "hola";
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
+
+	label = "Insert your Name";
 }
 
 Text::~Text()
@@ -70,7 +74,10 @@ void Text::Save(GnJSONArray& save_array)
 void Text::Load(GnJSONObj& load_object)
 {
 	label = (char*)load_object.GetString("StringText", "No path");
-	
+
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
 }
 
 void Text::AddChar(char* str)

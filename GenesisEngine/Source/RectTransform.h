@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _RECTTRANSFORM_H_
+#define _RECTTRANSFORM_H_
 
 #include "Component.h"
 #include "UI.h"
@@ -54,9 +55,13 @@ public:
 	bool GetInteractive() { return interactive; }
 	void SetInteractive() { interactive = !interactive; }
 
+	bool GetDraggable() { return draggable; }
+	void SetDraggable() { draggable = !draggable; }
+
 	bool GetVisible() { return visible; }
 	void SetVisible();
 	void SetVisible(bool state);
+
 
 	void Save(GnJSONArray& save_array) override;
 	void Load(GnJSONObj& load_object) override;
@@ -89,9 +94,9 @@ private:
 
 	float3 _position = { 0.0f, 0.0f, 0.0f };
 	Quat _rotation;
-	float3 _scale;
-	float3 _eulerRotation;
-	float aspect_ratio;
+	float3 _scale = { 0.0f, 0.0f, 0.0f };
+	float3 _eulerRotation = { 0.0f, 0.0f,0.0f };
+	float aspect_ratio = 0.0f;
 
 	Canvas* canvas_parent = nullptr;
 
@@ -100,7 +105,9 @@ private:
 	bool interactive = true;
 	bool visible = true;
 	bool mid = false;
+	bool draggable = false;
 
 	bool lock_aspect_ratio = false;
 
 };
+#endif

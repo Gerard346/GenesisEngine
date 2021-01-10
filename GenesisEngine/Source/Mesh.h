@@ -33,8 +33,8 @@ public:
 	void DrawFaceNormals();
 
 public:
-	const char* name;
-	char* path;
+	const char* name = nullptr;
+	char* path = nullptr;
 
 private:
 	AABB _AABB;

@@ -25,6 +25,10 @@ Image::Image(GameObject* gameObject) : Component(gameObject)
 
 	GameObject* canvas = ui_transform->GetCanvas();
 
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
+
 	ui_transform = _gameObject->GetRectTransform();
 
 	if (strcmp(gameObject->GetName(), "Tick") == 0) {
@@ -177,6 +181,10 @@ void Image::Load(GnJSONObj& load_object)
 		loading = true;
 		SetTexture((ResourceTexture*)App->resources->RequestResource(App->resources->Find(path)));
 	}
+	Component* del = _gameObject->GetComponent(ComponentType::TRANSFORM);
+	if (del != nullptr)
+		_gameObject->RemoveComponent(del);
+
 	loading = false;
 }
 

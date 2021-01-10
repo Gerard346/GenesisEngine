@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CHECKBOX_H_
+#define _CHECKBOX_H_
 #include "Globals.h"
 #include "Component.h"
 #include "Functions.h"
@@ -44,3 +45,4 @@ private:
 
 	State_CheckBox checkbox_state = CHECKBOX_OFF;
 };
+#endif

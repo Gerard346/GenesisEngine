@@ -52,7 +52,7 @@ bool ModuleScene::Start()
 
 
 	//uint baker_house_texture = App->resources->ImportFile("Assets/Textures/Baker_house.png");
-#if 1
+#if 0
 	App->fade->FadeToColor(2.0);
 	App->Load("Library/Scenes/main_menu.scene");
 	App->input->SetActive();
@@ -317,9 +317,11 @@ GameObject* ModuleScene::FindCanvas()
 
 	for (int i = 0; i < list_obj.size(); i++) {
 		if (list_obj.at(i)->GetComponent(ComponentType::CANVAS_UI) != nullptr) {
-			return list_obj.at(i);
+			GameObject* canvas = list_obj.at(i);
+			return canvas;
 		}
 	}
+	return nullptr;
 }
 
 void ModuleScene::DisableCanvas()
@@ -355,6 +357,7 @@ Text* ModuleScene::FindInputText()
 			return (Text*)list_obj.at(i)->GetComponent(ComponentType::TEXT);
 		}
 	}
+	return nullptr;
 }
 
 bool ModuleScene::LoadConfig(GnJSONObj& config)

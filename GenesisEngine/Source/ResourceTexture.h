@@ -27,6 +27,6 @@ private:
 	uint _id;
 	int _width;
 	int _height;
-	GLubyte* _data;
+	GLubyte* _data = nullptr;
 	uint _gpu_ID;
 };

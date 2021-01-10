@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _FONTIMPORTER_H_
+#define _FONTIMPORTER_H_
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
@@ -61,7 +62,7 @@ namespace freetype_mod {
 	struct font_data {
 		char_data* chars[128];
 
-		float h;
+		float h = 0.0f;
 
 		void init(const char* fname, unsigned int h);
 
@@ -72,3 +73,4 @@ namespace freetype_mod {
 
 }
 
+#endif

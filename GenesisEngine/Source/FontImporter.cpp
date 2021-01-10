@@ -28,7 +28,7 @@ void freetype_mod::Print(const font_data& ft_font, const char* fmt, float3 pos)
 
     else {
         va_start(ap, fmt);
-        vsprintf(text, fmt, ap);
+        vsprintf_s(text, fmt, ap);
         va_end(ap);
     }
 

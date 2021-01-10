@@ -270,6 +270,7 @@ void RectTransform::Save(GnJSONArray& save_array)
 
 	save_object.AddBool("Lock Ratio", lock_aspect_ratio);
 
+	save_object.AddBool("Draggable", draggable);
 
 	save_array.AddObject(save_object);
 }
@@ -299,6 +300,8 @@ void RectTransform::Load(GnJSONObj& load_object)
 	mid = load_object.GetBool("Mid");
 
 	lock_aspect_ratio = load_object.GetBool("Lock Ratio");
+
+	draggable = load_object.GetBool("Draggable");
 
 	UpdateGlobalTransform();
 }
@@ -341,6 +344,8 @@ GameObject* RectTransform::GetCanvas()
 			return sceneGameObjects[i];
 		}
 	}
+
+	return nullptr;
 }
 
 void RectTransform::SetCanvas(GameObject* _canvas)

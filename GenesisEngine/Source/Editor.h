@@ -67,6 +67,7 @@ public:
 	EditorWindow* windows[MAX_WINDOWS];
 
 private:
+	GameObject* canvas = nullptr;
 
 	bool show_project_window;
 	bool show_console_window;
