@@ -43,8 +43,8 @@ Marc Pagès Francesh -> Everything from before.
     
 ## Link to Release
 
-<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864">Release</a> <br> 
-<a href="https://github.com/Gerard346/GenesisEngine/commit/2a75ba8a97494f467f8d46a29975607bc5f8c864">Repository</a>
+<a href="https://github.com/Gerard346/GenesisEngine/releases/tag/v0.99">Release</a> <br> 
+<a href="https://github.com/Gerard346/GenesisEngine">Repository</a>
 
 ## License
 
