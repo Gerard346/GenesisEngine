@@ -18,22 +18,22 @@ Marc Pagès Francesh -> Everything from before.
 - Font Importer: Used to load .ttf fonts and creates textures from the fonts.  <br> Two main functions:   
     -Stores every characther from the font loaded so we can use it later to print the string. <br> 
     -Prints the string itsel. <br> 
-- Module UI: Sets the render at Ortho and swaps again for prespective. When every gameobject that has no UI Element has been Update, we swap the render type and update every UI element. When it's finished we rever how it was.
+- Module UI: Sets the render at Ortho and swaps again for prespective. When every gameobject that has no UI Element has been Update, we swap the render type and update every UI element. When it's finished, we revert it how it was.
 - Fade: Fade used between screens. Just renders a Quad with opacity.
 - UI Game Objects:
-    - Button: 3 stats: Button On, Button Hover and Button Off, has a texture, and stores a function that will be called when clicked.
+    - Button: 3 stats: Button On, Button Hover and Button Off, has a texture, and stores the ID of the function that will be called when clicked.
      <img src="Button.gif" class="img-responsive" alt=""> 
-    - Canvas: Parent of all the UI elements. Has the ability to move inside the viewport.
+    - Canvas: Parent of all the UI elements. Has the ability to move inside the viewport, including it's childs.
      <img src="Dragging.gif" class="img-responsive" alt=""> 
     - Checkbox: Like the button, with one child, that will be enabled/disabled when clicked.
      <img src="CheckBox.gif" class="img-responsive" alt=""> 
     
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/Checkbox.gif" width=200>
-    - Image: Prints a texture in 2D.
+    - Image: Prints a texture in 2D. Has different settings. Can Lock aspect ratio when the image is loaded to mantain it. And can be set to full screen, to fill the screen.
      <img src="ImageComponent2.gif" class="img-responsive" alt=""> 
     
     <img src="https://github.com/Gerard346/GenesisEngine/blob/gh-pages/ImageComponent.gif" width=200>
-    - RectTransform: Stores all the info about our UI elements; position, visibility, interactive, stay on mid,... When resizing if mid is enable it mantains the position.
+    - RectTransform: Stores all the info about our UI elements; position, visibility, interactive, stay on mid,... When resizing, if mid is enable it mantains the position.
      <img src="Rect_Transform.gif" class="img-responsive" alt="">
      <img src="Resize.gif" class="img-responsive" alt="">
     
